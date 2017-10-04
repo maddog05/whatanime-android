@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_between_views">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_item_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="96dp"
+            android:layout_marginEnd="@dimen/space_between_views"
+            android:layout_marginRight="@dimen/space_between_views"
+            android:background="@android:color/darker_gray"
+            app:layout_widthPercent="40%" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_item_photo"
+            android:layout_alignEnd="@+id/iv_item_photo"
+            android:layout_alignRight="@+id/iv_item_photo"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@android:color/black"
+            android:text="00:00:00"
+            android:textColor="@android:color/white" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/iv_item_photo"
+            android:layout_toRightOf="@+id/iv_item_photo"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_item_episode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_item_title"
+            android:layout_alignStart="@+id/tv_item_title"
+            android:layout_below="@+id/tv_item_title"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="@android:color/holo_red_light" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_item_similarity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_item_title"
+            android:layout_alignStart="@+id/tv_item_title"
+            android:layout_below="@+id/tv_item_episode"
+            android:maxLines="1"
+            android:text="100.0%"
+            android:textColor="@android:color/holo_green_dark" />
+
+    </android.support.percent.PercentRelativeLayout>
+</android.support.v7.widget.CardView>

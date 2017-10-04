@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">WhatAnime</string>
+    <string name="indicator_permissions_needed">This app need access to device storage to work</string>
+    <string name="action_request_permissions">Request permission</string>
+    <string name="error_permissions_denied">Permission denied</string>
+    <string name="error_image_recovered_from_storage">Error in recovering image from storage</string>
+    <string name="error_photo_required">A photo is required to search on WhatAnime</string>
+    <string name="indicator_searching_anime">Searching anime…</string>
+    <string name="indicator_encoding_image">Encoding image…</string>
+    <string name="error_service_unknown">Error unknown in service</string>
+    <string name="error_service_response_or_body_null">Response or response body is null</string>
+    <string name="indicator_choose_gallery_app">Choose a gallery app</string>
+    <string name="title_search_result">Search results</string>
+    <string name="action_close">Close</string>
+    <string name="tag_episode_number">Episode</string>
+    <string name="tag_no_episode_number">Anime</string>
+    <string name="error_encoding_image">Error in encoding image</string>
+    <string name="action_next">Next</string>
+    <string name="tutorial_one">Select a photo from your gallery</string>
+    <string name="tutorial_two">And press here to search your anime</string>
+    <string name="main_drawer_open">MainDrawerOpen</string>
+    <string name="main_drawer_close">MainDrawerClose</string>
+    <string name="menu_tutorial">Tutorial</string>
+    <string name="menu_information">Information</string>
+    <string name="action_share">Share</string>
+    <string name="share_founded_with">was founded by</string>
+    <string name="error_service_quota_all_used">Your quota remaining is 0. Seconds to have new quota:</string>
+    <string name="information_app_description">A modern and easy to use application to search an anime or search the episode with only an image of the scene</string>
+    <string name="information_app_developer">maddog05 (App developer)</string>
+    <string name="information_api_developer">soruly (whatanime.ga API developer)</string>
+    <string name="information_app_privacy_policy">\nWhatAnime don\'t collect personal information such as your name or email. This app can store some preference setting to the app usage.This settings don\t be transferred outside of your device.</string>
+    <string name="title_privacy_policy">Privacy policy</string>
+    <string name="information_app_permission">\nWhatAnime use the following permission:
+        \n\n- WRITE_EXTERNAL_STORAGE and READ_EXTERNAL_STORAGE to read and select an image from your gallery.
+        \n\n- INTERNET to use whatanime.ga API and other logs with Crashlytics(Fabric).
+        \n\n- WAKE_LOCK to keep the screen on while searching operation is working.</string>
+    <string name="url_github">https://github.com/maddog05/whatanime-android</string>
+    <string name="indicator_choose_browser">Choose browser</string>
+    <string name="url_playstore">https://play.google.com/store/apps/details?id=com.maddog05.whatanime</string>
+    <string name="url_app_dev">https://github.com/maddog05</string>
+    <string name="url_api_dev">https://github.com/soruly</string>
+    <string name="error_internet_connection">Internet connection not available</string>
+    <string name="error_no_results_founded">No results founded</string>
+    <string name="error_service_not_initialized">Service connection not initialized</string>
+</resources>

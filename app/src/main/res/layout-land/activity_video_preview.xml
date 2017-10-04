@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.devbrackets.android.exomedia.ui.widget.VideoView
+        android:id="@+id/video_view_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:useDefaultControls="false" />
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:theme="@style/AppBarStyle"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/shadow_top"
+            app:title="@string/app_name" />
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow_bottom"
+        android:gravity="center"
+        android:padding="@dimen/space_between_views"
+        app:layout_anchor="@id/video_view_preview"
+        app:layout_anchorGravity="bottom">
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_share"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_share" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_expand"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@android:color/white"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_expand" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

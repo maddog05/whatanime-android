@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
+    </style>
+
+    <style name="TranslucentTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="VideoPreviewTheme" parent="TranslucentTheme">
+        <item name="android:windowBackground">@color/video_preview_background</item>
+    </style>
+
+    <style name="TutorialTitleStyle" parent="TextAppearance.AppCompat.Large">
+        <!--<item name="android:textColor">@color/colorPrimary</item>-->
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--TOOLBAR-->
+    <style name="AppBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="ToolbarPopupStyle" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

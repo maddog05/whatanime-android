@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WhatAnime</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_next">Siguente</string>
+    <string name="action_request_permissions">Solicitar permisos</string>
+    <string name="action_share">Compartir</string>
+    <string name="error_encoding_image">Error en encodeo de imagen</string>
+    <string name="error_image_recovered_from_storage">Error en recuperación de imagen del almacenamiento</string>
+    <string name="error_permissions_denied">Permiso denegado</string>
+    <string name="error_photo_required">Una foto es requerida para buscar en WhatAnime</string>
+    <string name="error_service_quota_all_used">Tu cuota restante es 0. Segundos para una nueva cuota:</string>
+    <string name="error_service_response_or_body_null">Respuesta o cuerpo de respuesta es null</string>
+    <string name="error_service_unknown">Error desconocido</string>
+    <string name="indicator_choose_browser">Escoge un navegador</string>
+    <string name="indicator_choose_gallery_app">Escoge una aplicación de galería</string>
+    <string name="indicator_encoding_image">Encodeando imagen…</string>
+    <string name="indicator_permissions_needed">Esta app necesita acceso al almacenamiento para trabajar</string>
+    <string name="indicator_searching_anime">Buscando anime…</string>
+    <string name="information_api_developer">soruly (Desarrollador del API whatanime.ga)</string>
+    <string name="information_app_developer">maddog05 (Desarrolador del app)</string>
+    <string name="information_app_description">Una aplicación moderna y fácil de usar para buscar un anime o buscar un episodio con solo una imagen de la escena</string>
+    <string name="main_drawer_close">MainDrawerClose</string>
+    <string name="main_drawer_open">MainDrawerOpen</string>
+    <string name="menu_information">Información</string>
+    <string name="menu_tutorial">Tutorial</string>
+    <string name="share_founded_with">fue encontrado por</string>
+    <string name="tag_episode_number">Episodio</string>
+    <string name="tag_no_episode_number">Anime</string>
+    <string name="title_privacy_policy">Política de privacidad</string>
+    <string name="title_search_result">Resultados de búsqueda</string>
+    <string name="tutorial_one">Selecciona una foto de tu galería</string>
+    <string name="tutorial_two">Y presiona aquí para buscar tu anime</string>
+    <string name="url_playstore">https://play.google.com/store/apps/details?id=com.maddog05.whatanime</string>
+    <string name="url_app_dev">https://github.com/maddog05</string>
+    <string name="url_api_dev">https://github.com/soruly</string>
+    <string name="url_github">https://github.com/maddog05/whatanime-android</string>
+    <string name="information_app_privacy_policy">WhatAnime no recolecta información personal como tu nombre o correo electrónico. Esta app puede almacenar algunas configuraciones para el uso del app. Estas configuraciones no serán transferidas fuera de tu dispositivo.</string>
+    <string name="information_app_permission">\nWhatAnime usa los siguentes permisos:
+        \n\n- WRITE_EXTERNAL_STORAGE y READ_EXTERNAL_STORAGE para leer y seleccionar una imagen de tu galería.
+        \n\n- INTERNET para usar el API de whatanime.ga y otros logs con Crashlytics(Fabric).
+        \n\n- WAKE_LOCK para mantener la pantalla encendida mientras las operaciones de búsqueda se realizan.</string>
+    <string name="error_internet_connection">Conexión a internet no disponible</string>
+    <string name="error_no_results_founded">No se encontraron resultados</string>
+    <string name="error_service_not_initialized">Conexión a servicio no iniciada</string>
+</resources>

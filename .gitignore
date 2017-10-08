@@ -2,3 +2,5 @@
 .gradle
 local.properties
 whatanime-android-github.iml
+build
+app/fabric.properties

@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppCompatTextView indicatorStatusTv;
 
     private static final int REQUEST_PICTURE_GALLERY = 102;
-    private Bitmap bitmap = null;
-    private String pathPrevious = C.EMPTY;
-    private String pathToSearch = C.EMPTY;
+    private Bitmap bitmap;
+    private String pathPrevious;
+    private String pathToSearch;
 
-    private SearchDetail searchDetail = null;
+    private SearchDetail searchDetail;
 
     private PowerManager.WakeLock wakeLock;
 
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         logic = Logic.get(MainActivity.this);
+        setupInitialValues();
         setupToolbar();
         setupViews();
         setupActions();
@@ -105,6 +106,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             resultsBottom.setState(BottomSheetBehavior.STATE_HIDDEN);
         else
             super.onBackPressed();
+    }
+
+    private void setupInitialValues() {
+        bitmap = null;
+        pathPrevious = C.EMPTY;
+        pathToSearch = C.EMPTY;
+        searchDetail = null;
     }
 
     private void setupToolbar() {

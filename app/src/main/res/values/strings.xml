@@ -42,4 +42,11 @@
     <string name="error_internet_connection">Internet connection not available</string>
     <string name="error_no_results_founded">No results founded</string>
     <string name="error_service_not_initialized">Service connection not initialized</string>
+    <string name="menu_search_filter">Search filters</string>
+    <string name="action_apply">Apply</string>
+    <string name="error_range_year">Year not allowed in range</string>
+    <string name="filter_search_none">No filter</string>
+    <string name="filter_search_year">By year</string>
+    <string name="filter_input_year">1970 - Present</string>
+    <string name="success_filter_applied">Filter applied</string>
 </resources>

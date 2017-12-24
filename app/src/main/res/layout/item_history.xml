@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.maddog05.maddogutilities.view.SquareImageView
+            android:id="@+id/iv_item_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_photo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_item_date"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_item_photo"
+            android:layout_marginBottom="@dimen/space_between_views"
+            android:layout_marginEnd="@dimen/space_between_views"
+            android:layout_marginRight="@dimen/space_between_views"
+            android:layout_marginTop="@dimen/space_between_views"
+            android:text="@string/app_name" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

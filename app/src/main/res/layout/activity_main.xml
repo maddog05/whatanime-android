@@ -20,6 +20,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ToolbarPopupStyle"
                 app:title="@string/app_name" />
         </android.support.design.widget.AppBarLayout>
 
@@ -107,5 +108,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/header_main"
-        app:menu="@menu/menu_main" />
+        app:menu="@menu/menu_drawer_main" />
 </android.support.v4.widget.DrawerLayout>

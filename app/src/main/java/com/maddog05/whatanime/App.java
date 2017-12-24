@@ -20,17 +20,4 @@ public class App extends Application {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         Logger2.get().setEnabled(BuildConfig.IS_LOGGER_ENABLED);
     }
-
-    public static String getAppVersion(Context context) {
-        PackageInfo packageInfo;
-        try {
-            packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException nnfE) {
-            packageInfo = null;
-        }
-        if (packageInfo == null)
-            return BuildConfig.VERSION_NAME;
-        else
-            return packageInfo.versionName;
-    }
 }

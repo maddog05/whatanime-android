@@ -43,4 +43,11 @@
     <string name="error_internet_connection">Conexión a internet no disponible</string>
     <string name="error_no_results_founded">No se encontraron resultados</string>
     <string name="error_service_not_initialized">Conexión a servicio no iniciada</string>
+    <string name="menu_search_filter">Filtros de búsqueda</string>
+    <string name="action_apply">Aplicar</string>
+    <string name="error_range_year">Año no esta dentro del rango</string>
+    <string name="filter_search_none">Sin filtro</string>
+    <string name="filter_search_year">Por año</string>
+    <string name="filter_input_year">1970 - Presente</string>
+    <string name="success_filter_applied">Filtro aplicado</string>
 </resources>

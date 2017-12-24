@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.devbrackets.android.exomedia.listener.OnCompletionListener;
@@ -24,6 +25,7 @@ import es.dmoral.toasty.Toasty;
 public class VideoPreviewActivity extends AppCompatActivity implements OnPreparedListener, OnCompletionListener {
     private VideoView videoView;
     private AppCompatImageButton shareBtn, expandBtn;
+    private ProgressBar loadingPbar;
 
     private String videoUrl = C.EMPTY;
     private SearchDetail.Doc doc;
@@ -41,7 +43,7 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
 
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -49,9 +51,10 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
     }
 
     private void setupViews() {
-        shareBtn = (AppCompatImageButton) findViewById(R.id.btn_share);
-        expandBtn = (AppCompatImageButton) findViewById(R.id.btn_expand);
-        videoView = (VideoView) findViewById(R.id.video_view_preview);
+        shareBtn = findViewById(R.id.btn_share);
+        expandBtn = findViewById(R.id.btn_expand);
+        loadingPbar = findViewById(R.id.pbar_loading);
+        videoView = findViewById(R.id.video_view_preview);
         videoView.setOnPreparedListener(this);
         videoView.setOnCompletionListener(this);
     }
@@ -159,11 +162,13 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
 
     @Override
     public void onPrepared() {
+        loadingPbar.setVisibility(View.GONE);
         videoView.start();
     }
 
     @Override
     public void onCompletion() {
+        loadingPbar.setVisibility(View.GONE);
         videoView.restart();
     }
 

@@ -24,7 +24,7 @@ import com.maddog05.whatanime.util.C;
 public class Navigator {
     public static void goToMain(AppCompatActivity activity, View view) {
         ActivityOptionsCompat aoc;
-        if ((AndroidVersions.isLollipop())) {
+        if (AndroidVersions.isLollipop() && view != null) {
             aoc = ActivityOptionsCompat.makeClipRevealAnimation(view,
                     0,
                     0,

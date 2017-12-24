@@ -17,6 +17,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,7 +27,6 @@ import com.maddog05.maddogutilities.android.Checkers;
 import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.maddogutilities.image.Images;
 import com.maddog05.maddogutilities.view.SquareImageView;
-import com.maddog05.whatanime.App;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.Logic;
 import com.maddog05.whatanime.core.LogicApp;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Bitmap bitmap;
     private String pathPrevious;
     private String pathToSearch;
+    private String filter;
 
     private SearchDetail searchDetail;
 
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bitmap = null;
         pathPrevious = C.EMPTY;
         pathToSearch = C.EMPTY;
+        filter = C.FILTER_DEFAULT;
         searchDetail = null;
     }
 
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         indicatorLoadingLayout = (LinearLayout) findViewById(R.id.layout_main_loading);
         indicatorStatusTv = (AppCompatTextView) findViewById(R.id.tv_progress_status);
         AppCompatTextView versionAppTv = navview.getHeaderView(0).findViewById(R.id.tv_header_app_version);
-        versionAppTv.setText(App.getAppVersion(MainActivity.this));
+        versionAppTv.setText(C.getAppVersion(MainActivity.this));
     }
 
     private void setupActions() {
@@ -257,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void searchAnime() {
+        if (pathPrevious == null)
+            pathPrevious = C.EMPTY;
         if (bitmap == null) {
             showError(getString(R.string.error_photo_required));
         } else if (pathPrevious.equals(pathToSearch) && searchDetail != null) {
@@ -283,24 +287,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Checkers.isInternetAvailable(MainActivity.this)) {
             wakeLock.acquire();
             showLoadingIndicator(getString(R.string.indicator_searching_anime));
-            logic.searchAnime(encoded, new Callback<SearchAnimeResponse>() {
-                @Override
-                public void done(SearchAnimeResponse response) {
-                    hideLoadingIndicator();
-                    wakeLock.release();
-                    if (response.errorMessage.isEmpty()) {
-                        if (response.searchDetail.docs.size() > 0) {
-                            searchDetail = response.searchDetail;
-                            drawResults(searchDetail);
-                            pathPrevious = pathToSearch;
-                        } else {
-                            showInfo(getString(R.string.error_no_results_founded));
+            logic.searchAnime(encoded,
+                    filter,
+                    new Callback<SearchAnimeResponse>() {
+                        @Override
+                        public void done(SearchAnimeResponse response) {
+                            hideLoadingIndicator();
+                            wakeLock.release();
+                            if (response.errorMessage.isEmpty()) {
+                                if (response.searchDetail.docs.size() > 0) {
+                                    searchDetail = response.searchDetail;
+                                    drawResults(searchDetail);
+                                    pathPrevious = pathToSearch;
+                                } else {
+                                    showInfo(getString(R.string.error_no_results_founded));
+                                }
+                            } else {
+                                showError(response.errorMessage);
+                            }
                         }
-                    } else {
-                        showError(response.errorMessage);
-                    }
-                }
-            });
+                    });
         } else {
             showError(getString(R.string.error_internet_connection));
         }
@@ -319,9 +325,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         resultsBottom.setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
+    private void openSearchFilter() {
+        SearchFilterBottomFragment fragment = SearchFilterBottomFragment.newInstance(filter, new Callback<String>() {
+            @Override
+            public void done(String newFilter) {
+                filter = newFilter;
+            }
+        });
+        fragment.show(getSupportFragmentManager(), "main_search_filter");
+    }
+
     private void processClickDoc(SearchDetail.Doc doc) {
         String url = Mapper.getVideoUrl(doc);
         Navigator.goToPreviewVideo(MainActivity.this, url, doc);
+    }
+
+    //MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_filter:
+                openSearchFilter();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //NAVVIEW ITEM SELECTED
@@ -334,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.menu_item_information:
                 Navigator.goToInformation(MainActivity.this);
+                break;
         }
         return false;
     }

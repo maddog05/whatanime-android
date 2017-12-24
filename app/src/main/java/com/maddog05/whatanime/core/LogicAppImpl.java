@@ -40,20 +40,25 @@ public class LogicAppImpl implements LogicApp {
     }
 
     @Override
-    public void searchAnime(String encoded, final Callback<SearchAnimeResponse> callback) {
-        network.searchWithPhoto(context, encoded, new Callback<Pair<String, SearchDetail>>() {
-            @Override
-            public void done(Pair<String, SearchDetail> pair) {
-                SearchAnimeResponse response = new SearchAnimeResponse();
-                if (pair.first.isEmpty()) {
-                    response.errorMessage = C.EMPTY;
-                    response.searchDetail = pair.second;
-                } else {
-                    response.errorMessage = pair.first;
-                    response.searchDetail = null;
-                }
-                callback.done(response);
-            }
-        });
+    public void searchAnime(String encoded,
+                            String filter,
+                            final Callback<SearchAnimeResponse> callback) {
+        network.searchWithPhoto(context,
+                encoded,
+                filter,
+                new Callback<Pair<String, SearchDetail>>() {
+                    @Override
+                    public void done(Pair<String, SearchDetail> pair) {
+                        SearchAnimeResponse response = new SearchAnimeResponse();
+                        if (pair.first.isEmpty()) {
+                            response.errorMessage = C.EMPTY;
+                            response.searchDetail = pair.second;
+                        } else {
+                            response.errorMessage = pair.first;
+                            response.searchDetail = null;
+                        }
+                        callback.done(response);
+                    }
+                });
     }
 }

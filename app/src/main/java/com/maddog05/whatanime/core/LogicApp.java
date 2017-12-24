@@ -12,5 +12,5 @@ public interface LogicApp {
 
     void finishFirstTutorial();
 
-    void searchAnime(String encoded, Callback<SearchAnimeResponse> callback);
+    void searchAnime(String encoded, String filter, Callback<SearchAnimeResponse> callback);
 }

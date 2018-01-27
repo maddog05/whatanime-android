@@ -48,10 +48,10 @@
         <activity
             android:name=".ui.VideoPreviewActivity"
             android:theme="@style/VideoPreviewTheme" />
-        <activity android:name=".ui.InformationActivity"></activity>
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="c3f693a27e7ad49847e5c8ab8ed925295971b9bf" />
+        <activity android:name=".ui.InformationActivity" />
+        <activity
+            android:name=".ui.VideoSelectActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

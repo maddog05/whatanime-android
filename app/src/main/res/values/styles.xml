@@ -31,4 +31,7 @@
     <style name="AppBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="ToolbarPopupStyle" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--VIEWS-->
+    <style name="ButtonMainStyle" parent="Widget.AppCompat.Button.Colored" />
 </resources>

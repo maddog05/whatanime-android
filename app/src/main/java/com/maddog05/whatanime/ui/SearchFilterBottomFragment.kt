@@ -68,7 +68,11 @@ class SearchFilterBottomFragment : BottomSheetDialogFragment() {
                 }
                 R.id.rb_filter_by_year -> {
                     if (!yearEt.text.toString().trim().isEmpty()) {
-                        val year = yearEt.text.toString().toInt()
+                        val year = if (yearEt.text.isEmpty()) {
+                            0
+                        } else {
+                            yearEt.text.toString().toInt()
+                        }
                         if (year in 1970..C.currentYear()) {
                             val yearS = yearEt.text.toString() + "-" + C.FILTER_DEFAULT
                             callback.done(yearS)

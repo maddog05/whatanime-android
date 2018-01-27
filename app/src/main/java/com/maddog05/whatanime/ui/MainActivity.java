@@ -1,9 +1,10 @@
 package com.maddog05.whatanime.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.PowerManager;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.maddog05.maddogutilities.android.Checkers;
 import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.maddogutilities.image.Images;
+import com.maddog05.maddogutilities.string.Strings;
 import com.maddog05.maddogutilities.view.SquareImageView;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.Logic;
@@ -33,6 +36,8 @@ import com.maddog05.whatanime.core.LogicApp;
 import com.maddog05.whatanime.core.entity.SearchAnimeResponse;
 import com.maddog05.whatanime.core.entity.SearchDetail;
 import com.maddog05.whatanime.ui.adapter.AdapterSearchResults;
+import com.maddog05.whatanime.ui.dialog.ChangelogDialog;
+import com.maddog05.whatanime.ui.dialog.InputUrlDialog;
 import com.maddog05.whatanime.ui.tor.Animator;
 import com.maddog05.whatanime.ui.tor.Navigator;
 import com.maddog05.whatanime.ui.tor.Tutorator;
@@ -57,8 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView resultsRv;
     private LinearLayout indicatorLoadingLayout;
     private AppCompatTextView indicatorStatusTv;
+    private AppCompatButton sourceImageBtn;
+    private AppCompatButton sourceUrlBtn;
+    private AppCompatButton sourceVideoBtn;
 
     private static final int REQUEST_PICTURE_GALLERY = 102;
+    private static final int REQUEST_VIDEO_GALLERY = 103;
+    private static final int REQUEST_FRAME_VIDEO = 104;
+
     private Bitmap bitmap;
     private String pathPrevious;
     private String pathToSearch;
@@ -79,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupActions();
         setupWakeLock();
         showTutorial();
+        showChangelog();
     }
 
     @Override
@@ -92,6 +104,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setupPhoto(pair.bitmap);
                 } else {
                     showError(getString(R.string.error_image_recovered_from_storage));
+                }
+            }
+        } else if (requestCode == REQUEST_VIDEO_GALLERY) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = data.getData();
+                String path = Mapper.parseLocalVideoPath(this, uri);
+                if (path != null) {
+                    Navigator.goToSelectVideo(this, path, REQUEST_FRAME_VIDEO);
+                } else {
+                    showError(getString(R.string.error_video_recovered_from_storage));
+                }
+            }
+        } else if (requestCode == REQUEST_FRAME_VIDEO) {
+            if (resultCode == RESULT_OK) {
+                Bitmap _bitmap = Mapper.parseVideoFrameFromSelectFrame(data);
+                if (_bitmap != null) {
+                    bitmap = _bitmap;
+                    setupPhoto(bitmap);
                 }
             }
         } else {
@@ -118,13 +148,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setupToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void setupViews() {
-        drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
-        navview = (NavigationView) findViewById(R.id.navview);
+        drawer = findViewById(R.id.drawerlayout);
+        navview = findViewById(R.id.navview);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.main_drawer_open, R.string.main_drawer_close);
         //drawer.addDrawerListener(this);
         toggle.syncState();
@@ -134,14 +164,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         resultsBottom = BottomSheetBehavior.from(_view);
         resultsBottom.setHideable(true);
         resultsBottom.setState(BottomSheetBehavior.STATE_HIDDEN);
-        resultsRv = (RecyclerView) findViewById(R.id.rv_results);
+        resultsRv = findViewById(R.id.rv_results);
         resultsRv.setLayoutManager(new LinearLayoutManager(MainActivity.this,
                 LinearLayoutManager.VERTICAL, false));
-        photoIv = (SquareImageView) findViewById(R.id.iv_photo);
-        searchFab = (FloatingActionButton) findViewById(R.id.fab_search);
-        closeBottomBtn = (AppCompatImageButton) findViewById(R.id.btn_close_bottom);
-        indicatorLoadingLayout = (LinearLayout) findViewById(R.id.layout_main_loading);
-        indicatorStatusTv = (AppCompatTextView) findViewById(R.id.tv_progress_status);
+        sourceImageBtn = findViewById(R.id.btn_image);
+        sourceUrlBtn = findViewById(R.id.btn_url);
+        sourceVideoBtn = findViewById(R.id.btn_video);
+        photoIv = findViewById(R.id.iv_photo);
+        searchFab = findViewById(R.id.fab_search);
+        closeBottomBtn = findViewById(R.id.btn_close_bottom);
+        indicatorLoadingLayout = findViewById(R.id.layout_main_loading);
+        indicatorStatusTv = findViewById(R.id.tv_progress_status);
         AppCompatTextView versionAppTv = navview.getHeaderView(0).findViewById(R.id.tv_header_app_version);
         versionAppTv.setText(C.getAppVersion(MainActivity.this));
     }
@@ -168,11 +201,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 searchFab.setAlpha(1 - slideOffset);
             }
         });
-        photoIv.setOnClickListener(new View.OnClickListener() {
+        sourceImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isProcessRunning())
+                    selectImage();
+            }
+        });
+        sourceUrlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isProcessRunning())
+                    selectUrl();
+            }
+        });
+        sourceVideoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isProcessRunning())
-                    selectImage();
+                    selectVideo();
             }
         });
         searchFab.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +233,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupWakeLock() {
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        assert powerManager != null;
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "searchingAnimeWakeLock");
+    }
+
+    private void showChangelog() {
+        if (!logic.isChangelogViewed()) {
+            _showChangelog();
+            logic.finishChangelogViewed();
+        }
+    }
+
+    private void _showChangelog() {
+        ChangelogDialog.newInstance(this).showDialog();
     }
 
     private void showTutorial() {
@@ -253,11 +312,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void selectImage() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        Intent chooser = Intent.createChooser(intent, getString(R.string.indicator_choose_gallery_app));
-        startActivityForResult(chooser, REQUEST_PICTURE_GALLERY);
+        Intent intent = Navigator.getIntentSelectImage(this);
+        startActivityForResult(intent, REQUEST_PICTURE_GALLERY);
     }
 
+    private void selectUrl() {
+        InputUrlDialog urlDialog = new InputUrlDialog(this);
+        urlDialog.setCallback(new Callback<String>() {
+            @Override
+            public void done(String url) {
+                if (Strings.isStringUrl(url))
+                    loadImageUrl(url);
+                else
+                    showError(getString(R.string.error_url_invalid));
+            }
+        });
+        urlDialog.show();
+    }
+
+    private void selectVideo() {
+        Intent intent = Navigator.getIntentSelectVideo(this);
+        startActivityForResult(intent, REQUEST_VIDEO_GALLERY);
+    }
+
+    private void loadImageUrl(String url) {
+        showLoadingIndicator(getString(R.string.indicator_loading_image));
+        logic.loadImageUrl(url, new Callback<Bitmap>() {
+            @Override
+            public void done(Bitmap newBitmap) {
+                bitmap = newBitmap;
+                setupPhoto(bitmap);
+                hideLoadingIndicator();
+            }
+        });
+    }
+
+    @SuppressLint("StaticFieldLeak")
     private void searchAnime() {
         if (pathPrevious == null)
             pathPrevious = C.EMPTY;
@@ -283,6 +373,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @SuppressLint("WakelockTimeout")
     private void _searchAnime(String encoded) {
         if (Checkers.isInternetAvailable(MainActivity.this)) {
             wakeLock.acquire();
@@ -365,6 +456,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_item_tutorial:
                 closeDrawer();
                 _showTutorial();
+                break;
+            case R.id.menu_item_changelog:
+                _showChangelog();
                 break;
             case R.id.menu_item_information:
                 Navigator.goToInformation(MainActivity.this);

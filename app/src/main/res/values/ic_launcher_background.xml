@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="database_version">1</integer>
+    <color name="ic_launcher_background">#8BC34A</color>
 </resources>

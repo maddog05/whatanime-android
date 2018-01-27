@@ -36,6 +36,44 @@
                 android:orientation="vertical"
                 android:padding="@dimen/activity_margin">
 
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_between_views"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btn_image"
+                        style="@style/ButtonMainStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/input_source_image"
+                        app:layout_widthPercent="30%" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btn_url"
+                        style="@style/ButtonMainStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:text="@string/input_source_url"
+                        app:layout_widthPercent="30%" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/btn_video"
+                        style="@style/ButtonMainStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="1"
+                        android:text="@string/input_source_video"
+                        app:layout_widthPercent="30%" />
+                </android.support.percent.PercentRelativeLayout>
+
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,6 +85,7 @@
                         android:id="@+id/iv_photo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_photo" />
 
                 </android.support.v7.widget.CardView>

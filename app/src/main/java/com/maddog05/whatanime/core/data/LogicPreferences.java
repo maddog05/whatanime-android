@@ -8,4 +8,8 @@ public interface LogicPreferences {
     boolean isFirstTutorial();
 
     void finishFirstTutorial();
+
+    int getLastChangelogVersion();
+
+    void setLastChangelogVersion(int version);
 }

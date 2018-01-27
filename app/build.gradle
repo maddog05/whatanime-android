@@ -9,8 +9,8 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.2"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -51,7 +51,7 @@ dependencies {
     //Network
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.code.gson:gson:2.8.2'
     //Utilities
     compile('com.github.maddog05:MaddogUtilities:0.7.0') {
         exclude group: 'com.android.support', module: 'support-v7'

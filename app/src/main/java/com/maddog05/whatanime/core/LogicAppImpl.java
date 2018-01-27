@@ -1,16 +1,19 @@
 package com.maddog05.whatanime.core;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.util.Pair;
 
 import com.maddog05.maddogutilities.callback.Callback;
+import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.core.data.LogicPreferences;
 import com.maddog05.whatanime.core.entity.SearchAnimeResponse;
 import com.maddog05.whatanime.core.entity.SearchDetail;
+import com.maddog05.whatanime.core.image.GlideLoader;
 import com.maddog05.whatanime.core.network.LogicNetwork;
 import com.maddog05.whatanime.util.C;
 
-/**
+/*
  * Created by andreetorres on 23/09/17.
  */
 
@@ -40,6 +43,18 @@ public class LogicAppImpl implements LogicApp {
     }
 
     @Override
+    public boolean isChangelogViewed() {
+        int currentVersion = BuildConfig.VERSION_CODE;
+        return preferences.getLastChangelogVersion() == currentVersion;
+    }
+
+    @Override
+    public void finishChangelogViewed() {
+        int currentVersion = BuildConfig.VERSION_CODE;
+        preferences.setLastChangelogVersion(currentVersion);
+    }
+
+    @Override
     public void searchAnime(String encoded,
                             String filter,
                             final Callback<SearchAnimeResponse> callback) {
@@ -60,5 +75,19 @@ public class LogicAppImpl implements LogicApp {
                         callback.done(response);
                     }
                 });
+    }
+
+    @Override
+    public void loadImageUrl(String url,
+                             final Callback<Bitmap> callback) {
+        GlideLoader imageLoader = GlideLoader.create();
+        imageLoader.with(context)
+                .load(url);
+        imageLoader.loadAsBitmap(new Callback<Bitmap>() {
+            @Override
+            public void done(Bitmap bitmap) {
+                callback.done(bitmap);
+            }
+        });
     }
 }

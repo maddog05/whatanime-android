@@ -28,7 +28,7 @@
     <string name="information_app_description">A modern and easy to use application to search an anime or search the episode with only an image of the scene</string>
     <string name="information_app_developer">maddog05 (App developer)</string>
     <string name="information_api_developer">soruly (whatanime.ga API developer)</string>
-    <string name="information_app_privacy_policy">\nWhatAnime don\'t collect personal information such as your name or email. This app can store some preference setting to the app usage.This settings don\t be transferred outside of your device.</string>
+    <string name="information_app_privacy_policy">\nWhatAnime don\'t collect personal information such as your name or email. This app can store some preference setting to the app usage.This settings don\'t be transferred outside of your device.</string>
     <string name="title_privacy_policy">Privacy policy</string>
     <string name="information_app_permission">\nWhatAnime use the following permission:
         \n\n- WRITE_EXTERNAL_STORAGE and READ_EXTERNAL_STORAGE to read and select an image from your gallery.
@@ -49,4 +49,14 @@
     <string name="filter_search_year">By year</string>
     <string name="filter_input_year">1970 - Present</string>
     <string name="success_filter_applied">Filter applied</string>
+    <string name="error_video_recovered_from_storage">Error in recovering video from storage</string>
+    <string name="title_select_video_frame">Select a frame</string>
+    <string name="error_video_not_loaded">Video not ready</string>
+    <string name="input_source_image">Image</string>
+    <string name="input_source_video">Video</string>
+    <string name="input_source_url">Url</string>
+    <string name="action_ok">OK</string>
+    <string name="menu_changelog">Changelog</string>
+    <string name="error_url_invalid">Invalid URL</string>
+    <string name="indicator_loading_image">Loading image…</string>
 </resources>

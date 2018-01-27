@@ -50,4 +50,14 @@
     <string name="filter_search_year">Por año</string>
     <string name="filter_input_year">1970 - Presente</string>
     <string name="success_filter_applied">Filtro aplicado</string>
+    <string name="error_video_recovered_from_storage">Error en recuperación de video del almacenamiento</string>
+    <string name="title_select_video_frame">Seleccione un cuadro</string>
+    <string name="error_video_not_loaded">Video not ready</string>
+    <string name="input_source_image">Imagen</string>
+    <string name="input_source_video">Video</string>
+    <string name="input_source_url">Url</string>
+    <string name="action_ok">OK</string>
+    <string name="menu_changelog">Historial de cambios</string>
+    <string name="error_url_invalid">URL invalida</string>
+    <string name="indicator_loading_image">Cargando imagen…</string>
 </resources>

@@ -127,7 +127,7 @@ public class SearchDetail implements Parcelable {
         in.readList(this.docs, Doc.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<SearchDetail> CREATOR = new Parcelable.Creator<SearchDetail>() {
+    public static final Creator<SearchDetail> CREATOR = new Creator<SearchDetail>() {
         @Override
         public SearchDetail createFromParcel(Parcel source) {
             return new SearchDetail(source);

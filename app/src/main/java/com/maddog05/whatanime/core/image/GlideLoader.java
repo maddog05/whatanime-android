@@ -1,6 +1,7 @@
 package com.maddog05.whatanime.core.image;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -11,7 +12,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.maddogutilities.image.ImageLoader;
 
@@ -98,5 +101,19 @@ public class GlideLoader implements ImageLoader {
                     }
                 })
                 .into(imageView);
+    }
+
+    public void loadAsBitmap(final Callback<Bitmap> callback) {
+        RequestOptions requestOptions = new RequestOptions();
+        Glide.with(context)
+                .setDefaultRequestOptions(requestOptions)
+                .asBitmap()
+                .load(path)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        callback.done(resource);
+                    }
+                });
     }
 }

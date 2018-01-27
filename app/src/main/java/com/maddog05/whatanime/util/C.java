@@ -21,6 +21,8 @@ public class C {
     public static class Extras {
         public static final String VIDEO_URL = "com.maddog05.whatanime_extraVideoUrl";
         public static final String DOC = "com.maddog05.whatanime_extraDoc";
+        public static final String SELECT_LOCAL_VIDEO_PATH = "com.maddog05.whatanime_extraSelectLocalVideoPath";
+        public static final String VIDEO_FRAME_BITMAP = "com.maddog05.whatanime_extraVideoFrameBitmap";
     }
 
     public static int currentYear() {

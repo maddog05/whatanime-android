@@ -6,7 +6,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.ui.MainActivity;
 
 /**
  * Created by andreetorres on 27/09/17.

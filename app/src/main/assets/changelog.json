@@ -3,6 +3,15 @@
   "description":"You can check the changelog any time from the main menu",
   "versions": [
     {
+      "name": "1.2.1",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "Ofuscation conditions for release"
+        }
+      ]
+    },
+    {
       "name": "1.2",
       "changes": [
         {

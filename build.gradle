@@ -28,5 +28,5 @@ task clean(type: Delete) {
 }
 
 ext{
-    android_support_library='27.0.2'
+    android_support_library='27.1.0'
 }

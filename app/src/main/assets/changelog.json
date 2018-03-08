@@ -3,6 +3,15 @@
   "description":"You can check the changelog any time from the main menu",
   "versions": [
     {
+      "name": "1.2.2",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "NullPointerException when some data was recovered from results"
+        }
+      ]
+    },
+    {
       "name": "1.2.1",
       "changes": [
         {

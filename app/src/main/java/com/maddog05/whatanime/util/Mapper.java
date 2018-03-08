@@ -210,24 +210,22 @@ public class Mapper {
             doc.fromTime = _doc.get("from").getAsDouble();
             doc.toTime = _doc.get("to").getAsDouble();
             doc.atTime = _doc.get("at").getAsDouble();
-            doc.episode = _doc.get("episode").getAsString();
+            doc.episode = elementString(_doc.get("episode"), C.EMPTY);
             doc.similarity = _doc.get("similarity").getAsDouble();
-            JsonElement _b = _doc.get("title");
-            doc.japaneseTitle = _b != null && !_b.isJsonNull() ? _b.getAsString() : C.EMPTY;
-            JsonElement _a = _doc.get("anilist_id");
-            doc.anilistId = _a != null && !_a.isJsonNull() ? _a.getAsInt() : C.INTEGER_NONE;
-            doc.englishTitle = _doc.get("title_english").getAsString();
+            doc.japaneseTitle = elementString(_doc.get("title"), C.EMPTY);
+            doc.anilistId = elementInt(_doc.get("anilist_id"), C.INTEGER_NONE);
+            doc.englishTitle = elementString(_doc.get("title_english"), C.EMPTY);
 
             doc.synonyms = new ArrayList<>();
             JsonArray arraySynonyms = _doc.get("synonyms").getAsJsonArray();
             for (int j = 0; j < arraySynonyms.size(); j++)
                 doc.synonyms.add(arraySynonyms.get(j).getAsString());
 
-            doc.romanjiTitle = _doc.get("title_romaji").getAsString();
-            doc.season = _doc.get("season").getAsString();
-            doc.anime = _doc.get("anime").getAsString();
-            doc.fileName = _doc.get("filename").getAsString();
-            doc.tokenThumb = _doc.get("tokenthumb").getAsString();
+            doc.romanjiTitle = elementString(_doc.get("title_romaji"), C.EMPTY);
+            doc.season = elementString(_doc.get("season"), C.EMPTY);
+            doc.anime = elementString(_doc.get("anime"), C.EMPTY);
+            doc.fileName = elementString(_doc.get("filename"), C.EMPTY);
+            doc.tokenThumb = elementString(_doc.get("tokenthumb"), C.EMPTY);
 
             searchDetail.docs.add(doc);
         }
@@ -250,5 +248,19 @@ public class Mapper {
             }
         }
         return response;
+    }
+
+    private static int elementInt(JsonElement element, int defaultValue) {
+        if (element != null && !element.isJsonNull())
+            return element.getAsInt();
+        else
+            return defaultValue;
+    }
+
+    private static String elementString(JsonElement element, String defaultValue) {
+        if (element != null && !element.isJsonNull())
+            return element.getAsString();
+        else
+            return defaultValue;
     }
 }

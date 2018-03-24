@@ -92,25 +92,13 @@ public class Mapper {
     }
 
     public static String parseSecondToHourTimeSeconds(double seconds) {
-        int realSeconds;
-        String response = "";
-        String _seconds = String.valueOf(seconds);
-        if (_seconds.contains(".")) {
-            int index = _seconds.indexOf(".");
-            String _s = _seconds.substring(0, index - 1);
-            realSeconds = Integer.parseInt(!_s.isEmpty() ? _s : "0");
-        } else {
-            realSeconds = Integer.parseInt(_seconds);
-        }
-
-        int hourTime = realSeconds / (60 * 60);
-        int minuteTime = realSeconds / 60;
-        int secondTime = realSeconds % 60;
-
-        response = Numbers.formatIntegerTwoNumbers(hourTime) + ":";
-        response += Numbers.formatIntegerTwoNumbers(minuteTime) + ":";
-        response += Numbers.formatIntegerTwoNumbers(secondTime);
-
+        String response;
+        int hours = (int) (seconds / 3600);
+        int minutes = (int) ((seconds % 3600) / 60);
+        int newSeconds = (int) (seconds % 60);
+        response = Numbers.formatIntegerTwoNumbers(hours) + ":";
+        response += Numbers.formatIntegerTwoNumbers(minutes) + ":";
+        response += Numbers.formatIntegerTwoNumbers(newSeconds);
         return response;
     }
 

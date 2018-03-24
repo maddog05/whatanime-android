@@ -69,6 +69,7 @@ class VideoSelectActivity : AppCompatActivity(), OnPreparedListener, OnCompletio
         videoView = findViewById<VideoView>(R.id.video_view_preview)
         videoView.setOnPreparedListener(this)
         videoView.setOnCompletionListener(this)
+        videoView.setVolume(0f)
     }
 
     private fun setupActions() {
@@ -83,6 +84,8 @@ class VideoSelectActivity : AppCompatActivity(), OnPreparedListener, OnCompletio
         if (loadingPbar.visibility == View.INVISIBLE) {
             showError(getString(R.string.error_video_not_loaded))
         } else {
+            if (videoView.isPlaying)
+                videoView.stopPlayback()
             val newBitmap: Bitmap? = videoView.bitmap
             if (newBitmap == null) {
                 showError(getString(R.string.error_encoding_image))

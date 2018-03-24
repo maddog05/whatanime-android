@@ -1,13 +1,13 @@
 package com.maddog05.whatanime.ui
 
-import android.os.Bundle
+import android.app.Dialog
+import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatEditText
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RadioGroup
 import android.widget.Toast
 import com.maddog05.maddogutilities.callback.Callback
@@ -35,13 +35,28 @@ class SearchFilterBottomFragment : BottomSheetDialogFragment() {
     private lateinit var optionsRg: RadioGroup
     private lateinit var yearEt: AppCompatEditText
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_search_filter_bottom, container, false)
+    private val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        }
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                dismiss()
+            }
+        }
+    }
+
+    override fun setupDialog(dialog: Dialog, style: Int) {
+        val root = View.inflate(context, R.layout.fragment_search_filter_bottom, null)
+        dialog.setContentView(root)
         setupViews(root)
         setupActions()
         setupData()
-        return root
+        val params = (root.parent as View).layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior
+        if (behavior != null && behavior is BottomSheetBehavior) {
+            behavior.setBottomSheetCallback(bottomSheetCallback)
+        }
     }
 
     override fun show(manager: FragmentManager?, tag: String?) {

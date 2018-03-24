@@ -3,6 +3,31 @@
   "description":"You can check the changelog any time from the main menu",
   "versions": [
     {
+      "name": "1.2.4",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "Video source: when you press Check button, player will be paused before get the frame. Audio volume to 0 (STILL EXPERIMENTAL)"
+        },
+        {
+          "type": "fix",
+          "description": "Time scene format in search results"
+        },
+        {
+          "type": "fix",
+          "description": "Dismiss search filter dialog if state is hidden"
+        },
+        {
+          "type": "fix",
+          "description": "Search result cardview style"
+        },
+        {
+          "type": "update",
+          "description": "Libraries and Kotlin compiler"
+        }
+      ]
+    },
+    {
       "name": "1.2.3",
       "changes": [
         {

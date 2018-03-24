@@ -2,6 +2,7 @@ package com.maddog05.whatanime.ui
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatEditText
 import android.view.LayoutInflater
@@ -41,6 +42,16 @@ class SearchFilterBottomFragment : BottomSheetDialogFragment() {
         setupActions()
         setupData()
         return root
+    }
+
+    override fun show(manager: FragmentManager?, tag: String?) {
+        try {
+            val ft = manager?.beginTransaction()
+            ft?.add(this, tag)
+            ft?.commitAllowingStateLoss()
+        } catch (ignored: IllegalStateException) {
+
+        }
     }
 
     private fun setupViews(root: View) {

@@ -38,7 +38,12 @@ public class AdapterChangelog extends RecyclerView.Adapter<AdapterChangelog.ACVH
     public void onBindViewHolder(ACVH holder, int position) {
         ChangelogItem item = items.get(holder.getAdapterPosition());
         holder.nameTv.setText(item.versionName);
-        holder.typeTv.setText(Strings.boldConcatNormalText(item.changeType.toUpperCase(), C.SPACE + item.descriptionType));
+        holder.typeTv.setText(
+                new Strings.CharSequenceStyle()
+                        .addBold(item.changeType.toUpperCase())
+                        .addNormal(C.SPACE)
+                        .addNormal(item.descriptionType)
+                        .build());
         int _position = holder.getAdapterPosition();
         if (_position > 0) {
             ChangelogItem previousItem = items.get(_position - 1);

@@ -149,6 +149,7 @@ public class Mapper {
         return response;
     }
 
+    @SuppressWarnings("deprecation")
     private static String _encode(String toEncode, String charset) {
         if (charset.isEmpty()) {
             return URLEncoder.encode(toEncode);
@@ -170,19 +171,13 @@ public class Mapper {
         SearchDetail searchDetail = new SearchDetail();
 
         searchDetail.rawDocsCount = new ArrayList<>();
-        JsonArray arrayRawDocsCount = json.get("RawDocsCount").getAsJsonArray();
-        for (int i = 0; i < arrayRawDocsCount.size(); i++)
-            searchDetail.rawDocsCount.add(arrayRawDocsCount.get(i).getAsInt());
+        searchDetail.rawDocsCount.add(json.get("RawDocsCount").getAsInt());
 
         searchDetail.rawDocsSearchTime = new ArrayList<>();
-        JsonArray arrayRawDocsSearchTime = json.get("RawDocsSearchTime").getAsJsonArray();
-        for (int i = 0; i < arrayRawDocsSearchTime.size(); i++)
-            searchDetail.rawDocsSearchTime.add(arrayRawDocsSearchTime.get(i).getAsInt());
+        searchDetail.rawDocsSearchTime.add(json.get("RawDocsSearchTime").getAsInt());
 
         searchDetail.reRankSearchTime = new ArrayList<>();
-        JsonArray arrayReRankSearchTime = json.get("ReRankSearchTime").getAsJsonArray();
-        for (int i = 0; i < arrayReRankSearchTime.size(); i++)
-            searchDetail.reRankSearchTime.add(arrayReRankSearchTime.get(i).getAsInt());
+        searchDetail.reRankSearchTime.add(json.get("ReRankSearchTime").getAsInt());
 
         searchDetail.cacheHit = json.get("CacheHit").getAsBoolean();
         searchDetail.trial = json.get("trial").getAsInt();
@@ -200,20 +195,23 @@ public class Mapper {
             doc.atTime = _doc.get("at").getAsDouble();
             doc.episode = elementString(_doc.get("episode"), C.EMPTY);
             doc.similarity = _doc.get("similarity").getAsDouble();
-            doc.japaneseTitle = elementString(_doc.get("title"), C.EMPTY);
             doc.anilistId = elementInt(_doc.get("anilist_id"), C.INTEGER_NONE);
-            doc.englishTitle = elementString(_doc.get("title_english"), C.EMPTY);
+            doc.romanjiTitle = elementString(_doc.get("title_romaji"), C.EMPTY);//ALWAYS WITH DATA
+            doc.japaneseTitle = elementString(_doc.get("title"), doc.romanjiTitle);
+            doc.englishTitle = elementString(_doc.get("title_english"), doc.romanjiTitle);
 
             doc.synonyms = new ArrayList<>();
             JsonArray arraySynonyms = _doc.get("synonyms").getAsJsonArray();
             for (int j = 0; j < arraySynonyms.size(); j++)
                 doc.synonyms.add(arraySynonyms.get(j).getAsString());
 
-            doc.romanjiTitle = elementString(_doc.get("title_romaji"), C.EMPTY);
             doc.season = elementString(_doc.get("season"), C.EMPTY);
             doc.anime = elementString(_doc.get("anime"), C.EMPTY);
             doc.fileName = elementString(_doc.get("filename"), C.EMPTY);
             doc.tokenThumb = elementString(_doc.get("tokenthumb"), C.EMPTY);
+
+            doc.myAnimeListId = elementInt(_doc.get("mal_id"), C.INTEGER_NONE);
+            doc.isHentai = _doc.get("is_adult").getAsBoolean();
 
             searchDetail.docs.add(doc);
         }

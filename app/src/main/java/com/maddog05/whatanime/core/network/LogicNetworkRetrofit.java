@@ -86,8 +86,11 @@ public class LogicNetworkRetrofit implements LogicNetwork {
                                 String filter,
                                 final Callback<Pair<String, SearchDetail>> callback) {
         logStart("searchWithPhoto");
+        Logger2.get().d(TAG, "input-encodedImage: " + encodedImage);
+        Logger2.get().d(TAG, "input-filter: " + filter);
         if (services != null) {
-            services.search(TOKEN, encodedImage, filter).enqueue(new retrofit2.Callback<JsonObject>() {
+            //, filter
+            services.search(TOKEN, encodedImage).enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "searchWithPhoto: onResponse: httpCode = " + response.code());

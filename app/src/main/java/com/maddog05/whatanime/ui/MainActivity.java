@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.maddog05.maddogutilities.android.Checkers;
 import com.maddog05.maddogutilities.callback.Callback;
+import com.maddog05.maddogutilities.image.ImageEncoder;
 import com.maddog05.maddogutilities.image.Images;
 import com.maddog05.maddogutilities.string.Strings;
 import com.maddog05.maddogutilities.view.SquareImageView;
@@ -355,27 +356,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showError(getString(R.string.error_photo_required));
         } else if (pathPrevious.equals(pathToSearch) && searchDetail != null) {
             drawResults(searchDetail);
-        } else if (!Checkers.isInternetAvailable(MainActivity.this)) {
+        } else if (!Checkers.isInternetInWifiOrData(MainActivity.this)) {
             showError(getString(R.string.error_internet_connection));
         } else {
             showLoadingIndicator(getString(R.string.indicator_encoding_image));
-            new Images.EncodeBitmapBase64AsyncTask(bitmap) {
-                @Override
-                protected void onPostExecute(String encoded) {
-                    if (encoded == null || encoded.isEmpty()) {
-                        hideLoadingIndicator();
-                        showError(getString(R.string.error_encoding_image));
-                    } else {
-                        _searchAnime(encoded);
-                    }
-                }
-            }.execute();
+            ImageEncoder.with(bitmap)
+                    .callback(new Callback<String>() {
+                        @Override
+                        public void done(String encoded) {
+                            if (encoded == null || encoded.isEmpty()) {
+                                hideLoadingIndicator();
+                                showError(getString(R.string.error_encoding_image));
+                            } else {
+                                _searchAnime(encoded);
+                            }
+                        }
+                    }).encode();
         }
     }
 
     @SuppressLint("WakelockTimeout")
     private void _searchAnime(String encoded) {
-        if (Checkers.isInternetAvailable(MainActivity.this)) {
+        if (Checkers.isInternetInWifiOrData(MainActivity.this)) {
             wakeLock.acquire();
             showLoadingIndicator(getString(R.string.indicator_searching_anime));
             logic.searchAnime(encoded,

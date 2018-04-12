@@ -85,7 +85,7 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
     private void setupData() {
         String title = doc.romanjiTitle != null && !doc.romanjiTitle.isEmpty() ? doc.romanjiTitle : doc.anime;
         setupTitle(title);
-        if (Checkers.isInternetAvailable(VideoPreviewActivity.this)) {
+        if (Checkers.isInternetInWifiOrData(VideoPreviewActivity.this)) {
             videoView.setVideoURI(Uri.parse(videoUrl));
         } else {
             showError(getString(R.string.error_internet_connection));

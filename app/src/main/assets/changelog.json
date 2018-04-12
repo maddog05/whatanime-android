@@ -1,7 +1,24 @@
 {
-  "title":"Changelog",
-  "description":"You can check the changelog any time from the main menu",
+  "title": "Changelog",
+  "description": "You can check the changelog any time from the main menu",
   "versions": [
+    {
+      "name": "1.2.5",
+      "changes": [
+        {
+          "type": "update",
+          "description": "whatanime.ga API updated to new request and response format"
+        },
+        {
+          "type": "revert",
+          "description": "Search filter don't be used for search, working on a fix"
+        },
+        {
+          "type": "update",
+          "description": "Libraries and Kotlin compiler"
+        }
+      ]
+    },
     {
       "name": "1.2.4",
       "changes": [

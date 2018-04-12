@@ -9,8 +9,8 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.2.4"
+        versionCode 9
+        versionName "1.2.5"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -32,7 +32,9 @@ android {
         it.buildConfigField 'String', 'TOKEN', WhatAnimeToken
     }
 }
-
+ext{
+    android_support_library='27.1.1'
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -43,7 +45,7 @@ dependencies {
     compile "com.android.support:percent:$android_support_library"
     compile "com.android.support:recyclerview-v7:$android_support_library"
     //Images
-    compile('com.github.bumptech.glide:glide:4.4.0') {
+    compile('com.github.bumptech.glide:glide:4.6.1') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
     //Videos
@@ -55,14 +57,14 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.4.0'
     compile 'com.google.code.gson:gson:2.8.2'
     //Utilities
-    compile('com.github.maddog05:MaddogUtilities:0.7.0') {
+    compile('com.github.maddog05:MaddogUtilities:1.0.1') {
         exclude group: 'com.android.support', module: 'support-v7'
     }
     compile('com.github.faruktoptas:FancyShowCaseView:1.0.0') {
         exclude group: 'com.google.android', module: 'support-v7'
     }
     compile 'com.github.GrenderG:Toasty:1.2.8'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;

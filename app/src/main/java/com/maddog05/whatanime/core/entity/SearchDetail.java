@@ -35,6 +35,8 @@ public class SearchDetail implements Parcelable {
         public String anime; //The folder where the file is located (This may act as a fallback when title is not found)
         public String fileName; //The filename of file where the match is found
         public String tokenThumb; //A token for generating preview
+        public Integer myAnimeListId;//The matching MyAnimeList ID
+        public Boolean isHentai;//Whether the anime is hentai
 
         @Override
         public int describeContents() {
@@ -127,7 +129,7 @@ public class SearchDetail implements Parcelable {
         in.readList(this.docs, Doc.class.getClassLoader());
     }
 
-    public static final Creator<SearchDetail> CREATOR = new Creator<SearchDetail>() {
+    public static final Parcelable.Creator<SearchDetail> CREATOR = new Parcelable.Creator<SearchDetail>() {
         @Override
         public SearchDetail createFromParcel(Parcel source) {
             return new SearchDetail(source);

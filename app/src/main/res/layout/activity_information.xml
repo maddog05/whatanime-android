@@ -66,69 +66,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_between_views" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btn_github"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_github" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="@dimen/space_between_views"
-                    android:layout_height="@dimen/space_between_views" />
-
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btn_playstore"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_playstore" />
-            </LinearLayout>
-
-
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_between_views" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@android:color/darker_gray" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_between_views" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_app_developer"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/information_app_developer"
-                android:textColor="@color/colorPrimary" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_between_views" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_api_developer"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/information_api_developer"
-                android:textColor="@color/colorPrimary" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_between_views" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"

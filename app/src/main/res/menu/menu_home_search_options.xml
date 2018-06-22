@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home_image"
+        android:icon="@drawable/ic_photo"
+        android:title="@string/input_source_image" />
+    <item
+        android:id="@+id/menu_home_video"
+        android:icon="@drawable/ic_video"
+        android:title="@string/input_source_video" />
+    <item
+        android:id="@+id/menu_home_url"
+        android:icon="@drawable/ic_url"
+        android:title="@string/input_source_url" />
+</menu>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/title_menu_general">
+        <Preference
+            android:key="setting_general_clear_history"
+            android:summary="@string/setting_description_clear_search"
+            android:title="@string/menu_clear_search_history" />
+        <Preference
+            android:key="setting_general_changelog"
+            android:summary="@string/setting_description_changelog"
+            android:title="@string/menu_changelog" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/title_menu_contributions">
+        <Preference
+            android:key="setting_about_developer_app"
+            android:summary="@string/setting_description_developer_app"
+            android:title="@string/setting_label_developer_app" />
+        <Preference
+            android:key="setting_about_developer_api"
+            android:summary="@string/setting_description_developer_api"
+            android:title="@string/setting_label_developer_api" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/menu_information">
+        <Preference
+            android:key="setting_about_github"
+            android:summary="@string/setting_description_project_github"
+            android:title="@string/setting_label_project_github" />
+        <Preference
+            android:key="setting_about_play_store"
+            android:summary="@string/setting_description_project_store"
+            android:title="@string/setting_label_project_store" />
+        <Preference
+            android:key="setting_about_terms"
+            android:summary="@string/setting_description_terms"
+            android:title="@string/setting_label_terms" />
+        <Preference
+            android:key="setting_about_info"
+            android:summary="@string/app_name"
+            android:title="@string/setting_label_app_version" />
+    </PreferenceCategory>
+</PreferenceScreen>

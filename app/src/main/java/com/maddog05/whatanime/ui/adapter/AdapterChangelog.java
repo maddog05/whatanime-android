@@ -50,6 +50,9 @@ public class AdapterChangelog extends RecyclerView.Adapter<AdapterChangelog.ACVH
             boolean hideTitle = previousItem.versionName.equals(item.versionName);
             holder.nameTv.setVisibility(hideTitle ? View.GONE : View.VISIBLE);
         }
+        else{
+            holder.nameTv.setVisibility(View.VISIBLE);
+        }
         if (_position < items.size() - 1) {
             ChangelogItem nextItem = items.get(_position + 1);
             boolean hideSpace = nextItem.versionName.equals(item.versionName);

@@ -8,7 +8,7 @@
     <string name="indicator_searching_anime">Searching anime…</string>
     <string name="indicator_encoding_image">Encoding image…</string>
     <string name="error_service_unknown">Error unknown in service</string>
-    <string name="error_service_response_or_body_null">Response or response body is null</string>
+    <string name="error_service_response_or_body_null">Response or entity body is null</string>
     <string name="indicator_choose_gallery_app">Choose a gallery app</string>
     <string name="title_search_result">Search results</string>
     <string name="action_close">Close</string>
@@ -59,4 +59,27 @@
     <string name="menu_changelog">Changelog</string>
     <string name="error_url_invalid">Invalid URL</string>
     <string name="indicator_loading_image">Loading image…</string>
+    <string name="action_expand_results">More</string>
+    <string name="action_retry">Retry</string>
+    <string name="title_select_source">Select a source</string>
+    <string name="title_share_receiver">Search in WhatAnime</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_menu_general">General</string>
+    <string name="menu_clear_search_history">Clear search results</string>
+    <string name="setting_description_clear_search">Clear all search results from device</string>
+    <string name="setting_description_changelog">Check new features, changes and bug fixes</string>
+    <string name="setting_label_app_version">App version</string>
+    <string name="setting_label_terms">Terms and conditions</string>
+    <string name="setting_description_terms">Tap here to read terms and conditions</string>
+    <string name="title_menu_contributions">Authors</string>
+    <string name="setting_label_developer_app">maddog05</string>
+    <string name="setting_description_developer_app">App developer</string>
+    <string name="setting_label_developer_api">soruly</string>
+    <string name="setting_description_developer_api">WhatAnime API developer</string>
+    <string name="setting_label_project_github">Github</string>
+    <string name="setting_description_project_github">Project website</string>
+    <string name="setting_label_project_store">Google Play</string>
+    <string name="setting_description_project_store">Open store link</string>
+    <string name="question_clear_history">Do you want to delete your search results?</string>
+    <string name="input_no_items">Your search history is empty. Start one</string>
 </resources>

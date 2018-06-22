@@ -3,6 +3,31 @@
   "description": "You can check the changelog any time from the main menu",
   "versions": [
     {
+      "name": "2.0",
+      "changes": [
+        {
+          "type": "new",
+          "description": "New app usage based in search history"
+        },
+        {
+          "type": "new",
+          "description": "You can share an image from other app to search in WhatAnime"
+        },
+        {
+          "type": "enhance",
+          "description": "Share search result"
+        },
+        {
+          "type": "fix",
+          "description": "Multiple bugs fixed"
+        },
+        {
+          "type": "update",
+          "description": "Libraries and Kotlin compiler"
+        }
+      ]
+    },
+    {
       "name": "1.2.5",
       "changes": [
         {

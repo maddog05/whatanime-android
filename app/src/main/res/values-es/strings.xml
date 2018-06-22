@@ -60,4 +60,27 @@
     <string name="menu_changelog">Historial de cambios</string>
     <string name="error_url_invalid">URL invalida</string>
     <string name="indicator_loading_image">Cargando imagen…</string>
+    <string name="action_expand_results">Más</string>
+    <string name="action_retry">Reintentar</string>
+    <string name="title_select_source">Seleccione una fuente</string>
+    <string name="title_share_receiver">Buscar en WhatAnime</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="title_menu_general">General</string>
+    <string name="menu_clear_search_history">Limpiar resultados de búsqueda</string>
+    <string name="setting_description_clear_search">Limpiar todos los resultados de búsqueda del dispositivo</string>
+    <string name="setting_description_changelog">Revisa las nuevas funciones, cambios y correciónes de errores</string>
+    <string name="setting_label_app_version">Versión de la aplicación</string>
+    <string name="setting_label_terms">Términos y condiciones</string>
+    <string name="setting_description_terms">Toque aquí para leer los términos y condiciones</string>
+    <string name="title_menu_contributions">Autores</string>
+    <string name="setting_label_developer_app">maddog05</string>
+    <string name="setting_description_developer_app">Desarrollador de la aplicación</string>
+    <string name="setting_label_developer_api">soruly</string>
+    <string name="setting_description_developer_api">Desarrollador del API WhatAnime</string>
+    <string name="setting_label_project_github">Github</string>
+    <string name="setting_description_project_github">Página web del proyecto</string>
+    <string name="setting_label_project_store">Google Play</string>
+    <string name="setting_description_project_store">Abre el link a la tienda</string>
+    <string name="question_clear_history">¿Quieres borrar los resultados de búsqueda?</string>
+    <string name="input_no_items">Tu historial de búsqueda está vacío. Inicia una</string>
 </resources>

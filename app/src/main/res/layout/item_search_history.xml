@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_item_date"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:maxLines="1"
+        android:padding="@dimen/space_between_views"
+        android:text="@string/app_name"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_date"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_between_views">
+
+            <com.maddog05.maddogutilities.view.SquareImageView
+                android:id="@+id/iv_item_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_photo" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_item_hour"
+                style="@style/FooterTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_item_photo"
+                android:layout_alignEnd="@+id/iv_item_photo"
+                android:layout_alignRight="@+id/iv_item_photo"
+                android:text="@string/app_name" />
+
+            <ProgressBar
+                android:id="@+id/pbar_loading"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_item_hour"
+                android:indeterminate="true" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ib_item_retry"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pbar_loading"
+                android:layout_centerHorizontal="true"
+                android:text="@string/action_retry"
+                android:tint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ib_item_expand"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/ib_item_retry"
+                android:text="@string/action_expand_results"
+                android:tint="@android:color/white" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_item_result"
+                style="@style/SearchResultStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/ib_item_expand"
+                android:layout_toLeftOf="@+id/ib_item_expand"
+                android:layout_toStartOf="@+id/ib_item_expand"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="@string/app_name" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

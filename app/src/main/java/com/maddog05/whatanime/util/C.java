@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.maddog05.whatanime.BuildConfig;
+import com.maddog05.whatanime.ui.SearchResultActivity;
 
 import java.util.Calendar;
 
@@ -18,11 +19,22 @@ public class C {
     public static final String SPACE = " ";
     public static final String FILTER_DEFAULT = "*";
 
+    public static final int SETTING_MODIFIED_NONE = 0;
+    public static final int SETTING_MODIFIED_CLEAR_DATABASE = 1;
+
+    public static final String ROOT_IMAGES = "whatanimeImages";
+    public static final String FOLDER_REQUESTS = "requests";
+
+    public static final Class UI_SEARCH_RESULT = SearchResultActivity.class;
+
     public static class Extras {
         public static final String VIDEO_URL = "com.maddog05.whatanime_extraVideoUrl";
         public static final String DOC = "com.maddog05.whatanime_extraDoc";
         public static final String SELECT_LOCAL_VIDEO_PATH = "com.maddog05.whatanime_extraSelectLocalVideoPath";
         public static final String VIDEO_FRAME_BITMAP = "com.maddog05.whatanime_extraVideoFrameBitmap";
+        public static final String ID_REQUEST = "com.maddog05.whatanime_extraRequestId";
+
+        public static final String SETTING_CHANGE_CLEAR_HISTORY = "com.maddog05.whatanime_extraSettingChangeClearHistory";
     }
 
     public static int currentYear() {

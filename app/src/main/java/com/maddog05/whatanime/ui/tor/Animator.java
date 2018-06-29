@@ -6,7 +6,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.ui.MainActivity;
 
 /**
  * Created by andreetorres on 27/09/17.
@@ -18,13 +17,5 @@ public class Animator {
         alphaAnimation.setDuration(300);
         alphaAnimation.setFillAfter(true);
         return alphaAnimation;
-    }
-
-    public static Animation showFab(Context context) {
-        return AnimationUtils.loadAnimation(context, R.anim.fab_open);
-    }
-
-    public static Animation hideFab(Context context) {
-        return AnimationUtils.loadAnimation(context, R.anim.fab_close);
     }
 }

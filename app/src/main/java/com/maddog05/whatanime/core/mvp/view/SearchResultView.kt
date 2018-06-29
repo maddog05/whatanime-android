@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.core.mvp
+package com.maddog05.whatanime.core.mvp.view
 
 import android.content.Context
 import android.content.Intent

@@ -15,7 +15,7 @@ import com.maddog05.whatanime.R
 import com.maddog05.whatanime.core.Logic
 import com.maddog05.whatanime.core.LogicApp
 import com.maddog05.whatanime.core.entity.RequestEntity
-import com.maddog05.whatanime.core.mvp.HomeView
+import com.maddog05.whatanime.core.mvp.view.HomeView
 import com.maddog05.whatanime.ui.adapter.AdapterHome
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
@@ -83,6 +83,7 @@ class HomePresenter(val view: HomeView) {
         SheetMenu().apply {
             titleId = R.string.title_select_source
             menu = R.menu.menu_home_search_options
+
             click = MenuItem.OnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_home_image -> sourceImage()
@@ -182,6 +183,7 @@ class HomePresenter(val view: HomeView) {
         val count = adapter.itemCount
         if (count > 0)
             view.getRecyclerView().scrollToPosition(count - 1)
+        view.showNoItems(false)
         search(bitmap, request)
     }
 

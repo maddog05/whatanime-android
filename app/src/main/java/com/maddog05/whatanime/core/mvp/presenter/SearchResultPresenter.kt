@@ -3,17 +3,19 @@ package com.maddog05.whatanime.core.mvp.presenter
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.R
 import com.maddog05.whatanime.core.Logic
 import com.maddog05.whatanime.core.LogicApp
 import com.maddog05.whatanime.core.entity.ResponseEntity
 import com.maddog05.whatanime.core.entity.SearchDetail
-import com.maddog05.whatanime.core.mvp.SearchResultView
+import com.maddog05.whatanime.core.mvp.view.SearchResultView
 import com.maddog05.whatanime.ui.adapter.AdapterSearchResultHome
 import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.Mapper
+import ru.whalemare.sheetmenu.SheetMenu
 
 class SearchResultPresenter(val view: SearchResultView) {
 
@@ -28,7 +30,7 @@ class SearchResultPresenter(val view: SearchResultView) {
         view.setupViews()
         adapter = AdapterSearchResultHome(view.mvpContext())
         adapter.setClickCallback(Callback { response -> processClickResponse(response) })
-        adapter.setLongClickCallback(Callback { response->processLongClickResponse(response) })
+        adapter.setLongClickCallback(Callback { response -> processLongClickResponse(response) })
         val bundle = view.mvpIntent().extras
         requestId = bundle.getLong(C.Extras.ID_REQUEST)
         val request = logic.databaseGetRequest(requestId)
@@ -50,7 +52,7 @@ class SearchResultPresenter(val view: SearchResultView) {
                     C.SPACE + view.mvpContext().getString(R.string.app_name)
         }
         imageUrl = request.imageUrl
-        logic.loadImageUrl(imageUrl, { bitmap -> view.setRequestPhoto(bitmap) })
+        logic.loadImageUrl(imageUrl) { bitmap -> view.setRequestPhoto(bitmap) }
     }
 
     private fun processLongClickResponse(response: ResponseEntity) {
@@ -66,7 +68,28 @@ class SearchResultPresenter(val view: SearchResultView) {
         Navigator.goToPreviewVideo(view.mvpContext() as AppCompatActivity, url, doc)
     }
 
-    fun shareSearchResult() {
+    fun shareShowOptions() {
+        SheetMenu().apply {
+            titleId = R.string.action_share
+            menu = R.menu.menu_share_options
+            click = MenuItem.OnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.menu_share_name -> shareSearchResultText()
+                    R.id.menu_share_image -> shareSearchResultImage()
+                }
+                true
+            }
+        }.show(view.mvpContext())
+    }
+
+    private fun shareSearchResultText() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, textToShare)
+        view.mvpStartActivity(Intent.createChooser(intent, view.mvpContext().getString(R.string.action_share)))
+    }
+
+    private fun shareSearchResultImage() {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "image/jpeg"
         intent.putExtra(Intent.EXTRA_TEXT, textToShare)

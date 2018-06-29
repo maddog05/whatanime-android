@@ -15,9 +15,6 @@ import java.util.List;
  */
 
 public interface LogicApp {
-    boolean isFirstTutorial();
-
-    void finishFirstTutorial();
 
     boolean isChangelogViewed();
 

@@ -41,16 +41,6 @@ public class LogicAppImpl implements LogicApp {
     }
 
     @Override
-    public boolean isFirstTutorial() {
-        return preferences.isFirstTutorial();
-    }
-
-    @Override
-    public void finishFirstTutorial() {
-        preferences.finishFirstTutorial();
-    }
-
-    @Override
     public boolean isChangelogViewed() {
         int currentVersion = BuildConfig.VERSION_CODE;
         return preferences.getLastChangelogVersion() == currentVersion;

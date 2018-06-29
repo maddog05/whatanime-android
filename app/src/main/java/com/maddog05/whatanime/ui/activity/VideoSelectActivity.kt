@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.ui
+package com.maddog05.whatanime.ui.activity
 
 import android.app.Activity
 import android.graphics.Bitmap

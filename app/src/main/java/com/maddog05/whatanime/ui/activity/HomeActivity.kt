@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.ui
+package com.maddog05.whatanime.ui.activity
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.mvp.HomeView
+import com.maddog05.whatanime.core.mvp.view.HomeView
 import com.maddog05.whatanime.core.mvp.presenter.HomePresenter
 import es.dmoral.toasty.Toasty
 

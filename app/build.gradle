@@ -11,8 +11,8 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 10
-        versionName "2.0"
+        versionCode 11
+        versionName "2.0.1"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -61,9 +61,6 @@ dependencies {
     //Utilities
     implementation('com.github.maddog05:MaddogUtilities:1.0.1') {
         exclude group: 'com.android.support', module: 'support-v7'
-    }
-    implementation('com.github.faruktoptas:FancyShowCaseView:1.0.0') {
-        exclude group: 'com.google.android', module: 'support-v7'
     }
     implementation 'com.github.GrenderG:Toasty:1.2.8'
     implementation 'com.takisoft.fix:preference-v7:27.1.1.0'

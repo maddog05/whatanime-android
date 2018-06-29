@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.maddog05.whatanime">
-
     <!-- DANGEROUS PERMISSIONS -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,7 +31,7 @@
 
         <!-- ACTIVITIES -->
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -42,15 +41,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/TranslucentTheme" />
-        <activity
-            android:name=".ui.VideoPreviewActivity"
+            android:name=".ui.activity.VideoPreviewActivity"
             android:theme="@style/VideoPreviewTheme" />
-        <activity android:name=".ui.InformationActivity" />
+        <activity android:name=".ui.activity.InformationActivity" />
         <activity
-            android:name=".ui.VideoSelectActivity"
+            android:name=".ui.activity.VideoSelectActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -58,9 +53,9 @@
             android:value="c3f693a27e7ad49847e5c8ab8ed925295971b9bf" />
 
         <activity
-            android:name=".ui.HomeActivity"
-            android:screenOrientation="portrait"
+            android:name=".ui.activity.HomeActivity"
             android:label="@string/title_share_receiver"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -69,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SearchResultActivity"
+            android:name=".ui.activity.SearchResultActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity

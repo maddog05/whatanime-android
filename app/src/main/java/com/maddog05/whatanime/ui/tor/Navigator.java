@@ -13,11 +13,10 @@ import android.view.View;
 import com.maddog05.maddogutilities.android.AndroidVersions;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.SearchDetail;
-import com.maddog05.whatanime.ui.HomeActivity;
-import com.maddog05.whatanime.ui.InformationActivity;
-import com.maddog05.whatanime.ui.MainActivity;
-import com.maddog05.whatanime.ui.VideoPreviewActivity;
-import com.maddog05.whatanime.ui.VideoSelectActivity;
+import com.maddog05.whatanime.ui.activity.HomeActivity;
+import com.maddog05.whatanime.ui.activity.InformationActivity;
+import com.maddog05.whatanime.ui.activity.VideoPreviewActivity;
+import com.maddog05.whatanime.ui.activity.VideoSelectActivity;
 import com.maddog05.whatanime.ui.activity.SettingsActivity;
 import com.maddog05.whatanime.util.C;
 
@@ -37,7 +36,7 @@ public class Navigator {
         } else {
             aoc = ActivityOptionsCompat.makeBasic();
         }
-        Intent intent = new Intent(activity, HomeActivity.class);//MainActivity
+        Intent intent = new Intent(activity, HomeActivity.class);
         ActivityCompat.startActivity(activity, intent, aoc.toBundle());
         ActivityCompat.finishAffinity(activity);
     }

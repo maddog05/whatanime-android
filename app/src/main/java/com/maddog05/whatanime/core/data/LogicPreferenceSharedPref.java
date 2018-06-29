@@ -11,7 +11,6 @@ public class LogicPreferenceSharedPref implements LogicPreferences {
 
     private static final String PREFERENCE_MAIN = "com.maddog05.whatanime_preferenceMain";
 
-    private static final String TUTORIAL_FIRST_TIME = "isFirstTutorial";
     private static final String LAST_CHANGELOG_VERSION = "lastChangelogVersion";
 
     private Context context;
@@ -26,18 +25,6 @@ public class LogicPreferenceSharedPref implements LogicPreferences {
 
     private SharedPreferences get() {
         return context.getSharedPreferences(PREFERENCE_MAIN, Context.MODE_PRIVATE);
-    }
-
-    @Override
-    public boolean isFirstTutorial() {
-        SharedPreferences preferences = get();
-        return preferences.getBoolean(TUTORIAL_FIRST_TIME, true);
-    }
-
-    @Override
-    public void finishFirstTutorial() {
-        SharedPreferences preferences = get();
-        preferences.edit().putBoolean(TUTORIAL_FIRST_TIME, false).commit();
     }
 
     @Override

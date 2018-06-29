@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.ui
+package com.maddog05.whatanime.ui.activity
 
 import android.content.Context
 import android.content.Intent
@@ -15,7 +15,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.maddog05.maddogutilities.view.SquareImageView
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.mvp.SearchResultView
+import com.maddog05.whatanime.core.mvp.view.SearchResultView
 import com.maddog05.whatanime.core.mvp.presenter.SearchResultPresenter
 import es.dmoral.toasty.Toasty
 
@@ -45,7 +45,7 @@ class SearchResultActivity : AppCompatActivity(), SearchResultView {
         if (item.itemId == android.R.id.home)
             onBackPressed()
         else if (item.itemId == R.id.action_share)
-            presenter.shareSearchResult()
+            presenter.shareShowOptions()
         return super.onOptionsItemSelected(item)
     }
 

@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.ui;
+package com.maddog05.whatanime.ui.activity;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;

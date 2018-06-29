@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.maddog05.whatanime.BuildConfig;
-import com.maddog05.whatanime.ui.SearchResultActivity;
+import com.maddog05.whatanime.ui.activity.SearchResultActivity;
 
 import java.util.Calendar;
 

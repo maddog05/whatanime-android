@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.ui;
+package com.maddog05.whatanime.ui.activity;
 
 import android.Manifest;
 import android.support.annotation.NonNull;

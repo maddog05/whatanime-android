@@ -5,10 +5,6 @@ package com.maddog05.whatanime.core.data;
  */
 
 public interface LogicPreferences {
-    boolean isFirstTutorial();
-
-    void finishFirstTutorial();
-
     int getLastChangelogVersion();
 
     void setLastChangelogVersion(int version);

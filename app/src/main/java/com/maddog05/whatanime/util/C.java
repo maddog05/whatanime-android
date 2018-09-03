@@ -3,6 +3,7 @@ package com.maddog05.whatanime.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.ui.activity.SearchResultActivity;
@@ -53,5 +54,14 @@ public class C {
             return BuildConfig.VERSION_NAME;
         else
             return packageInfo.versionName;
+    }
+
+    public static boolean isActivityFinishing(Context context) {
+        if (!(context instanceof AppCompatActivity))
+            return true;
+        else {
+            AppCompatActivity activity = (AppCompatActivity) context;
+            return activity.isFinishing();
+        }
     }
 }

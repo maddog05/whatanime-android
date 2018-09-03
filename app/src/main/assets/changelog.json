@@ -1,7 +1,37 @@
 {
   "title": "Changelog",
-  "description": "You can check the changelog any time from the main menu",
+  "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
   "versions": [
+    {
+      "name": "2.0.2",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "error when imageLoader starts with a finishing activity"
+        },
+        {
+          "type": "fix",
+          "description": "Transition animation from splash to main"
+        }
+      ]
+    },
+    {
+      "name": "2.0.1",
+      "changes": [
+        {
+          "type": "new",
+          "description": "Choose share only name or image in search result"
+        },
+        {
+          "type": "enhance",
+          "description": "Clear unnecessary code"
+        },
+        {
+          "type": "fix",
+          "description": "No history indicator still visible when you add your first image request"
+        }
+      ]
+    },
     {
       "name": "2.0",
       "changes": [

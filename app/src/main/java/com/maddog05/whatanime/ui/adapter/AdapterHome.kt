@@ -107,15 +107,17 @@ class AdapterHome(val context: Context) : RecyclerView.Adapter<AdapterHome.AHVH>
         holder.searchResultTv.visibility = resultsVisibility
         holder.retryBtn.visibility = retryVisibility
         holder.moreBtn.visibility = moreVisibility
-        val imageLoader: ImageLoader = Logic.imageLoader(context)
-        imageLoader.with(context)
-                .load(item.imageUrl)
-                .target(holder.photoIv)
-                .callback({ isCompleted ->
-                    if (isCompleted)
-                        holder.photoIv.scaleType = ImageView.ScaleType.CENTER_CROP
-                })
-                .start()
+        if (!C.isActivityFinishing(context)) {
+            val imageLoader: ImageLoader = Logic.imageLoader(context)
+            imageLoader.with(context)
+                    .load(item.imageUrl)
+                    .target(holder.photoIv)
+                    .callback({ isCompleted ->
+                        if (isCompleted)
+                            holder.photoIv.scaleType = ImageView.ScaleType.CENTER_CROP
+                    })
+                    .start()
+        }
         holder.photoIv.setOnClickListener { callback.done(item) }
         holder.moreBtn.setOnClickListener { callback.done(item) }
         holder.retryBtn.setOnClickListener { callbackReload.done(item) }

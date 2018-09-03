@@ -1,5 +1,7 @@
 package com.maddog05.whatanime.ui.tor;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,20 +27,28 @@ import com.maddog05.whatanime.util.C;
  */
 
 public class Navigator {
+    @SuppressLint("NewApi")
     public static void goToMain(AppCompatActivity activity, View view) {
-        ActivityOptionsCompat aoc;
-        if (AndroidVersions.isMarshmallow() && view != null) {
-            aoc = ActivityOptionsCompat.makeClipRevealAnimation(view,
+        Intent intent = new Intent(activity, HomeActivity.class);
+        if (AndroidVersions.isMarshmallow()) {
+            ActivityOptions activityOptions = ActivityOptions.makeClipRevealAnimation(view,
                     0,
                     0,
                     view.getMeasuredWidth(),
                     view.getMeasuredHeight());
+            activity.startActivity(intent, activityOptions.toBundle());
+            activity.finishAffinity();
+
         } else {
-            aoc = ActivityOptionsCompat.makeBasic();
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeClipRevealAnimation(view,
+                    0,
+                    0,
+                    view.getMeasuredWidth(),
+                    view.getMeasuredHeight());
+
+            ActivityCompat.startActivity(activity, intent, activityOptionsCompat.toBundle());
+            ActivityCompat.finishAffinity(activity);
         }
-        Intent intent = new Intent(activity, HomeActivity.class);
-        ActivityCompat.startActivity(activity, intent, aoc.toBundle());
-        ActivityCompat.finishAffinity(activity);
     }
 
     public static void goToPreviewVideo(AppCompatActivity activity, String url, SearchDetail.Doc doc) {

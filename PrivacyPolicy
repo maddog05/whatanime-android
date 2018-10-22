@@ -1,0 +1,11 @@
+--------------
+Privacy Policy
+--------------
+WhatAnime don't collect personal information such as your name or email. 
+This app can store some preference setting to the app usage.
+This settings don't be transferred outside of your device.
+
+WhatAnime use the following permission:
+   - WRITE_EXTERNAL_STORAGE and READ_EXTERNAL_STORAGE to read and select an image from your gallery.
+   - INTERNET to use whatanime.ga API and other logs with Crashlytics(Fabric).
+   - WAKE_LOCK to keep the screen on while searching operation is working.

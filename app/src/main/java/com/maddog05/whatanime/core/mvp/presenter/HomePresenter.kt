@@ -132,7 +132,10 @@ class HomePresenter(val view: HomeView) {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val pair = Images.getOutputPhotoGalleryCompressed(view.mvpContext(), data, 512)
                     val bitmap = pair.bitmap
-                    processBitmap(bitmap)
+                    if (bitmap != null)
+                        processBitmap(bitmap)
+                    else
+                        view.showError(view.mvpContext().getString(R.string.error_image_recovered_from_storage))
                 } else {
                     view.showError(view.mvpContext().getString(R.string.error_image_recovered_from_storage))
                 }

@@ -45,7 +45,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
 
     private static final String TAG = "#Retrofit";
 
-    private static final String URL = "https://whatanime.ga/api/";
+    private static final String URL = "https://trace.moe/api/";
     private static final String TOKEN = BuildConfig.TOKEN;
     private static final long TIMEOUT = 60;
 

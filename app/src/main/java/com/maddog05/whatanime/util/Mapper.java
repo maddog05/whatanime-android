@@ -236,7 +236,7 @@ public class Mapper {
         searchDetail.cacheHit = json.get("CacheHit").getAsBoolean();
         searchDetail.trial = json.get("trial").getAsInt();
         searchDetail.quota = json.get("quota").getAsInt();
-        searchDetail.expire = json.get("expire").getAsInt();
+        searchDetail.expire = 0;//json.get("expire").getAsInt();
 
         searchDetail.docs = new ArrayList<>();
         JsonArray arrayDocs = json.get("docs").getAsJsonArray();

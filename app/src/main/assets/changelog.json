@@ -3,6 +3,19 @@
   "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
   "versions": [
     {
+      "name": "2.0.3",
+      "changes": [
+        {
+          "type": "update",
+          "description": "API server url"
+        },
+        {
+          "type": "update",
+          "description": "Kotlin, compiler and libraries"
+        }
+      ]
+    },
+    {
       "name": "2.0.2",
       "changes": [
         {

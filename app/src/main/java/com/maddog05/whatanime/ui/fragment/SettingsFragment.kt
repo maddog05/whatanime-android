@@ -50,6 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         val reportPreference = preferenceManager.findPreference("setting_general_report_github")
         reportPreference.setOnPreferenceClickListener {
+            Navigator.goToWebBrowser(context, getString(R.string.url_github_issues))
             true
         }
         val appDevPreference = preferenceManager.findPreference("setting_about_developer_app")

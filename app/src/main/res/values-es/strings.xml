@@ -28,10 +28,6 @@
     <string name="tag_no_episode_number">Anime</string>
     <string name="title_privacy_policy">Política de privacidad</string>
     <string name="title_search_result">Resultados de búsqueda</string>
-    <string name="url_playstore">https://play.google.com/store/apps/details?id=com.maddog05.whatanime</string>
-    <string name="url_app_dev">https://github.com/maddog05</string>
-    <string name="url_api_dev">https://github.com/soruly</string>
-    <string name="url_github">https://github.com/maddog05/whatanime-android</string>
     <string name="information_app_privacy_policy">WhatAnime no recolecta información personal como tu nombre o correo electrónico. Esta app puede almacenar algunas configuraciones para el uso del app. Estas configuraciones no serán transferidas fuera de tu dispositivo.</string>
     <string name="information_app_permission">\nWhatAnime usa los siguentes permisos:
         \n\n- WRITE_EXTERNAL_STORAGE y READ_EXTERNAL_STORAGE para leer y seleccionar una imagen de tu galería.

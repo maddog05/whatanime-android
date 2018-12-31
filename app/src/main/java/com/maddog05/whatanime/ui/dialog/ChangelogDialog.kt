@@ -50,7 +50,7 @@ class ChangelogDialog : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun show(manager: FragmentManager?, tag: String?) {

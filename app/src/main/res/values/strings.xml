@@ -87,6 +87,7 @@
     <string name="input_search_quota">Search quota: %s</string>
     <string name="input_search_per_minute">Searchs per minute: %s</string>
     <string name="error_image_not_selected">Image not selected</string>
+    <string name="indicator_quota_info">You have a daily search quota that is renewed in 24 hours. In addition, you have a search limit per minute due to API usage policies.</string>
     <string-array name="settings_labels_allow_h_content">
         <item>Yes</item>
         <item>No</item>

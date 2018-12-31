@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
@@ -24,6 +25,7 @@ import com.maddog05.whatanime.core.mvp.view.MainView
 import com.maddog05.whatanime.ui.adapter.AdapterMain
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
+import com.maddog05.whatanime.ui.dialog.QuotaInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity(), MainView {
             if (!isSearchRunning)
                 actionShowQuotaInfo()
         }
+        actionCheckSendIntent()
         presenter.onCreate()
     }
 
@@ -111,8 +114,26 @@ class MainActivity : AppCompatActivity(), MainView {
         }
     }
 
-    private fun actionShowQuotaInfo() {
+    private fun actionCheckSendIntent(){
+        val intent = intent
+        val action = intent.action ?: ""
+        val type = intent.type ?: ""
+        if (action.isNotEmpty() && action == Intent.ACTION_SEND && type.isNotEmpty()) {
+            if (type.startsWith("image/")) {
+                val uri = (intent.getParcelableExtra(Intent.EXTRA_STREAM) as Uri).toString()
+                val glideLoader = GlideLoader.create()
+                glideLoader.with(this)
+                glideLoader.load(uri)
+                glideLoader.loadAsBitmap { bitmap ->
+                    processBitmap(bitmap)
+                }
+            }
+        }
+    }
 
+    private fun actionShowQuotaInfo() {
+        QuotaInfoDialog.newInstance(this)
+                .showDialog()
     }
 
     private fun actionSelectImage() {
@@ -183,7 +204,7 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun drawSearchResults(results: MutableList<SearchDetail.Doc>) {
-        rv_main_results.adapter=AdapterMain(applicationContext,results,object:AdapterMain.OnDocClickListener{
+        rv_main_results.adapter = AdapterMain(applicationContext, results, object : AdapterMain.OnDocClickListener {
             override fun onDocClicked(doc: SearchDetail.Doc) {
                 val url = Mapper.getVideoUrl(doc)
                 Navigator.goToPreviewVideo(this@MainActivity, url, doc)

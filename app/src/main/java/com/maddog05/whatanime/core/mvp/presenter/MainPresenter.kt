@@ -40,7 +40,7 @@ class MainPresenter(private val view: MainView) {
                                     view.showLoading(false)
                                     if (pair.first!!.isEmpty()) {
                                         docs.clear()
-                                        docs.addAll(pair.second!!.docs)
+                                        docs.addAll(filterHContent(pair.second!!.docs))
                                         view.showIndicatorSearchResults(docs.isEmpty())
                                         view.drawSearchResults(docs)
                                         getQuota()
@@ -57,6 +57,21 @@ class MainPresenter(private val view: MainView) {
                 view.showErrorImageEmpty()
         } else
             view.showErrorInternet()
+    }
+
+    private fun filterHContent(items: MutableList<SearchDetail.Doc>): MutableList<SearchDetail.Doc> {
+        val isHContentEnabled = preferences.hContentEnabled
+        if (isHContentEnabled)
+            return items
+        else {
+            val response = mutableListOf<SearchDetail.Doc>()
+            for (i in items.indices) {
+                val doc = items[i]
+                if (!doc.isHentai)
+                    response.add(doc)
+            }
+            return response
+        }
     }
 
     private fun getQuota() {

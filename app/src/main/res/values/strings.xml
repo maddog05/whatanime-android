@@ -88,6 +88,12 @@
     <string name="input_search_per_minute">Searchs per minute: %s</string>
     <string name="error_image_not_selected">Image not selected</string>
     <string name="indicator_quota_info">You have a daily search quota that is renewed in 24 hours. In addition, you have a search limit per minute due to API usage policies.</string>
+    <string name="setting_label_enable_h_content">Enable H content</string>
+    <string name="setting_description_enable_h_content">Show H content in search results</string>
+    <string name="setting_label_report">Report issue</string>
+    <string name="setting_description_report">Report issue in WhatAnime\'s GitHub</string>
+    <string name="input_h_content_accept">I declare that I am of legal age to view this type of content and will not respond to the developer about my actions on WhatAnime</string>
+    <string name="indicator_h_content">By default, the H-content display option is disabled. These can appear in the search results and are filtering to not be visualized for you.</string>
     <string-array name="settings_labels_allow_h_content">
         <item>Yes</item>
         <item>No</item>

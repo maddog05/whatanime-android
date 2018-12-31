@@ -12,6 +12,7 @@ public class LogicPreferenceSharedPref implements LogicPreferences {
     private static final String PREFERENCE_MAIN = "com.maddog05.whatanime_preferenceMain";
 
     private static final String LAST_CHANGELOG_VERSION = "lastChangelogVersion";
+    private static final String H_CONTENT_ENABLED = "hContentEnabled";
 
     private Context context;
 
@@ -37,5 +38,17 @@ public class LogicPreferenceSharedPref implements LogicPreferences {
     public void setLastChangelogVersion(int version) {
         SharedPreferences preferences = get();
         preferences.edit().putInt(LAST_CHANGELOG_VERSION, version).commit();
+    }
+
+    @Override
+    public boolean getHContentEnabled() {
+        SharedPreferences preferences = get();
+        return preferences.getBoolean(H_CONTENT_ENABLED, false);
+    }
+
+    @Override
+    public void setHContentEnabled(boolean isEnabled) {
+        SharedPreferences preferences = get();
+        preferences.edit().putBoolean(H_CONTENT_ENABLED, isEnabled).commit();
     }
 }

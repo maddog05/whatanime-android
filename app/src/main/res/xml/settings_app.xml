@@ -2,13 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/title_menu_general">
         <Preference
-            android:key="setting_general_clear_history"
-            android:summary="@string/setting_description_clear_search"
-            android:title="@string/menu_clear_search_history" />
+            android:key="setting_general_enable_h_content"
+            android:summary="@string/setting_description_enable_h_content"
+            android:title="@string/setting_label_enable_h_content"/>
         <Preference
             android:key="setting_general_changelog"
             android:summary="@string/setting_description_changelog"
             android:title="@string/menu_changelog" />
+        <Preference
+            android:key="setting_general_report_github"
+            android:summary="@string/setting_description_report"
+            android:title="@string/setting_label_report"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/title_menu_contributions">
         <Preference

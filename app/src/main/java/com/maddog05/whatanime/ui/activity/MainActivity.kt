@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -67,6 +68,22 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.onCreate()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.clear()
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_item_settings) {
+            if (!isSearchRunning) {
+                val intent = Navigator.getIntentSettings(this)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PERMISSIONS_SELECT_IMAGE) {
             if (Permissions.isPermissionGranted(grantResults)) {
@@ -114,7 +131,7 @@ class MainActivity : AppCompatActivity(), MainView {
         }
     }
 
-    private fun actionCheckSendIntent(){
+    private fun actionCheckSendIntent() {
         val intent = intent
         val action = intent.action ?: ""
         val type = intent.type ?: ""

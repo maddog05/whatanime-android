@@ -53,6 +53,10 @@
             android:value="c3f693a27e7ad49847e5c8ab8ed925295971b9bf" />
 
         <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.activity.HomeActivity"
             android:label="@string/title_share_receiver"
             android:screenOrientation="portrait"

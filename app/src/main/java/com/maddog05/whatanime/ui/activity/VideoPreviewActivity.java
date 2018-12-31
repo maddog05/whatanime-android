@@ -1,5 +1,6 @@
 package com.maddog05.whatanime.ui.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,11 @@ import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.maddog05.maddogutilities.android.Checkers;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.SearchDetail;
-import com.maddog05.whatanime.ui.tor.Navigator;
 import com.maddog05.whatanime.util.C;
+import com.maddog05.whatanime.util.Mapper;
 
 import es.dmoral.toasty.Toasty;
+import ru.whalemare.sheetmenu.SheetMenu;
 
 public class VideoPreviewActivity extends AppCompatActivity implements OnPreparedListener, OnCompletionListener {
     private VideoView videoView;
@@ -41,6 +43,13 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
         setupData();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (videoView.isPlaying()) {
+            videoView.pause();
+        }
+    }
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -116,15 +125,52 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
     }
 
     private void _share() {
+        String nameAndEpisodeText = Mapper.parseEpisodeNumber(this, doc.episode);
         String title = doc.romanjiTitle != null && !doc.romanjiTitle.isEmpty() ? doc.romanjiTitle : doc.anime;
         String text = title
                 + C.SPACE
-                + doc.episode
+                + nameAndEpisodeText
                 + C.SPACE
                 + getString(R.string.share_founded_with)
                 + C.SPACE
                 + getString(R.string.app_name);
-        Navigator.shareText(VideoPreviewActivity.this, text);
+        SheetMenu.with(this)
+                .setTitle(R.string.action_share)
+                .setMenu(R.menu.menu_share_options)
+                .setClick(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_share_name:
+                                shareSearchResultText(text);
+                                break;
+                            case R.id.menu_share_image:
+                                shareSearchResultImage(text);
+                                break;
+                        }
+                        return true;
+                    }
+                })
+                .setAutoCancel(true)
+                .showIcons(false)
+                .show();
+//        Navigator.shareText(VideoPreviewActivity.this, text);
+    }
+
+    private void shareSearchResultText(String textToShare) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
+    }
+
+    private void shareSearchResultImage(String textToShare) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_TEXT, textToShare);
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(Mapper.getImageUrl(doc)));
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
     }
 
     @Override

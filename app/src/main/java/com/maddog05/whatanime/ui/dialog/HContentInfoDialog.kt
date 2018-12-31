@@ -60,12 +60,14 @@ class HContentInfoDialog : DialogFragment() {
         closeBtn.setOnClickListener { dismiss() }
         acceptChk = view.findViewById(R.id.chk_h_content)
         acceptBtn = view.findViewById(R.id.btn_accept_h_content)
-        acceptBtn.isEnabled = isAccepted
         acceptChk.isChecked = isAccepted
         acceptChk.setOnCheckedChangeListener { _, isChecked ->
             this.isAccepted = isChecked
         }
-        acceptBtn.setOnClickListener { listener.isAccepted(this.isAccepted) }
+        acceptBtn.setOnClickListener {
+            listener.isAccepted(this.isAccepted)
+            dismiss()
+        }
     }
 
     fun setIsAccepted(isAccepted: Boolean): HContentInfoDialog {

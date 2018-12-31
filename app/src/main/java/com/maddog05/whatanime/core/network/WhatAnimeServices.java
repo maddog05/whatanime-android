@@ -17,4 +17,7 @@ public interface WhatAnimeServices {
     @FormUrlEncoded
     @POST("search")
     Call<JsonObject> search(@Query("token") String token, @Field("image") String encodedImage);//, @Field("filter") String filter
+
+    @GET("me")
+    Call<JsonObject> getQuota(@Query("token") String token);
 }

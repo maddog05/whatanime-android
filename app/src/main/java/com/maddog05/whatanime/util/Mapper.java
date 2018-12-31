@@ -18,6 +18,7 @@ import com.maddog05.maddogutilities.number.Numbers;
 import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.ChangelogItem;
+import com.maddog05.whatanime.core.entity.OutputGetQuota;
 import com.maddog05.whatanime.core.entity.ResponseEntity;
 import com.maddog05.whatanime.core.entity.SearchDetail;
 
@@ -220,6 +221,13 @@ public class Mapper {
 
     private static JsonObject stringToJsonObject(String toJson) {
         return new JsonParser().parse(toJson).getAsJsonObject();
+    }
+
+    public static OutputGetQuota parseGetQuota(JsonObject json) {
+        OutputGetQuota outputGetQuota = new OutputGetQuota();
+        outputGetQuota.setSearchQuota(elementInt(json.get("quota"), 0));
+        outputGetQuota.setSearchsPerMinute(elementInt(json.get("limit"), 0));
+        return outputGetQuota;
     }
 
     public static SearchDetail parseSearchDetail(JsonObject json) {

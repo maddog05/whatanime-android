@@ -61,6 +61,15 @@ class MainPresenter(private val view: MainView) {
 
     private fun getQuota() {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
+            network.getQuota(view.mvpContext()) { pair ->
+                if (pair.first!!.isEmpty()) {
+                    searchQuota = pair.second!!.searchQuota
+                    searchPerMinute = pair.second!!.searchsPerMinute
+                    view.setSearchQuota(searchQuota)
+                    view.setSearchPerMinute(searchPerMinute)
+                }
+            }
+        } else {
             view.setSearchQuota(searchQuota)
             view.setSearchPerMinute(searchPerMinute)
         }

@@ -9,6 +9,7 @@ import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.maddogutilities.logger.Logger2;
 import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
+import com.maddog05.whatanime.core.entity.OutputGetQuota;
 import com.maddog05.whatanime.core.entity.SearchDetail;
 import com.maddog05.whatanime.util.C;
 import com.maddog05.whatanime.util.Mapper;
@@ -133,6 +134,43 @@ public class LogicNetworkRetrofit implements LogicNetwork {
             Logger2.get().e(TAG, "searchWithPhoto: services is null");
             logSeparator();
             callback.done(Pair.create(getString(context, R.string.error_service_not_initialized), new SearchDetail()));
+        }
+    }
+
+    @Override
+    public void getQuota(Context context, Callback<Pair<String, OutputGetQuota>> callback) {
+        logStart("getQuota");
+        if (services != null) {
+            services.getQuota(null).enqueue(new retrofit2.Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Logger2.get().d(TAG, "getQuota: onResponse: httpCode = " + response.code());
+                    if (response.body() != null) {
+                        Logger2.get().d(TAG, "getQuota: onResponse: body = " + response.body());
+                        OutputGetQuota outputGetQuota = Mapper.parseGetQuota(response.body());
+                        callback.done(Pair.create("", outputGetQuota));
+                    } else {
+                        String errorMessage = String.valueOf(response.code() + C.SPACE + getString(context, R.string.error_service_response_or_body_null));
+                        Logger2.get().e(TAG, "getQuota: onResponse: " + errorMessage);
+                        callback.done(Pair.create(errorMessage, new OutputGetQuota()));
+                        logSeparator();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    if (t.getMessage() != null) {
+                        Logger2.get().e(TAG, "getQuota: onFailure: " + t.toString());
+                        callback.done(Pair.create(t.getMessage(), new OutputGetQuota()));
+                        logSeparator();
+                    } else {
+                        Logger2.get().e(TAG, "getQuota: onFailure: unknown error");
+                        callback.done(Pair.create(getString(context,
+                                R.string.error_service_unknown), new OutputGetQuota()));
+                        logSeparator();
+                    }
+                }
+            });
         }
     }
 

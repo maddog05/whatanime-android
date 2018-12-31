@@ -5,6 +5,7 @@ import android.support.v4.util.Pair;
 
 import com.google.gson.JsonObject;
 import com.maddog05.maddogutilities.callback.Callback;
+import com.maddog05.whatanime.core.entity.OutputGetQuota;
 import com.maddog05.whatanime.core.entity.SearchDetail;
 
 /**
@@ -16,4 +17,7 @@ public interface LogicNetwork {
                          String encodedImage,
                          String filter,
                          Callback<Pair<String, SearchDetail>> callback);
+
+    void getQuota(Context context,
+                  Callback<Pair<String, OutputGetQuota>> callback);
 }

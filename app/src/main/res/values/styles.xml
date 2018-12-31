@@ -9,10 +9,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppSettingsStyle" parent="PreferenceFixTheme.Light.NoActionBar">
+    <style name="AppSettingsStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">

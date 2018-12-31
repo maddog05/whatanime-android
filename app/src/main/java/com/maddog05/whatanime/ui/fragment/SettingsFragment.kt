@@ -2,6 +2,7 @@ package com.maddog05.whatanime.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.preference.PreferenceFragmentCompat
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.BuildConfig
 import com.maddog05.whatanime.R
@@ -10,7 +11,6 @@ import com.maddog05.whatanime.core.data.LogicPreferenceSharedPref
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.HContentInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -26,7 +26,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private lateinit var logic: LogicApp
     private lateinit var callback: Callback<Int>
 
-    override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_app, rootKey)
         val hContentPreference = preferenceManager.findPreference("setting_general_enable_h_content")
         hContentPreference.setOnPreferenceClickListener {

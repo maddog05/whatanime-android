@@ -22,7 +22,6 @@ import com.maddog05.whatanime.util.C;
 import com.maddog05.whatanime.util.Mapper;
 
 import es.dmoral.toasty.Toasty;
-import ru.whalemare.sheetmenu.SheetMenu;
 
 public class VideoPreviewActivity extends AppCompatActivity implements OnPreparedListener, OnCompletionListener {
     private VideoView videoView;
@@ -49,6 +48,13 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
         if (videoView.isPlaying()) {
             videoView.pause();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (loadingPbar.getVisibility() == View.GONE && !videoView.isPlaying())
+            videoView.start();
     }
 
     private void setupToolbar() {
@@ -134,42 +140,9 @@ public class VideoPreviewActivity extends AppCompatActivity implements OnPrepare
                 + getString(R.string.share_founded_with)
                 + C.SPACE
                 + getString(R.string.app_name);
-        SheetMenu.with(this)
-                .setTitle(R.string.action_share)
-                .setMenu(R.menu.menu_share_options)
-                .setClick(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_share_name:
-                                shareSearchResultText(text);
-                                break;
-                            case R.id.menu_share_image:
-                                shareSearchResultImage(text);
-                                break;
-                        }
-                        return true;
-                    }
-                })
-                .setAutoCancel(true)
-                .showIcons(false)
-                .show();
-//        Navigator.shareText(VideoPreviewActivity.this, text);
-    }
-
-    private void shareSearchResultText(String textToShare) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, textToShare);
-        startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
-    }
-
-    private void shareSearchResultImage(String textToShare) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/jpeg");
-        intent.putExtra(Intent.EXTRA_TEXT, textToShare);
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(Mapper.getImageUrl(doc)));
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
         startActivity(Intent.createChooser(intent, getString(R.string.action_share)));
     }
 

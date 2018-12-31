@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.PowerManager
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -262,12 +263,23 @@ class MainActivity : AppCompatActivity(), MainView {
         tv_main_tutorial.visibility = if (wantVisible) View.VISIBLE else View.GONE
     }
 
+    private var wakeLock: PowerManager.WakeLock? = null
+
     override fun showLoading(wantVisible: Boolean) {
         isSearchRunning = wantVisible
         layout_main_loading.visibility = if (wantVisible) View.VISIBLE else View.GONE
-        if (wantVisible)
+        if (wantVisible) {
             fab_main_search.hide()
-        else
+            wakeLock =
+                    (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
+                        newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WhatAnime::MainWakeLock").apply {
+                            acquire()
+                        }
+                    }
+        } else {
+            if (wakeLock != null && wakeLock!!.isHeld)
+                wakeLock?.release()
             fab_main_search.show()
+        }
     }
 }

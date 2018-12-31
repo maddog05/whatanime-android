@@ -45,7 +45,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
 
     private static final String TAG = "#Retrofit";
 
-    private static final String URL = "https://trace.moe/api/";
+    private static final String URL = BuildConfig.SERVER_DOMAIN + "api/";
     private static final String TOKEN = BuildConfig.TOKEN;
     private static final long TIMEOUT = 60;
 
@@ -90,7 +90,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
         Logger2.get().d(TAG, "input-filter: " + filter);
         if (services != null) {
             //, filter
-            services.search(TOKEN, encodedImage).enqueue(new retrofit2.Callback<JsonObject>() {
+            services.search(null, encodedImage).enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "searchWithPhoto: onResponse: httpCode = " + response.code());

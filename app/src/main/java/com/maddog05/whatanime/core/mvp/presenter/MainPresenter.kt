@@ -18,6 +18,7 @@ class MainPresenter(private val view: MainView) {
 
     fun onCreate() {
         view.showIndicatorSearchResults(true)
+        view.showLoading(false)
         val currentVersion = BuildConfig.VERSION_CODE
         val isChangelogViewed = preferences.lastChangelogVersion == currentVersion
         if (!isChangelogViewed) {
@@ -61,7 +62,7 @@ class MainPresenter(private val view: MainView) {
     private fun getQuota() {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
             view.setSearchQuota(searchQuota)
-            view.setSearchPerMniute(searchPerMinute)
+            view.setSearchPerMinute(searchPerMinute)
         }
     }
 }

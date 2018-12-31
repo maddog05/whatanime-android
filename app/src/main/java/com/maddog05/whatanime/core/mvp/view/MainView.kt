@@ -9,7 +9,7 @@ interface MainView {
     fun drawSearchResults(results: MutableList<SearchDetail.Doc>)
     fun getInputBitmap(): Bitmap?
     fun setSearchQuota(number: Int)
-    fun setSearchPerMniute(number: Int)
+    fun setSearchPerMinute(number: Int)
     fun showChangelog()
     fun showErrorImageEmpty()
     fun showErrorInternet()

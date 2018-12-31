@@ -15,6 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.maddog05.maddogutilities.number.Numbers;
+import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.ChangelogItem;
 import com.maddog05.whatanime.core.entity.ResponseEntity;
@@ -161,7 +162,7 @@ public class Mapper {
 
     public static String getVideoUrl(ResponseEntity responseEntity) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = "https://whatanime.ga/preview.php?season=";
+        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
         response += _encode(responseEntity.getSeason(), encodeFormat) + "&anime=";
         response += _encode(responseEntity.getAnime(), encodeFormat) + "&file=";
         response += _encode(responseEntity.getFileName(), encodeFormat) + "&t=";
@@ -172,7 +173,7 @@ public class Mapper {
 
     public static String getVideoUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = "https://whatanime.ga/preview.php?season=";
+        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
         response += _encode(doc.season, encodeFormat) + "&anime=";
         response += _encode(doc.anime, encodeFormat) + "&file=";
         response += _encode(doc.fileName, encodeFormat) + "&t=";
@@ -183,7 +184,7 @@ public class Mapper {
 
     public static String getImageUrl(ResponseEntity responseEntity) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = "https://whatanime.ga/thumbnail.php?season=";
+        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
         response += _encode(responseEntity.getSeason(), encodeFormat) + "&anime=";
         response += _encode(responseEntity.getAnime(), encodeFormat) + "&file=";
         response += _encode(responseEntity.getFileName(), encodeFormat) + "&t=";
@@ -194,7 +195,7 @@ public class Mapper {
 
     public static String getImageUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = "https://whatanime.ga/thumbnail.php?season=";
+        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
         response += _encode(doc.season, encodeFormat) + "&anime=";
         response += _encode(doc.anime, encodeFormat) + "&file=";
         response += _encode(doc.fileName, encodeFormat) + "&t=";

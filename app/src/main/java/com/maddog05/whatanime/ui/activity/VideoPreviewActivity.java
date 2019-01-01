@@ -17,7 +17,7 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.maddog05.maddogutilities.android.Checkers;
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.core.entity.SearchDetail;
+import com.maddog05.whatanime.core.entity.output.SearchDetail;
 import com.maddog05.whatanime.util.C;
 import com.maddog05.whatanime.util.Mapper;
 

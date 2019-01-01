@@ -6,7 +6,6 @@ import android.support.v7.preference.PreferenceFragmentCompat
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.BuildConfig
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.LogicApp
 import com.maddog05.whatanime.core.data.LogicPreferenceSharedPref
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.HContentInfoDialog
@@ -15,15 +14,13 @@ import com.maddog05.whatanime.ui.tor.Navigator
 class SettingsFragment : PreferenceFragmentCompat() {
 
     companion object {
-        fun newInstance(logicApp: LogicApp, callback: Callback<Int>): SettingsFragment {
+        fun newInstance(callback: Callback<Int>): SettingsFragment {
             val fragment = SettingsFragment()
-            fragment.logic = logicApp
             fragment.callback = callback
             return fragment
         }
     }
 
-    private lateinit var logic: LogicApp
     private lateinit var callback: Callback<Int>
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

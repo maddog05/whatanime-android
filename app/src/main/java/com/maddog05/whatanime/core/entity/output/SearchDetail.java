@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.core.entity;
+package com.maddog05.whatanime.core.entity.output;
 
 import android.os.Parcel;
 import android.os.Parcelable;

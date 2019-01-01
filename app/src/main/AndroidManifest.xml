@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.maddog05.whatanime">
     <!-- DANGEROUS PERMISSIONS -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,11 +13,13 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <!-- PROVIDERS -->
         <provider
@@ -31,27 +34,14 @@
 
         <!-- ACTIVITIES -->
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
             android:name=".ui.activity.VideoPreviewActivity"
             android:theme="@style/VideoPreviewTheme" />
-        <activity android:name=".ui.activity.InformationActivity" />
         <activity
             android:name=".ui.activity.VideoSelectActivity"
             android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="c3f693a27e7ad49847e5c8ab8ed925295971b9bf" />
-
+        <activity
+            android:name=".ui.activity.InformationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait">
@@ -66,22 +56,6 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.activity.HomeActivity"
-            android:label="@string/title_share_receiver"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.SEND" />-->
-            <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--<data android:mimeType="image/*" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
-            android:name=".ui.activity.SearchResultActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:screenOrientation="portrait"

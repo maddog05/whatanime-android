@@ -1,4 +1,4 @@
-package com.maddog05.whatanime.core.entity
+package com.maddog05.whatanime.core.entity.output
 
 class OutputGetQuota {
     var searchQuota: Int = 0

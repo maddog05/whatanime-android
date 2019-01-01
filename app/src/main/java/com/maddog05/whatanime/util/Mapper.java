@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.text.format.DateFormat;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,50 +17,20 @@ import com.maddog05.maddogutilities.number.Numbers;
 import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.ChangelogItem;
-import com.maddog05.whatanime.core.entity.OutputGetQuota;
-import com.maddog05.whatanime.core.entity.ResponseEntity;
-import com.maddog05.whatanime.core.entity.SearchDetail;
+import com.maddog05.whatanime.core.entity.output.OutputGetQuota;
+import com.maddog05.whatanime.core.entity.output.SearchDetail;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /*
  * Created by andreetorres on 24/09/17.
  */
 
 public class Mapper {
-
-    public static String parseTimelineDate(long date) {
-        String response;
-        Date _date = new Date(date);
-        Locale locale = Locale.getDefault();
-        response = SimpleDateFormat.getDateInstance(
-                SimpleDateFormat.LONG, locale)
-                .format(_date).toUpperCase();
-        return response;
-    }
-
-    public static String parseTimelineHour(Context context, long date) {
-        boolean is24Hour = DateFormat.is24HourFormat(context);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(date);
-        int _hour = calendar.get(is24Hour ? Calendar.HOUR_OF_DAY : Calendar.HOUR);
-        if (!is24Hour) {
-            if (_hour == 0)
-                _hour = 12;
-        }
-        String hour = Numbers.formatIntegerTwoNumbers(_hour);
-        String minute = Numbers.formatIntegerTwoNumbers(calendar.get(Calendar.MINUTE));
-        String amPm = !is24Hour ? (calendar.get(Calendar.AM_PM) == Calendar.AM ? " AM" : " PM") : "";
-        return hour + ":" + minute + amPm;
-    }
 
     public static String parseLocalVideoPath(Context context, Uri uri) {
         String[] projection = {MediaStore.Video.Media.DATA};
@@ -161,17 +130,6 @@ public class Mapper {
         }
     }
 
-    public static String getVideoUrl(ResponseEntity responseEntity) {
-        String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
-        response += _encode(responseEntity.getSeason(), encodeFormat) + "&anime=";
-        response += _encode(responseEntity.getAnime(), encodeFormat) + "&file=";
-        response += _encode(responseEntity.getFileName(), encodeFormat) + "&t=";
-        response += _encode(String.valueOf(responseEntity.getAtTime()), encodeFormat) + "&token=";
-        response += _encode(responseEntity.getTokenThumb(), encodeFormat);
-        return response;
-    }
-
     public static String getVideoUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
         String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
@@ -180,17 +138,6 @@ public class Mapper {
         response += _encode(doc.fileName, encodeFormat) + "&t=";
         response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
         response += _encode(doc.tokenThumb, encodeFormat);
-        return response;
-    }
-
-    public static String getImageUrl(ResponseEntity responseEntity) {
-        String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
-        response += _encode(responseEntity.getSeason(), encodeFormat) + "&anime=";
-        response += _encode(responseEntity.getAnime(), encodeFormat) + "&file=";
-        response += _encode(responseEntity.getFileName(), encodeFormat) + "&t=";
-        response += _encode(String.valueOf(responseEntity.getAtTime()), encodeFormat) + "&token=";
-        response += _encode(responseEntity.getTokenThumb(), encodeFormat);
         return response;
     }
 
@@ -280,24 +227,6 @@ public class Mapper {
         }
 
         return searchDetail;
-    }
-
-    public static List<ResponseEntity> parseResponseEntity(List<SearchDetail.Doc> docs) {
-        List<ResponseEntity> responses = new ArrayList<>();
-        for (int i = 0; i < docs.size(); i++) {
-            SearchDetail.Doc doc = docs.get(i);
-            ResponseEntity response = new ResponseEntity();
-            response.setName(doc.romanjiTitle);
-            response.setEpisode(doc.episode);
-            response.setSimilarity(doc.similarity);
-            response.setAtTime(doc.atTime);
-            response.setSeason(doc.season);
-            response.setAnime(doc.anime);
-            response.setFileName(doc.fileName);
-            response.setTokenThumb(doc.tokenThumb);
-            responses.add(response);
-        }
-        return responses;
     }
 
     public static List<ChangelogItem> parseChangelog(JsonArray json) {

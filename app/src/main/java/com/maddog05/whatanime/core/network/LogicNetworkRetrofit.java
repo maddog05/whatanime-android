@@ -9,8 +9,8 @@ import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.maddogutilities.logger.Logger2;
 import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.core.entity.OutputGetQuota;
-import com.maddog05.whatanime.core.entity.SearchDetail;
+import com.maddog05.whatanime.core.entity.output.OutputGetQuota;
+import com.maddog05.whatanime.core.entity.output.SearchDetail;
 import com.maddog05.whatanime.util.C;
 import com.maddog05.whatanime.util.Mapper;
 

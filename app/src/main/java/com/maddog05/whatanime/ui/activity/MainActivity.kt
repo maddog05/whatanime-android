@@ -20,7 +20,7 @@ import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.maddogutilities.image.Images
 import com.maddog05.maddogutilities.string.Strings
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.entity.SearchDetail
+import com.maddog05.whatanime.core.entity.output.SearchDetail
 import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.core.mvp.presenter.MainPresenter
 import com.maddog05.whatanime.core.mvp.view.MainView

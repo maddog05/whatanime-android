@@ -1,7 +1,5 @@
 package com.maddog05.whatanime.ui.tor;
 
-import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,12 +8,8 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import com.maddog05.maddogutilities.android.AndroidVersions;
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.core.entity.SearchDetail;
-import com.maddog05.whatanime.ui.activity.HomeActivity;
+import com.maddog05.whatanime.core.entity.output.SearchDetail;
 import com.maddog05.whatanime.ui.activity.InformationActivity;
 import com.maddog05.whatanime.ui.activity.VideoPreviewActivity;
 import com.maddog05.whatanime.ui.activity.VideoSelectActivity;
@@ -27,30 +21,6 @@ import com.maddog05.whatanime.util.C;
  */
 
 public class Navigator {
-    @SuppressLint("NewApi")
-    public static void goToMain(AppCompatActivity activity, View view) {
-        Intent intent = new Intent(activity, HomeActivity.class);
-        if (AndroidVersions.isMarshmallow()) {
-            ActivityOptions activityOptions = ActivityOptions.makeClipRevealAnimation(view,
-                    0,
-                    0,
-                    view.getMeasuredWidth(),
-                    view.getMeasuredHeight());
-            activity.startActivity(intent, activityOptions.toBundle());
-            activity.finishAffinity();
-
-        } else {
-            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeClipRevealAnimation(view,
-                    0,
-                    0,
-                    view.getMeasuredWidth(),
-                    view.getMeasuredHeight());
-
-            ActivityCompat.startActivity(activity, intent, activityOptionsCompat.toBundle());
-            ActivityCompat.finishAffinity(activity);
-        }
-    }
-
     public static void goToPreviewVideo(AppCompatActivity activity, String url, SearchDetail.Doc doc) {
         ActivityOptionsCompat aoc;
         aoc = ActivityOptionsCompat.makeBasic();

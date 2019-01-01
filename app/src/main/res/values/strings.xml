@@ -1,30 +1,20 @@
 <resources>
     <string name="app_name">WhatAnime</string>
-    <string name="indicator_permissions_needed">This app need access to device storage to work</string>
-    <string name="action_request_permissions">Request permission</string>
     <string name="error_permissions_denied">Permission denied</string>
     <string name="error_image_recovered_from_storage">Error in recovering image from storage</string>
-    <string name="error_photo_required">A photo is required to search on WhatAnime</string>
     <string name="indicator_searching_anime">Searching anime…</string>
-    <string name="indicator_encoding_image">Encoding image…</string>
     <string name="error_service_unknown">Error unknown in service</string>
     <string name="error_service_response_or_body_null">Response or entity body is null</string>
     <string name="indicator_choose_gallery_app">Choose a gallery app</string>
-    <string name="title_search_result">Search results</string>
     <string name="action_close">Close</string>
     <string name="tag_episode_number">Episode</string>
     <string name="tag_no_episode_number">Anime</string>
     <string name="error_encoding_image">Error in encoding image</string>
-    <string name="main_drawer_open">MainDrawerOpen</string>
-    <string name="main_drawer_close">MainDrawerClose</string>
-    <string name="menu_tutorial">Tutorial</string>
     <string name="menu_information">Information</string>
     <string name="action_share">Share</string>
     <string name="share_founded_with">was founded by</string>
     <string name="error_service_quota_all_used">Your quota remaining is 0. Seconds to have new quota:</string>
     <string name="information_app_description">A modern and easy to use application to search an anime or search the episode with only an image of the scene</string>
-    <string name="information_app_developer">maddog05 (App developer)</string>
-    <string name="information_api_developer">soruly (whatanime.ga API developer)</string>
     <string name="information_app_privacy_policy">\nWhatAnime don\'t collect personal information such as your name or email. This app can store some preference setting to the app usage.This settings don\'t be transferred outside of your device.</string>
     <string name="title_privacy_policy">Privacy policy</string>
     <string name="information_app_permission">\nWhatAnime use the following permission:
@@ -33,15 +23,7 @@
         \n\n- WAKE_LOCK to keep the screen on while searching operation is working.</string>
     <string name="indicator_choose_browser">Choose browser</string>
     <string name="error_internet_connection">Internet connection not available</string>
-    <string name="error_no_results_founded">No results founded</string>
     <string name="error_service_not_initialized">Service connection not initialized</string>
-    <string name="menu_search_filter">Search filters</string>
-    <string name="action_apply">Apply</string>
-    <string name="error_range_year">Year not allowed in range</string>
-    <string name="filter_search_none">No filter</string>
-    <string name="filter_search_year">By year</string>
-    <string name="filter_input_year">1970 - Present</string>
-    <string name="success_filter_applied">Filter applied</string>
     <string name="error_video_recovered_from_storage">Error in recovering video from storage</string>
     <string name="title_select_video_frame">Select a frame</string>
     <string name="error_video_not_loaded">Video not ready</string>
@@ -51,15 +33,9 @@
     <string name="action_ok">OK</string>
     <string name="menu_changelog">Changelog</string>
     <string name="error_url_invalid">Invalid URL</string>
-    <string name="indicator_loading_image">Loading image…</string>
-    <string name="action_expand_results">More</string>
-    <string name="action_retry">Retry</string>
     <string name="title_select_source">Select a source</string>
-    <string name="title_share_receiver">Search in WhatAnime</string>
     <string name="menu_settings">Settings</string>
     <string name="title_menu_general">General</string>
-    <string name="menu_clear_search_history">Clear search results</string>
-    <string name="setting_description_clear_search">Clear all search results from device</string>
     <string name="setting_description_changelog">Check new features, changes and bug fixes</string>
     <string name="setting_label_app_version">App version</string>
     <string name="setting_label_terms">Terms and conditions</string>
@@ -73,12 +49,7 @@
     <string name="setting_description_project_github">Project website</string>
     <string name="setting_label_project_store">Google Play</string>
     <string name="setting_description_project_store">Open store link</string>
-    <string name="question_clear_history">Do you want to delete your search results?</string>
-    <string name="input_no_items">Your search history is empty. Start one</string>
-    <string name="input_share_text">Name and episode</string>
-    <string name="input_share_image">Image with name and episode</string>
 
-    <string name="setting_label_general_allow_h_content">Allow H content</string>
     <string name="indicator_tutorial">Select an image from your gallery and search your anime</string>
     <string name="input_search_quota">Search quota: %s</string>
     <string name="input_search_per_minute">Searchs per minute: %s</string>
@@ -90,8 +61,4 @@
     <string name="setting_description_report">Report issue in WhatAnime\'s GitHub</string>
     <string name="input_h_content_accept">I declare that I am of legal age to view this type of content and will not respond to the developer about my actions on WhatAnime</string>
     <string name="indicator_h_content">By default, the H-content display option is disabled. These can appear in the search results and are filtering to not be visualized for you.</string>
-    <string-array name="settings_labels_allow_h_content">
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
 </resources>

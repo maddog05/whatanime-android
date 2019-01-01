@@ -2,7 +2,7 @@ package com.maddog05.whatanime.core.mvp.view
 
 import android.content.Context
 import android.graphics.Bitmap
-import com.maddog05.whatanime.core.entity.SearchDetail
+import com.maddog05.whatanime.core.entity.output.SearchDetail
 
 interface MainView {
     fun mvpContext(): Context

@@ -9,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.maddog05.maddogutilities.image.ImageLoader
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.Logic
-import com.maddog05.whatanime.core.entity.SearchDetail
+import com.maddog05.whatanime.core.entity.output.SearchDetail
+import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.util.Mapper
 
 class AdapterMain(val context: Context, val docs: MutableList<SearchDetail.Doc>, val listener: OnDocClickListener) : RecyclerView.Adapter<AdapterMain.ASRVH>() {
@@ -29,7 +28,7 @@ class AdapterMain(val context: Context, val docs: MutableList<SearchDetail.Doc>,
         holder.episodeTv.text = Mapper.parseEpisodeNumber(context, doc.episode)
         holder.similarityTv.text = Mapper.parsePercentageSimilarity(doc.similarity)
         holder.timeTv.text = Mapper.parseSecondToHourTimeSeconds(doc.atTime)
-        val imageLoader: ImageLoader = Logic.imageLoader(context)
+        val imageLoader: GlideLoader = GlideLoader.create()
         imageLoader.with(context)
                 .placeholder(R.drawable.ic_photo)
                 .load(Mapper.getImageUrl(doc))

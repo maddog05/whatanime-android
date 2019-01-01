@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.Logic
 import com.maddog05.whatanime.ui.fragment.SettingsFragment
 import com.maddog05.whatanime.util.C
 
@@ -24,10 +23,9 @@ class SettingsActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container_settings,
-                SettingsFragment.newInstance(Logic.get(this),
-                        Callback { modifiedValue ->
-                            modifiedSettings.add(modifiedValue)
-                        }))
+                SettingsFragment.newInstance(Callback { modifiedValue ->
+                    modifiedSettings.add(modifiedValue)
+                }))
         transaction.commit()
     }
 

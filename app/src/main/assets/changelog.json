@@ -3,6 +3,27 @@
   "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.0.0",
+      "changes": [
+        {
+          "type": "new",
+          "description": "H-Content filter in settings"
+        },
+        {
+          "type": "new",
+          "description": "Option to report issue on GitHub, in settings option"
+        },
+        {
+          "type": "update",
+          "description": "ALL: libraries, compiler and code"
+        },
+        {
+          "type": "enhance",
+          "description": "Cleanup code and unused resources"
+        }
+      ]
+    },
+    {
       "name": "2.0.3",
       "changes": [
         {

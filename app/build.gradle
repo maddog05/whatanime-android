@@ -10,8 +10,8 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 14
-        versionName "3.0.0"
+        versionCode 15
+        versionName "3.0.1"
         vectorDrawables.useSupportLibrary = true
     }
 

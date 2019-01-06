@@ -3,6 +3,15 @@
   "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.0.1",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "Url option for choose image"
+        }
+      ]
+    },
+    {
       "name": "3.0.0",
       "changes": [
         {

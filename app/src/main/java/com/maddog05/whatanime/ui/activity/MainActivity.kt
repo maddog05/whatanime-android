@@ -202,6 +202,7 @@ class MainActivity : AppCompatActivity(), MainView {
             } else
                 showErrorGeneric(getString(R.string.error_url_invalid))
         })
+        dialog.show()
     }
 
     private fun sourceVideo() {

@@ -42,7 +42,7 @@ ext{
     android_support_library='28.0.0'
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //Support library
     implementation "com.android.support:appcompat-v7:$android_support_library"
     implementation "com.android.support:preference-v7:$android_support_library"

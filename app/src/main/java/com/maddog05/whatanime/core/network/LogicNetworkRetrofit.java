@@ -94,7 +94,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
         data.addProperty("image", fixBase64Input + encodedImage);
         if (services != null) {
             //, filter
-            services.search(TOKEN, data).enqueue(new retrofit2.Callback<JsonObject>() {
+            services.search(null, data).enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "searchWithPhoto: onResponse: httpCode = " + response.code());
@@ -144,7 +144,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
     public void getQuota(Context context, Callback<Pair<String, OutputGetQuota>> callback) {
         logStart("getQuota");
         if (services != null) {
-            services.getQuota(TOKEN).enqueue(new retrofit2.Callback<JsonObject>() {
+            services.getQuota(null).enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "getQuota: onResponse: httpCode = " + response.code());

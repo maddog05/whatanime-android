@@ -1,12 +1,12 @@
 package com.maddog05.whatanime.core.mvp.presenter
 
 import com.maddog05.maddogutilities.android.Checkers
-import com.maddog05.maddogutilities.image.ImageEncoder
 import com.maddog05.whatanime.BuildConfig
 import com.maddog05.whatanime.core.data.LogicPreferenceSharedPref
 import com.maddog05.whatanime.core.entity.output.SearchDetail
 import com.maddog05.whatanime.core.mvp.view.MainView
 import com.maddog05.whatanime.core.network.LogicNetworkRetrofit
+import com.maddog05.whatanime.util.ImageEncoder
 
 class MainPresenter(private val view: MainView) {
 
@@ -33,6 +33,26 @@ class MainPresenter(private val view: MainView) {
             val bitmap = view.getInputBitmap()
             if (bitmap != null) {
                 view.showLoading(true)
+//                val baos = ByteArrayOutputStream()
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                val imageBytes = baos.toByteArray()
+//                val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+//                if (imageString!!.isNotEmpty()) {
+//                    network.searchWithPhoto(view.mvpContext(), imageString, "") { pair ->
+//                        view.showLoading(false)
+//                        if (pair.first!!.isEmpty()) {
+//                            docs.clear()
+//                            docs.addAll(filterHContent(pair.second!!.docs))
+//                            view.showIndicatorSearchResults(docs.isEmpty())
+//                            view.drawSearchResults(docs)
+//                            getQuota()
+//                        } else
+//                            view.showErrorServer(pair.first!!)
+//                    }
+//                } else {
+//                    view.showLoading(false)
+//                    view.showErrorImageEmpty()
+//                }
                 ImageEncoder.with(bitmap)
                         .callback { encoded ->
                             if (encoded!!.isNotEmpty()) {

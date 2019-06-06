@@ -221,7 +221,7 @@ public class Mapper {
             doc.tokenThumb = elementString(_doc.get("tokenthumb"), C.EMPTY);
 
             doc.myAnimeListId = elementInt(_doc.get("mal_id"), C.INTEGER_NONE);
-            doc.isHentai = _doc.get("is_adult").getAsBoolean();
+            doc.isHentai = elementBoolean(_doc.get("is_adult"), false);
 
             searchDetail.docs.add(doc);
         }
@@ -256,6 +256,13 @@ public class Mapper {
     private static String elementString(JsonElement element, String defaultValue) {
         if (element != null && !element.isJsonNull())
             return element.getAsString();
+        else
+            return defaultValue;
+    }
+
+    private static boolean elementBoolean(JsonElement element, boolean defaultValue) {
+        if (element != null && !element.isJsonNull())
+            return element.getAsBoolean();
         else
             return defaultValue;
     }

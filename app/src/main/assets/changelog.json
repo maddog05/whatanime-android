@@ -3,6 +3,27 @@
   "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.0.3",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "image process in onActivityResult when select from gallery"
+        },
+        {
+          "type": "fix",
+          "description": "is_adult value from search result response"
+        },
+        {
+          "type": "update",
+          "description": "compiler, Kotlin and SOC architecture"
+        },
+        {
+          "type": "enhance",
+          "description": "compile time (Only for debug)"
+        }
+      ]
+    },
+    {
       "name": "3.0.2",
       "changes": [
         {

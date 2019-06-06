@@ -29,10 +29,12 @@ import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
 import com.maddog05.whatanime.ui.dialog.QuotaInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
+import com.maddog05.whatanime.util.ImageEncoder
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main_two.*
 import ru.whalemare.sheetmenu.SheetMenu
+import java.io.File
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -99,12 +101,13 @@ class MainActivity : AppCompatActivity(), MainView {
         when (requestCode) {
             REQUEST_PHOTO_GALLERY -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    val pair = Images.getOutputPhotoGalleryCompressed(this, data, 512)
-                    val bitmap = pair.bitmap
-                    if (bitmap != null)
-                        processBitmap(bitmap)
-                    else
-                        showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+                    if (data.data != null) {
+                        val bitmap = ImageEncoder.getBitmapCompressed(this, data.data!!, 512)
+                        if (bitmap != null)
+                            processBitmap(bitmap)
+                        else
+                            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+                    }
                 } else {
                     showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
                 }

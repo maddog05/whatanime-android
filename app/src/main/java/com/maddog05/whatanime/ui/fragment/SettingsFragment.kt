@@ -1,8 +1,8 @@
 package com.maddog05.whatanime.ui.fragment
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceFragmentCompat
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.BuildConfig
 import com.maddog05.whatanime.R

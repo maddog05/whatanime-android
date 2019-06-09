@@ -1,6 +1,7 @@
 package com.maddog05.whatanime.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -8,16 +9,18 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.PowerManager
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.maddog05.maddogutilities.android.Permissions
 import com.maddog05.maddogutilities.callback.Callback
-import com.maddog05.maddogutilities.image.Images
 import com.maddog05.maddogutilities.string.Strings
 import com.maddog05.whatanime.R
 import com.maddog05.whatanime.core.entity.output.SearchDetail
@@ -28,13 +31,14 @@ import com.maddog05.whatanime.ui.adapter.AdapterMain
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
 import com.maddog05.whatanime.ui.dialog.QuotaInfoDialog
+import com.maddog05.whatanime.ui.dialog.SearchResultInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
+import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.ImageEncoder
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main_two.*
 import ru.whalemare.sheetmenu.SheetMenu
-import java.io.File
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -54,7 +58,8 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main_two)
         presenter = MainPresenter(this)
         setSupportActionBar(toolbar)
-        rv_main_results.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv_main_results.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rv_main_results.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         iv_main_photo.setOnClickListener {
             if (!isSearchRunning)
                 actionSelectImage()
@@ -172,7 +177,6 @@ class MainActivity : AppCompatActivity(), MainView {
         SheetMenu().apply {
             titleId = R.string.title_select_source
             menu = R.menu.menu_home_search_options
-
             click = MenuItem.OnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_home_image -> sourceImage()
@@ -228,10 +232,37 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun drawSearchResults(results: MutableList<SearchDetail.Doc>) {
         rv_main_results.adapter = AdapterMain(applicationContext, results, object : AdapterMain.OnDocClickListener {
             override fun onDocClicked(doc: SearchDetail.Doc) {
-                val url = Mapper.getVideoUrl(doc)
-                Navigator.goToPreviewVideo(this@MainActivity, url, doc)
+                showDocDetail(doc)
             }
         })
+    }
+
+    private fun showDocDetail(doc: SearchDetail.Doc) {
+        SearchResultInfoDialog()
+                .withDoc(doc)
+                .withListener(object : SearchResultInfoDialog.OnSearchResultOptionListener {
+                    override fun OnShareText() {
+                        val nameAndEpisodeText = Mapper.parseEpisodeNumber(this@MainActivity, doc.episode)
+                        val title = if (doc.romanjiTitle != null && doc.romanjiTitle.isNotEmpty()) doc.romanjiTitle else doc.anime
+                        val text = (title
+                                + C.SPACE
+                                + nameAndEpisodeText
+                                + C.SPACE
+                                + getString(R.string.share_founded_with)
+                                + C.SPACE
+                                + getString(R.string.app_name))
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "text/plain"
+                        intent.putExtra(Intent.EXTRA_TEXT, text)
+                        startActivity(Intent.createChooser(intent, getString(R.string.action_share)))
+                    }
+
+                    override fun OnShowSample() {
+                        val url = Mapper.getVideoUrl(doc)
+                        Navigator.goToPreviewVideo(this@MainActivity, url, doc)
+                    }
+                })
+                .show(supportFragmentManager, "docDetail")
     }
 
     override fun getInputBitmap(): Bitmap? {
@@ -268,12 +299,14 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private var wakeLock: PowerManager.WakeLock? = null
+    private var snackbar: Snackbar? = null
 
+    @SuppressLint("WakelockTimeout")
     override fun showLoading(wantVisible: Boolean) {
         isSearchRunning = wantVisible
-        layout_main_loading.visibility = if (wantVisible) View.VISIBLE else View.GONE
         if (wantVisible) {
-            fab_main_search.hide()
+            snackbar = Snackbar.make(fab_main_search, R.string.indicator_searching_anime, Snackbar.LENGTH_INDEFINITE)
+            snackbar?.show()
             wakeLock =
                     (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
                         newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WhatAnime::MainWakeLock").apply {
@@ -281,9 +314,10 @@ class MainActivity : AppCompatActivity(), MainView {
                         }
                     }
         } else {
+            snackbar?.dismiss()
+            snackbar = null
             if (wakeLock != null && wakeLock!!.isHeld)
                 wakeLock?.release()
-            fab_main_search.show()
         }
     }
 }

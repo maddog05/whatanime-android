@@ -2,19 +2,19 @@ package com.maddog05.whatanime.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatCheckBox
-import android.support.v7.widget.AppCompatImageButton
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatImageButton
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.maddog05.whatanime.R
 
-class HContentInfoDialog : DialogFragment() {
+class HContentInfoDialog : androidx.fragment.app.DialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(activity: AppCompatActivity, listener: OnAcceptedListener): HContentInfoDialog {
@@ -42,7 +42,7 @@ class HContentInfoDialog : DialogFragment() {
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun show(manager: FragmentManager?, tag: String?) {
+    override fun show(manager: androidx.fragment.app.FragmentManager?, tag: String?) {
         try {
             val ft = manager?.beginTransaction()
             ft?.add(this, tag)

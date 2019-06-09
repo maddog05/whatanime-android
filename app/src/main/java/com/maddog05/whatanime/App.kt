@@ -1,7 +1,7 @@
 package com.maddog05.whatanime
 
 import android.app.Application
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import com.maddog05.maddogutilities.logger.Logger2
 
 /*

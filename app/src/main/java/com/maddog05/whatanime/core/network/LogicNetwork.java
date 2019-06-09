@@ -1,7 +1,7 @@
 package com.maddog05.whatanime.core.network;
 
 import android.content.Context;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import com.maddog05.maddogutilities.callback.Callback;
 import com.maddog05.whatanime.core.entity.output.OutputGetQuota;

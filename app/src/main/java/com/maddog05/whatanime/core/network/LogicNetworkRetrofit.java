@@ -2,7 +2,7 @@ package com.maddog05.whatanime.core.network;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import com.google.gson.JsonObject;
 import com.maddog05.maddogutilities.callback.Callback;

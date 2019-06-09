@@ -4,45 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_close_changelog"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:tint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_close" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title_changelog"
         style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_close_changelog"
-        android:layout_marginBottom="@dimen/space_between_views"
-        android:layout_marginEnd="@dimen/activity_margin"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_alignTop="@+id/btn_close_changelog"
+        android:layout_alignBottom="@+id/btn_close_changelog"
         android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_toStartOf="@+id/btn_close_changelog"
+        android:layout_toLeftOf="@+id/btn_close_changelog"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:maxLines="2"
         android:text="@string/app_name" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_description_changelog"
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title_changelog"
-        android:layout_marginBottom="@dimen/space_between_views"
-        android:layout_marginEnd="@dimen/activity_margin"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
         android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/space_between_views"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/space_between_views"
         android:text="@string/app_name" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_changes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

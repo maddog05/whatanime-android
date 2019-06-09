@@ -1,7 +1,24 @@
 {
   "title": "Changelog",
-  "description": "You can check the changelog any time from the main menu\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in Github, because I need information to check and fix it",
+  "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it",
   "versions": [
+    {
+      "name": "3.1.0",
+      "changes": [
+        {
+          "type": "new",
+          "description": "show detail of search result, with options to watch sample or share the name and episode"
+        },
+        {
+          "type": "update",
+          "description": "migrated to androidx"
+        },
+        {
+          "type": "enhance",
+          "description": "support for Android Q"
+        }
+      ]
+    },
     {
       "name": "3.0.3",
       "changes": [

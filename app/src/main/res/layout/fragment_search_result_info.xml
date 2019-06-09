@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_search_result_info_photo"
+            android:layout_width="match_parent"
+            android:layout_height="196dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/shadow_top" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_search_result_info_close"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/ic_close"
+            app:tint="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_result_info_title"
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_search_result_info_photo"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/space_between_views"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textIsSelectable="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_search_result_info_episode"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_search_result_info_title"
+            android:layout_alignStart="@+id/tv_search_result_info_title"
+            android:layout_alignLeft="@+id/tv_search_result_info_title"
+            android:layout_alignEnd="@+id/tv_search_result_info_title"
+            android:layout_alignRight="@+id/tv_search_result_info_title"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textIsSelectable="true" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_search_result_info_video"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_search_result_info_episode"
+            android:layout_alignStart="@+id/tv_search_result_info_title"
+            android:layout_alignLeft="@+id/tv_search_result_info_title"
+            android:layout_marginTop="@dimen/space_between_views"
+            android:text="@string/action_watch_video_sample"
+            app:cornerRadius="8dp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_search_result_info_share"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btn_search_result_info_video"
+            android:layout_alignEnd="@+id/tv_search_result_info_title"
+            android:layout_alignRight="@+id/tv_search_result_info_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_share" />
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

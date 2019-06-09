@@ -2,13 +2,13 @@ package com.maddog05.whatanime.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatImageButton
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,14 +24,14 @@ import java.nio.charset.Charset
 /*
  * Created by andreetorres on 26/01/18.
  */
-class ChangelogDialog : DialogFragment() {
+class ChangelogDialog : androidx.fragment.app.DialogFragment() {
 
     private lateinit var activity: AppCompatActivity
 
     private lateinit var closeBtn: AppCompatImageButton
     private lateinit var titleTv: AppCompatTextView
     private lateinit var descriptionTv: AppCompatTextView
-    private lateinit var changesRv: RecyclerView
+    private lateinit var changesRv: androidx.recyclerview.widget.RecyclerView
 
     companion object {
         @JvmStatic
@@ -53,7 +53,7 @@ class ChangelogDialog : DialogFragment() {
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun show(manager: FragmentManager?, tag: String?) {
+    override fun show(manager: androidx.fragment.app.FragmentManager?, tag: String?) {
         try {
             val ft = manager?.beginTransaction()
             ft?.add(this, tag)
@@ -67,7 +67,7 @@ class ChangelogDialog : DialogFragment() {
         titleTv = root.findViewById(R.id.tv_title_changelog)
         descriptionTv = root.findViewById(R.id.tv_description_changelog)
         changesRv = root.findViewById(R.id.rv_changes)
-        changesRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        changesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
         closeBtn = root.findViewById(R.id.btn_close_changelog)
         closeBtn.setOnClickListener { dismiss() }
 

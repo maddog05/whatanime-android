@@ -2,16 +2,15 @@ package com.maddog05.whatanime.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatCheckBox
-import androidx.appcompat.widget.AppCompatImageButton
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.fragment.app.FragmentManager
 import com.maddog05.whatanime.R
 
 class HContentInfoDialog : androidx.fragment.app.DialogFragment() {
@@ -39,14 +38,14 @@ class HContentInfoDialog : androidx.fragment.app.DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun show(manager: androidx.fragment.app.FragmentManager?, tag: String?) {
+    override fun show(manager: FragmentManager, tag: String?) {
         try {
-            val ft = manager?.beginTransaction()
-            ft?.add(this, tag)
-            ft?.commitAllowingStateLoss()
+            val ft = manager.beginTransaction()
+            ft.add(this, tag)
+            ft.commitAllowingStateLoss()
         } catch (ignored: IllegalStateException) {
         }
     }

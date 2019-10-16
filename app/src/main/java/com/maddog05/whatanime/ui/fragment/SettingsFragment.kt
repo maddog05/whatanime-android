@@ -2,6 +2,7 @@ package com.maddog05.whatanime.ui.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.whatanime.BuildConfig
@@ -25,8 +26,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings_app, rootKey)
-        val hContentPreference = preferenceManager.findPreference("setting_general_enable_h_content")
-        hContentPreference.setOnPreferenceClickListener {
+        val hContentPreference: Preference? = preferenceManager.findPreference("setting_general_enable_h_content")
+        hContentPreference?.setOnPreferenceClickListener {
             if (activity != null) {
                 val logicPreference = LogicPreferenceSharedPref.newInstance(activity)
                 HContentInfoDialog.newInstance(activity as AppCompatActivity, object : HContentInfoDialog.OnAcceptedListener {
@@ -39,43 +40,43 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
             true
         }
-        val changelogPreference = preferenceManager.findPreference("setting_general_changelog")
-        changelogPreference.setOnPreferenceClickListener {
+        val changelogPreference: Preference? = preferenceManager.findPreference("setting_general_changelog")
+        changelogPreference?.setOnPreferenceClickListener {
             ChangelogDialog.newInstance(activity as AppCompatActivity)
                     .showDialog()
             true
         }
-        val reportPreference = preferenceManager.findPreference("setting_general_report_github")
-        reportPreference.setOnPreferenceClickListener {
+        val reportPreference: Preference? = preferenceManager.findPreference("setting_general_report_github")
+        reportPreference?.setOnPreferenceClickListener {
             Navigator.goToWebBrowser(context, getString(R.string.url_github_issues))
             true
         }
-        val appDevPreference = preferenceManager.findPreference("setting_about_developer_app")
-        appDevPreference.setOnPreferenceClickListener {
+        val appDevPreference: Preference? = preferenceManager.findPreference("setting_about_developer_app")
+        appDevPreference?.setOnPreferenceClickListener {
             Navigator.goToWebBrowser(context, getString(R.string.url_app_dev))
             true
         }
-        val appAPIPreference = preferenceManager.findPreference("setting_about_developer_api")
-        appAPIPreference.setOnPreferenceClickListener {
+        val appAPIPreference: Preference? = preferenceManager.findPreference("setting_about_developer_api")
+        appAPIPreference?.setOnPreferenceClickListener {
             Navigator.goToWebBrowser(context, getString(R.string.url_api_dev))
             true
         }
-        val githubPreference = preferenceManager.findPreference("setting_about_github")
-        githubPreference.setOnPreferenceClickListener {
+        val githubPreference: Preference? = preferenceManager.findPreference("setting_about_github")
+        githubPreference?.setOnPreferenceClickListener {
             Navigator.goToWebBrowser(context, getString(R.string.url_github))
             true
         }
-        val storePreference = preferenceManager.findPreference("setting_about_play_store")
-        storePreference.setOnPreferenceClickListener {
+        val storePreference: Preference? = preferenceManager.findPreference("setting_about_play_store")
+        storePreference?.setOnPreferenceClickListener {
             Navigator.goToWebBrowser(context, getString(R.string.url_playstore))
             true
         }
-        val termsPreference = preferenceManager.findPreference("setting_about_terms")
-        termsPreference.setOnPreferenceClickListener {
+        val termsPreference: Preference? = preferenceManager.findPreference("setting_about_terms")
+        termsPreference?.setOnPreferenceClickListener {
             Navigator.goToInformation(context)
             true
         }
-        val appVersionPreference = preferenceManager.findPreference("setting_about_info")
-        appVersionPreference.setSummary(BuildConfig.VERSION_NAME)
+        val appVersionPreference: Preference? = preferenceManager.findPreference("setting_about_info")
+        appVersionPreference?.setSummary(BuildConfig.VERSION_NAME)
     }
 }

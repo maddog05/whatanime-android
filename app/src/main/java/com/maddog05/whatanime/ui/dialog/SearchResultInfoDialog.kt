@@ -72,7 +72,7 @@ class SearchResultInfoDialog : BottomSheetDialogFragment() {
             dismiss()
         }
         titleTv = view.findViewById(R.id.tv_search_result_info_title)
-        titleTv.text = doc.romanjiTitle
+        titleTv.text = if (doc.romanjiTitle != null && doc.romanjiTitle.isNotEmpty()) doc.romanjiTitle else doc.anime
         episodeTv = view.findViewById(R.id.tv_search_result_info_episode)
         episodeTv.text = Mapper.parseEpisodeNumber(context!!, doc.episode)
 

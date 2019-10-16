@@ -3,6 +3,23 @@
   "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.1.1",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "search result item dialog"
+        },
+        {
+          "type": "fix",
+          "description": "process select from gallery to bitmap"
+        },
+        {
+          "type": "update",
+          "description": "compiler and androidx"
+        }
+      ]
+    },
+    {
       "name": "3.1.0",
       "changes": [
         {

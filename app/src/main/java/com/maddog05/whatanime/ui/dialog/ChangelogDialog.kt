@@ -2,7 +2,6 @@ package com.maddog05.whatanime.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
@@ -31,7 +30,7 @@ class ChangelogDialog : androidx.fragment.app.DialogFragment() {
     private lateinit var closeBtn: AppCompatImageButton
     private lateinit var titleTv: AppCompatTextView
     private lateinit var descriptionTv: AppCompatTextView
-    private lateinit var changesRv: androidx.recyclerview.widget.RecyclerView
+    private lateinit var changesRv: RecyclerView
 
     companion object {
         @JvmStatic
@@ -50,14 +49,14 @@ class ChangelogDialog : androidx.fragment.app.DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    override fun show(manager: androidx.fragment.app.FragmentManager?, tag: String?) {
+    override fun show(manager: FragmentManager, tag: String?) {
         try {
-            val ft = manager?.beginTransaction()
-            ft?.add(this, tag)
-            ft?.commitAllowingStateLoss()
+            val ft = manager.beginTransaction()
+            ft.add(this, tag)
+            ft.commitAllowingStateLoss()
         } catch (ignored: IllegalStateException) {
         }
     }
@@ -67,7 +66,7 @@ class ChangelogDialog : androidx.fragment.app.DialogFragment() {
         titleTv = root.findViewById(R.id.tv_title_changelog)
         descriptionTv = root.findViewById(R.id.tv_description_changelog)
         changesRv = root.findViewById(R.id.rv_changes)
-        changesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+        changesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         closeBtn = root.findViewById(R.id.btn_close_changelog)
         closeBtn.setOnClickListener { dismiss() }
 

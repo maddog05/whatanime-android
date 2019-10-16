@@ -25,6 +25,7 @@ import com.maddog05.maddogutilities.string.Strings
 import com.maddog05.whatanime.R
 import com.maddog05.whatanime.core.entity.output.SearchDetail
 import com.maddog05.whatanime.core.image.GlideLoader
+import com.maddog05.whatanime.core.image.KImageUtil
 import com.maddog05.whatanime.core.mvp.presenter.MainPresenter
 import com.maddog05.whatanime.core.mvp.view.MainView
 import com.maddog05.whatanime.ui.adapter.AdapterMain
@@ -34,7 +35,6 @@ import com.maddog05.whatanime.ui.dialog.QuotaInfoDialog
 import com.maddog05.whatanime.ui.dialog.SearchResultInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.C
-import com.maddog05.whatanime.util.ImageEncoder
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main_two.*
@@ -107,7 +107,8 @@ class MainActivity : AppCompatActivity(), MainView {
             REQUEST_PHOTO_GALLERY -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     if (data.data != null) {
-                        val bitmap = ImageEncoder.getBitmapCompressed(this, data.data!!, 512)
+                        //val bitmap = ImageEncoder.getBitmapCompressed(this, data.data!!, 512)
+                        val bitmap = KImageUtil.getExternalImageAsBitmap(this, data.data!!)
                         if (bitmap != null)
                             processBitmap(bitmap)
                         else

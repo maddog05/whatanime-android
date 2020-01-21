@@ -10,7 +10,7 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 19
+        versionCode 20
         versionName "3.1.2"
         ndk.abiFilters 'armeabi-v7a','arm64-v8a'
         vectorDrawables.useSupportLibrary = true

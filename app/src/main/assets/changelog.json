@@ -3,6 +3,27 @@
   "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.1.2",
+      "changes": [
+        {
+          "type": "fix",
+          "description": "FIX image selection in android 10"
+        },
+        {
+          "type": "fix",
+          "description": "NPE in search result dialog"
+        },
+        {
+          "type": "fix",
+          "description": "NPE in parse search result json"
+        },
+        {
+          "type": "update",
+          "description": "compiler"
+        }
+      ]
+    },
+    {
       "name": "3.1.1",
       "changes": [
         {

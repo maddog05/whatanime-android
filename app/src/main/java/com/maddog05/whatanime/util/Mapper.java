@@ -195,7 +195,7 @@ public class Mapper {
         searchDetail.expire = 0;//json.get("expire").getAsInt();
 
         searchDetail.docs = new ArrayList<>();
-        JsonArray arrayDocs = json.get("docs").getAsJsonArray();
+        JsonArray arrayDocs = elementArray(json.get("docs"));
         for (int i = 0; i < arrayDocs.size(); i++) {
             JsonObject _doc = arrayDocs.get(i).getAsJsonObject();
             SearchDetail.Doc doc = new SearchDetail.Doc();
@@ -211,7 +211,7 @@ public class Mapper {
             doc.englishTitle = elementString(_doc.get("title_english"), doc.romanjiTitle);
 
             doc.synonyms = new ArrayList<>();
-            JsonArray arraySynonyms = _doc.get("synonyms").getAsJsonArray();
+            JsonArray arraySynonyms = elementArray(_doc.get("synonyms"));
             for (int j = 0; j < arraySynonyms.size(); j++)
                 doc.synonyms.add(arraySynonyms.get(j).getAsString());
 
@@ -244,6 +244,13 @@ public class Mapper {
             }
         }
         return response;
+    }
+
+    private static JsonArray elementArray(JsonElement element) {
+        if (element != null && !element.isJsonNull() && element.isJsonArray())
+            return element.getAsJsonArray();
+        else
+            return new JsonArray();
     }
 
     private static int elementInt(JsonElement element, int defaultValue) {

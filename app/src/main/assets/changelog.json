@@ -3,19 +3,36 @@
   "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it",
   "versions": [
     {
+      "name": "3.1.3",
+      "changes": [
+        {
+          "type": "new",
+          "description": "dark theme - device support required"
+        },
+        {
+          "type": "fix",
+          "description": "image and video preview from search results"
+        },
+        {
+          "type": "update",
+          "description": "libraries and compiler"
+        }
+      ]
+    },
+    {
       "name": "3.1.2",
       "changes": [
         {
           "type": "fix",
-          "description": "FIX image selection in android 10"
+          "description": "image selection in android 10"
         },
         {
           "type": "fix",
-          "description": "NPE in search result dialog"
+          "description": "in search result dialog"
         },
         {
           "type": "fix",
-          "description": "NPE in parse search result json"
+          "description": "in parse search result json"
         },
         {
           "type": "update",
@@ -114,74 +131,6 @@
         {
           "type": "enhance",
           "description": "Cleanup code and unused resources"
-        }
-      ]
-    },
-    {
-      "name": "2.0.3",
-      "changes": [
-        {
-          "type": "update",
-          "description": "API server url"
-        },
-        {
-          "type": "update",
-          "description": "Kotlin, compiler and libraries"
-        }
-      ]
-    },
-    {
-      "name": "2.0.2",
-      "changes": [
-        {
-          "type": "fix",
-          "description": "error when imageLoader starts with a finishing activity"
-        },
-        {
-          "type": "fix",
-          "description": "Transition animation from splash to main"
-        }
-      ]
-    },
-    {
-      "name": "2.0.1",
-      "changes": [
-        {
-          "type": "new",
-          "description": "Choose share only name or image in search result"
-        },
-        {
-          "type": "enhance",
-          "description": "Clear unnecessary code"
-        },
-        {
-          "type": "fix",
-          "description": "No history indicator still visible when you add your first image request"
-        }
-      ]
-    },
-    {
-      "name": "2.0",
-      "changes": [
-        {
-          "type": "new",
-          "description": "New app usage based in search history"
-        },
-        {
-          "type": "new",
-          "description": "You can share an image from other app to search in WhatAnime"
-        },
-        {
-          "type": "enhance",
-          "description": "Share search result"
-        },
-        {
-          "type": "fix",
-          "description": "Multiple bugs fixed"
-        },
-        {
-          "type": "update",
-          "description": "Libraries and Kotlin compiler"
         }
       ]
     }

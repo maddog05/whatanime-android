@@ -4,19 +4,21 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.PowerManager
-import androidx.core.app.ActivityCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.maddog05.maddogutilities.android.Permissions
@@ -38,7 +40,6 @@ import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main_two.*
-import ru.whalemare.sheetmenu.SheetMenu
 
 class MainActivity : AppCompatActivity(), MainView {
 
@@ -175,18 +176,20 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private fun actionSelectImageExecute() {
-        SheetMenu().apply {
-            titleId = R.string.title_select_source
-            menu = R.menu.menu_home_search_options
-            click = MenuItem.OnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.menu_home_image -> sourceImage()
-                    R.id.menu_home_video -> sourceVideo()
-                    R.id.menu_home_url -> sourceUrl()
-                }
-                true
-            }
-        }.show(this)
+        AlertDialog.Builder(this)
+                .setTitle(R.string.title_select_source)
+                .setItems(R.array.array_main_image_source_options, object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        dialog?.dismiss()
+                        when (which) {
+                            0 -> sourceImage()
+                            1 -> sourceVideo()
+                            2 -> sourceUrl()
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.action_close) { dialog, _ -> dialog.dismiss() }
+                .show()
     }
 
     private fun processBitmap(bitmap: Bitmap?) {

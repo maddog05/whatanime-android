@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,6 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             app:popupTheme="@style/ToolbarPopupStyle"
             app:title="@string/app_name" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -114,13 +116,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_main_tutorial"
-                style="@style/TextAppearance.AppCompat.Medium"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="@string/indicator_tutorial"
-                android:textColor="@android:color/black" />
+                android:text="@string/indicator_tutorial" />
         </RelativeLayout>
     </androidx.percentlayout.widget.PercentRelativeLayout>
 
@@ -135,5 +136,6 @@
         app:fabSize="normal"
         app:layout_anchor="@+id/layout_main_content"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_search" />
+        app:srcCompat="@drawable/ic_search"
+        tools:ignore="ContentDescription" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

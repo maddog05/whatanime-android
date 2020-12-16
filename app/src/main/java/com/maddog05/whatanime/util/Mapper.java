@@ -132,23 +132,41 @@ public class Mapper {
 
     public static String getVideoUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
-        response += _encode(doc.season, encodeFormat) + "&anime=";
-        response += _encode(doc.anime, encodeFormat) + "&file=";
-        response += _encode(doc.fileName, encodeFormat) + "&t=";
+//        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
+//        response += _encode(doc.season, encodeFormat) + "&anime=";
+//        response += _encode(doc.anime, encodeFormat) + "&file=";
+//        response += _encode(doc.fileName, encodeFormat) + "&t=";
+//        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
+//        response += _encode(doc.tokenThumb, encodeFormat);
+
+        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "video/";
+        response += _encode(doc.anilistId.toString(), encodeFormat) + "/";
+        response += _encode(doc.fileName, encodeFormat) + "?t=";
         response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
         response += _encode(doc.tokenThumb, encodeFormat);
+//        response += "&mute";
+
+//        Log.d("#Andree", "video " + response);
+
         return response;
     }
 
     public static String getImageUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
-        response += _encode(doc.season, encodeFormat) + "&anime=";
-        response += _encode(doc.anime, encodeFormat) + "&file=";
+//        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
+//        response += _encode(doc.season, encodeFormat) + "&anime=";
+//        response += _encode(doc.anime, encodeFormat) + "&filename=";
+//        response += _encode(doc.fileName, encodeFormat) + "&t=";
+//        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
+//        response += _encode(doc.tokenThumb, encodeFormat);
+
+        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?anilist_id=";
+        response += _encode(doc.anilistId.toString(), encodeFormat) + "&file=";
         response += _encode(doc.fileName, encodeFormat) + "&t=";
         response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
         response += _encode(doc.tokenThumb, encodeFormat);
+
+//        Log.d("#Andree", "image " + response);
         return response;
     }
 

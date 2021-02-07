@@ -2,6 +2,7 @@ package com.maddog05.whatanime.core.network;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
 import androidx.core.util.Pair;
 
 import com.google.gson.JsonObject;
@@ -47,7 +48,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
     private static final String TAG = "#Retrofit";
 
     private static final String URL = BuildConfig.SERVER_DOMAIN + "api/";
-    private static final String TOKEN = BuildConfig.TOKEN;
+    //    private static final String TOKEN = BuildConfig.TOKEN;
     private static final long TIMEOUT = 60;
 
     private WhatAnimeServices services;
@@ -94,7 +95,7 @@ public class LogicNetworkRetrofit implements LogicNetwork {
         data.addProperty("image", fixBase64Input + encodedImage);
         if (services != null) {
             //, filter
-            services.search(null, data).enqueue(new retrofit2.Callback<JsonObject>() {
+            services.search(data).enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "searchWithPhoto: onResponse: httpCode = " + response.code());
@@ -141,10 +142,62 @@ public class LogicNetworkRetrofit implements LogicNetwork {
     }
 
     @Override
+    public void searchWithUrl(Context context, String url, Callback<Pair<String, SearchDetail>> callback) {
+        logStart("searchWithUrl");
+        Logger2.get().d(TAG, "input-url: " + url);
+        if (services != null) {
+            //, filter
+            services.searchWithUrl(url).enqueue(new retrofit2.Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Logger2.get().d(TAG, "searchWithUrl: onResponse: httpCode = " + response.code());
+                    if (response.body() != null) {
+                        Logger2.get().d(TAG, "searchWithUrl: onResponse: body = " + response.body());
+                        SearchDetail searchDetail = Mapper.parseSearchDetail(response.body());
+                        if (searchDetail.quota > 0) {
+                            callback.done(Pair.create(C.EMPTY, searchDetail));
+                            logSeparator();
+                        } else {
+                            String errorMessage = getString(context, R.string.error_service_quota_all_used)
+                                    + C.SPACE
+                                    + searchDetail.expire;
+                            callback.done(Pair.create(errorMessage, new SearchDetail()));
+                            logSeparator();
+                        }
+                    } else {
+                        String errorMessage = String.valueOf(response.code() + C.SPACE + getString(context, R.string.error_service_response_or_body_null));
+                        Logger2.get().e(TAG, "searchWithUrl: onResponse: " + errorMessage);
+                        callback.done(Pair.create(errorMessage, new SearchDetail()));
+                        logSeparator();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    if (t.getMessage() != null) {
+                        Logger2.get().e(TAG, "searchWithUrl: onFailure: " + t.toString());
+                        callback.done(Pair.create(t.getMessage(), new SearchDetail()));
+                        logSeparator();
+                    } else {
+                        Logger2.get().e(TAG, "searchWithUrl: onFailure: unknown error");
+                        callback.done(Pair.create(getString(context,
+                                R.string.error_service_unknown), new SearchDetail()));
+                        logSeparator();
+                    }
+                }
+            });
+        } else {
+            Logger2.get().e(TAG, "searchWithUrl: services is null");
+            logSeparator();
+            callback.done(Pair.create(getString(context, R.string.error_service_not_initialized), new SearchDetail()));
+        }
+    }
+
+    @Override
     public void getQuota(Context context, Callback<Pair<String, OutputGetQuota>> callback) {
         logStart("getQuota");
         if (services != null) {
-            services.getQuota(null).enqueue(new retrofit2.Callback<JsonObject>() {
+            services.getQuota().enqueue(new retrofit2.Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                     Logger2.get().d(TAG, "getQuota: onResponse: httpCode = " + response.code());

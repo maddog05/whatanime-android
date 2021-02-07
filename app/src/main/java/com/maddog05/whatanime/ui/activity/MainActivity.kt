@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity(), MainView {
                         showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
                 }
             }
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -204,12 +205,13 @@ class MainActivity : AppCompatActivity(), MainView {
         val dialog = InputUrlDialog(this)
         dialog.setCallback(Callback { url ->
             if (Strings.isStringUrl(url)) {
-                val glideLoader = GlideLoader.create()
-                glideLoader.with(this)
-                glideLoader.load(url)
-                glideLoader.loadAsBitmap { bitmap ->
-                    processBitmap(bitmap)
-                }
+                presenter.actionSearchWithUrl(url)
+//                val glideLoader = GlideLoader.create()
+//                glideLoader.with(this)
+//                glideLoader.load(url)
+//                glideLoader.loadAsBitmap { bitmap ->
+//                    processBitmap(bitmap)
+//                }
             } else
                 showErrorGeneric(getString(R.string.error_url_invalid))
         })
@@ -271,10 +273,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun getInputBitmap(): Bitmap? {
         return currentBitmap
-    }
-
-    override fun setSearchQuota(number: Int) {
-        tv_main_search_quota.text = getString(R.string.input_search_quota, number.toString())
     }
 
     override fun setSearchPerMinute(number: Int) {

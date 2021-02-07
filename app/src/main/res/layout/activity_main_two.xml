@@ -69,14 +69,6 @@
                 android:paddingBottom="@dimen/space_between_views">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_main_search_quota"
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textColor="@android:color/white" />
-
-                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_main_search_per_minute"
                     style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="wrap_content"

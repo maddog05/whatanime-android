@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -144,29 +145,28 @@ public class Mapper {
         response += _encode(doc.fileName, encodeFormat) + "?t=";
         response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
         response += _encode(doc.tokenThumb, encodeFormat);
-//        response += "&mute";
+        response += "&mute";
 
-//        Log.d("#Andree", "video " + response);
+        Log.d("#Mapper", "getVideoUrl " + response);
 
         return response;
     }
 
     public static String getImageUrl(SearchDetail.Doc doc) {
         String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-//        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?season=";
-//        response += _encode(doc.season, encodeFormat) + "&anime=";
-//        response += _encode(doc.anime, encodeFormat) + "&filename=";
+        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "image/";
+        response += _encode(doc.anilistId.toString(), encodeFormat) + "/";
+        response += _encode(doc.fileName, encodeFormat) + "?t=";
+        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
+        response += _encode(doc.tokenThumb, encodeFormat);
+
+//        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "thumbnail.php?anilist_id=";
+//        response += _encode(doc.anilistId.toString(), encodeFormat) + "&file=";
 //        response += _encode(doc.fileName, encodeFormat) + "&t=";
 //        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
 //        response += _encode(doc.tokenThumb, encodeFormat);
 
-        String response = BuildConfig.SERVER_DOMAIN + "thumbnail.php?anilist_id=";
-        response += _encode(doc.anilistId.toString(), encodeFormat) + "&file=";
-        response += _encode(doc.fileName, encodeFormat) + "&t=";
-        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
-        response += _encode(doc.tokenThumb, encodeFormat);
-
-//        Log.d("#Andree", "image " + response);
+        Log.d("#Mapper", "getImageUrl " + response);
         return response;
     }
 

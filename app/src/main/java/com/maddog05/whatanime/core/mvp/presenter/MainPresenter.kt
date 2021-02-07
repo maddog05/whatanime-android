@@ -13,7 +13,6 @@ class MainPresenter(private val view: MainView) {
     private val network = LogicNetworkRetrofit.newInstance()
     private val preferences = LogicPreferenceSharedPref.newInstance(view.mvpContext())
     private val docs = mutableListOf<SearchDetail.Doc>()
-    private var searchQuota = 0
     private var searchPerMinute = 0
 
     fun onCreate() {
@@ -59,6 +58,24 @@ class MainPresenter(private val view: MainView) {
             view.showErrorInternet()
     }
 
+    fun actionSearchWithUrl(url: String) {
+        if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
+            view.showLoading(true)
+            network.searchWithUrl(view.mvpContext(), url) { pair ->
+                view.showLoading(false)
+                if (pair.first!!.isEmpty()) {
+                    docs.clear()
+                    docs.addAll(filterHContent(pair.second!!.docs))
+                    view.showIndicatorSearchResults(docs.isEmpty())
+                    view.drawSearchResults(docs)
+                    getQuota()
+                } else
+                    view.showErrorServer(pair.first!!)
+            }
+        } else
+            view.showErrorInternet()
+    }
+
     private fun filterHContent(items: MutableList<SearchDetail.Doc>): MutableList<SearchDetail.Doc> {
         val isHContentEnabled = preferences.hContentEnabled
         if (isHContentEnabled)
@@ -78,14 +95,11 @@ class MainPresenter(private val view: MainView) {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
             network.getQuota(view.mvpContext()) { pair ->
                 if (pair.first!!.isEmpty()) {
-                    searchQuota = pair.second!!.searchQuota
                     searchPerMinute = pair.second!!.searchsPerMinute
-                    view.setSearchQuota(searchQuota)
                     view.setSearchPerMinute(searchPerMinute)
                 }
             }
         } else {
-            view.setSearchQuota(searchQuota)
             view.setSearchPerMinute(searchPerMinute)
         }
     }

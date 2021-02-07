@@ -55,7 +55,7 @@
     <string name="input_search_quota">Cuota de búsqueda: %s</string>
     <string name="input_search_per_minute">Búsquedas por minuto: %s</string>
     <string name="error_image_not_selected">Imagen no seleccionada</string>
-    <string name="indicator_quota_info">Tú tienes una cuota de búsquedas diaria que es renovada en 24 horas. Además, tienes un limite de búsquedas por minuto debido a políticas de uso del API.</string>
+    <string name="indicator_quota_info">Tú tienes un limite de búsquedas por minuto debido a políticas de uso del API.</string>
     <string name="setting_label_enable_h_content">Habilitar contenido H</string>
     <string name="setting_description_enable_h_content">Mostrar contenido H en los resultados de búsqueda</string>
     <string name="setting_label_report">Reportar problema</string>

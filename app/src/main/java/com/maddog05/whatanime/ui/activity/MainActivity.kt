@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity(), MainView {
                         showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
                 }
             }
+            else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -271,10 +272,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun getInputBitmap(): Bitmap? {
         return currentBitmap
-    }
-
-    override fun setSearchQuota(number: Int) {
-        tv_main_search_quota.text = getString(R.string.input_search_quota, number.toString())
     }
 
     override fun setSearchPerMinute(number: Int) {

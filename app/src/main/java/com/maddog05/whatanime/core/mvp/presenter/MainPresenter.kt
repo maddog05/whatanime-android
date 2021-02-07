@@ -13,7 +13,6 @@ class MainPresenter(private val view: MainView) {
     private val network = LogicNetworkRetrofit.newInstance()
     private val preferences = LogicPreferenceSharedPref.newInstance(view.mvpContext())
     private val docs = mutableListOf<SearchDetail.Doc>()
-    private var searchQuota = 0
     private var searchPerMinute = 0
 
     fun onCreate() {
@@ -78,14 +77,11 @@ class MainPresenter(private val view: MainView) {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
             network.getQuota(view.mvpContext()) { pair ->
                 if (pair.first!!.isEmpty()) {
-                    searchQuota = pair.second!!.searchQuota
                     searchPerMinute = pair.second!!.searchsPerMinute
-                    view.setSearchQuota(searchQuota)
                     view.setSearchPerMinute(searchPerMinute)
                 }
             }
         } else {
-            view.setSearchQuota(searchQuota)
             view.setSearchPerMinute(searchPerMinute)
         }
     }

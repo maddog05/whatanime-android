@@ -205,12 +205,13 @@ class MainActivity : AppCompatActivity(), MainView {
         val dialog = InputUrlDialog(this)
         dialog.setCallback(Callback { url ->
             if (Strings.isStringUrl(url)) {
-                val glideLoader = GlideLoader.create()
-                glideLoader.with(this)
-                glideLoader.load(url)
-                glideLoader.loadAsBitmap { bitmap ->
-                    processBitmap(bitmap)
-                }
+                presenter.actionSearchWithUrl(url)
+//                val glideLoader = GlideLoader.create()
+//                glideLoader.with(this)
+//                glideLoader.load(url)
+//                glideLoader.loadAsBitmap { bitmap ->
+//                    processBitmap(bitmap)
+//                }
             } else
                 showErrorGeneric(getString(R.string.error_url_invalid))
         })

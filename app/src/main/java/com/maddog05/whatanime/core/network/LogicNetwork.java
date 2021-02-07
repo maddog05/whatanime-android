@@ -17,6 +17,10 @@ public interface LogicNetwork {
                          String filter,
                          Callback<Pair<String, SearchDetail>> callback);
 
+    void searchWithUrl(Context context,
+                       String url,
+                       Callback<Pair<String, SearchDetail>> callback);
+
     void getQuota(Context context,
                   Callback<Pair<String, OutputGetQuota>> callback);
 }

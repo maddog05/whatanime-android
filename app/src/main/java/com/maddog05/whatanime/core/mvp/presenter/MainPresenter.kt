@@ -58,6 +58,24 @@ class MainPresenter(private val view: MainView) {
             view.showErrorInternet()
     }
 
+    fun actionSearchWithUrl(url: String) {
+        if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
+            view.showLoading(true)
+            network.searchWithUrl(view.mvpContext(), url) { pair ->
+                view.showLoading(false)
+                if (pair.first!!.isEmpty()) {
+                    docs.clear()
+                    docs.addAll(filterHContent(pair.second!!.docs))
+                    view.showIndicatorSearchResults(docs.isEmpty())
+                    view.drawSearchResults(docs)
+                    getQuota()
+                } else
+                    view.showErrorServer(pair.first!!)
+            }
+        } else
+            view.showErrorInternet()
+    }
+
     private fun filterHContent(items: MutableList<SearchDetail.Doc>): MutableList<SearchDetail.Doc> {
         val isHContentEnabled = preferences.hContentEnabled
         if (isHContentEnabled)

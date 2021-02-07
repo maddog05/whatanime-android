@@ -32,7 +32,6 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'TOKEN', WhatAnimeToken
         it.buildConfigField 'String', 'SERVER_DOMAIN', WhatAnimeDomain
         it.buildConfigField 'String', 'SERVER_VIDEO_SAMPLE', WhatAnimeVideoDomain
     }

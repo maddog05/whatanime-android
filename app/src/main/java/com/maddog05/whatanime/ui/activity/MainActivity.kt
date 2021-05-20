@@ -43,14 +43,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
     companion object {
         private const val PERMISSIONS_SELECT_IMAGE = 101
-//        private const val REQUEST_PHOTO_GALLERY = 102
     }
 
     private lateinit var presenter: MainPresenter
     private var currentBitmap: Bitmap? = null
     private var isSearchRunning = false
 
-    val launchSomeActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val requestPhotoActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
             val notNullData = result.data!!
             if (notNullData.data != null) {
@@ -114,25 +113,6 @@ class MainActivity : AppCompatActivity(), MainView {
         } else
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        when (requestCode) {
-//            REQUEST_PHOTO_GALLERY -> {
-//                if (resultCode == Activity.RESULT_OK && data != null) {
-//                    if (data.data != null) {
-//                        val bitmap = KImageUtil.getExternalImageAsBitmap(this, data.data!!)
-//                        if (bitmap != null)
-//                            processBitmap(bitmap)
-//                        else
-//                            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
-//                    }
-//                } else {
-//                    showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
-//                }
-//            }
-//            else -> super.onActivityResult(requestCode, resultCode, data)
-//        }
-//    }
 
     private fun actionCheckSendIntent() {
         val intent = intent
@@ -207,9 +187,7 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     private fun sourceImage() {
-
-        launchSomeActivity.launch(Navigator.getIntentSelectImage(this))
-//        startActivityForResult(Navigator.getIntentSelectImage(this), REQUEST_PHOTO_GALLERY)
+        requestPhotoActivityResult.launch(Navigator.getIntentSelectImage(this))
     }
 
     private fun showErrorGeneric(text: String) {

@@ -12,7 +12,6 @@ import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.output.SearchDetail;
 import com.maddog05.whatanime.ui.activity.InformationActivity;
 import com.maddog05.whatanime.ui.activity.VideoPreviewActivity;
-import com.maddog05.whatanime.ui.activity.VideoSelectActivity;
 import com.maddog05.whatanime.ui.activity.SettingsActivity;
 import com.maddog05.whatanime.util.C;
 
@@ -30,16 +29,6 @@ public class Navigator {
         bundle.putParcelable(C.Extras.DOC, doc);
         intent.putExtras(bundle);
         ActivityCompat.startActivity(activity, intent, aoc.toBundle());
-    }
-
-    public static void goToSelectVideo(AppCompatActivity activity, String path, int requestCode) {
-        ActivityOptionsCompat aoc;
-        aoc = ActivityOptionsCompat.makeBasic();
-        Intent intent = new Intent(activity, VideoSelectActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(C.Extras.SELECT_LOCAL_VIDEO_PATH, path);
-        intent.putExtras(bundle);
-        ActivityCompat.startActivityForResult(activity, intent, requestCode, aoc.toBundle());
     }
 
     public static void shareText(Context context, String text) {

@@ -39,9 +39,6 @@
             android:name=".ui.activity.VideoPreviewActivity"
             android:theme="@style/VideoPreviewTheme" />
         <activity
-            android:name=".ui.activity.VideoSelectActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.InformationActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -77,6 +77,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
         val appVersionPreference: Preference? = preferenceManager.findPreference("setting_about_info")
-        appVersionPreference?.setSummary(BuildConfig.VERSION_NAME)
+        appVersionPreference?.summary = BuildConfig.VERSION_NAME
     }
 }

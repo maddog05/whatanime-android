@@ -8,7 +8,6 @@
 
     <string-array name="array_main_image_source_options">
         <item>@string/input_source_image</item>
-        <item>@string/input_source_video</item>
         <item>@string/input_source_url</item>
     </string-array>
 </resources>

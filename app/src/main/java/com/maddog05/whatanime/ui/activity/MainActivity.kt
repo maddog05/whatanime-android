@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -14,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.maddog05.maddogutilities.android.Permissions
-import com.maddog05.maddogutilities.callback.Callback
 import com.maddog05.maddogutilities.string.Strings
 import com.maddog05.whatanime.R
 import com.maddog05.whatanime.core.entity.output.SearchDetail
@@ -33,7 +32,6 @@ import com.maddog05.whatanime.core.mvp.view.MainView
 import com.maddog05.whatanime.ui.adapter.AdapterMain
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
-import com.maddog05.whatanime.ui.dialog.QuotaInfoDialog
 import com.maddog05.whatanime.ui.dialog.SearchResultInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.C
@@ -45,14 +43,27 @@ class MainActivity : AppCompatActivity(), MainView {
 
     companion object {
         private const val PERMISSIONS_SELECT_IMAGE = 101
-        private const val REQUEST_PHOTO_GALLERY = 102
-        private const val REQUEST_VIDEO_GALLERY = 103
-        private const val REQUEST_FRAME_VIDEO = 104
+//        private const val REQUEST_PHOTO_GALLERY = 102
     }
 
     private lateinit var presenter: MainPresenter
     private var currentBitmap: Bitmap? = null
     private var isSearchRunning = false
+
+    val launchSomeActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            val notNullData = result.data!!
+            if (notNullData.data != null) {
+                val bitmap = KImageUtil.getExternalImageAsBitmap(this, notNullData.data!!)
+                if (bitmap != null)
+                    processBitmap(bitmap)
+                else
+                    showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+            }
+        } else {
+            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,45 +115,24 @@ class MainActivity : AppCompatActivity(), MainView {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_PHOTO_GALLERY -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    if (data.data != null) {
-                        //val bitmap = ImageEncoder.getBitmapCompressed(this, data.data!!, 512)
-                        val bitmap = KImageUtil.getExternalImageAsBitmap(this, data.data!!)
-                        if (bitmap != null)
-                            processBitmap(bitmap)
-                        else
-                            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
-                    }
-                } else {
-                    showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
-                }
-            }
-            REQUEST_VIDEO_GALLERY -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val uri = data.data
-                    val path = Mapper.parseLocalVideoPath(this, uri)
-                    if (path != null) {
-                        Navigator.goToSelectVideo(this, path, REQUEST_FRAME_VIDEO)
-                    } else {
-                        showErrorGeneric(getString(R.string.error_video_recovered_from_storage))
-                    }
-                }
-            }
-            REQUEST_FRAME_VIDEO -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    val bitmap = Mapper.parseVideoFrameFromSelectFrame(data)
-                    if (bitmap != null)
-                        processBitmap(bitmap)
-                    else
-                        showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        when (requestCode) {
+//            REQUEST_PHOTO_GALLERY -> {
+//                if (resultCode == Activity.RESULT_OK && data != null) {
+//                    if (data.data != null) {
+//                        val bitmap = KImageUtil.getExternalImageAsBitmap(this, data.data!!)
+//                        if (bitmap != null)
+//                            processBitmap(bitmap)
+//                        else
+//                            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+//                    }
+//                } else {
+//                    showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+//                }
+//            }
+//            else -> super.onActivityResult(requestCode, resultCode, data)
+//        }
+//    }
 
     private fun actionCheckSendIntent() {
         val intent = intent
@@ -168,7 +158,7 @@ class MainActivity : AppCompatActivity(), MainView {
         AlertDialog.Builder(this)
                 .setMessage(R.string.indicator_quota_info)
                 .setCancelable(false)
-                .setPositiveButton(R.string.action_ok){dialog,_->dialog.dismiss()}
+                .setPositiveButton(R.string.action_ok) { dialog, _ -> dialog.dismiss() }
                 .show()
     }
 
@@ -186,16 +176,13 @@ class MainActivity : AppCompatActivity(), MainView {
     private fun actionSelectImageExecute() {
         AlertDialog.Builder(this)
                 .setTitle(R.string.title_select_source)
-                .setItems(R.array.array_main_image_source_options, object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        dialog?.dismiss()
-                        when (which) {
-                            0 -> sourceImage()
-                            1 -> sourceVideo()
-                            2 -> sourceUrl()
-                        }
+                .setItems(R.array.array_main_image_source_options) { dialog, which ->
+                    dialog?.dismiss()
+                    when (which) {
+                        0 -> sourceImage()
+                        1 -> sourceUrl()
                     }
-                })
+                }
                 .setNegativeButton(R.string.action_close) { dialog, _ -> dialog.dismiss() }
                 .show()
     }
@@ -210,21 +197,19 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun sourceUrl() {
         val dialog = InputUrlDialog(this)
-        dialog.setCallback(Callback { url ->
+        dialog.setCallback { url ->
             if (Strings.isStringUrl(url)) {
                 presenter.actionSearchWithUrl(url)
             } else
                 showErrorGeneric(getString(R.string.error_url_invalid))
-        })
+        }
         dialog.show()
     }
 
-    private fun sourceVideo() {
-        startActivityForResult(Navigator.getIntentSelectVideo(this), REQUEST_VIDEO_GALLERY)
-    }
-
     private fun sourceImage() {
-        startActivityForResult(Navigator.getIntentSelectImage(this), REQUEST_PHOTO_GALLERY)
+
+        launchSomeActivity.launch(Navigator.getIntentSelectImage(this))
+//        startActivityForResult(Navigator.getIntentSelectImage(this), REQUEST_PHOTO_GALLERY)
     }
 
     private fun showErrorGeneric(text: String) {

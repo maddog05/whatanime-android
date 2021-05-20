@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), MainView {
             if (!isSearchRunning)
                 presenter.actionSearch()
         }
-        btn_main_info_quota.setOnClickListener {
+        tv_main_search_per_minute.setOnClickListener {
             if (!isSearchRunning)
                 actionShowQuotaInfo()
         }
@@ -100,7 +100,8 @@ class MainActivity : AppCompatActivity(), MainView {
             } else {
                 showErrorGeneric(getString(R.string.error_permissions_denied))
             }
-        }
+        } else
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -149,20 +150,26 @@ class MainActivity : AppCompatActivity(), MainView {
         val type = intent.type ?: ""
         if (action.isNotEmpty() && action == Intent.ACTION_SEND && type.isNotEmpty()) {
             if (type.startsWith("image/")) {
-                val uri = (intent.getParcelableExtra(Intent.EXTRA_STREAM) as Uri).toString()
-                val glideLoader = GlideLoader.create()
-                glideLoader.with(this)
-                glideLoader.load(uri)
-                glideLoader.loadAsBitmap { bitmap ->
-                    processBitmap(bitmap)
+                val prevUri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+                val uri = prevUri?.toString() ?: ""
+                if (uri.isNotEmpty()) {
+                    val glideLoader = GlideLoader.create()
+                    glideLoader.with(this)
+                    glideLoader.load(uri)
+                    glideLoader.loadAsBitmap { bitmap ->
+                        processBitmap(bitmap)
+                    }
                 }
             }
         }
     }
 
     private fun actionShowQuotaInfo() {
-        QuotaInfoDialog.newInstance(this)
-                .showDialog()
+        AlertDialog.Builder(this)
+                .setMessage(R.string.indicator_quota_info)
+                .setCancelable(false)
+                .setPositiveButton(R.string.action_ok){dialog,_->dialog.dismiss()}
+                .show()
     }
 
     private fun actionSelectImage() {
@@ -206,12 +213,6 @@ class MainActivity : AppCompatActivity(), MainView {
         dialog.setCallback(Callback { url ->
             if (Strings.isStringUrl(url)) {
                 presenter.actionSearchWithUrl(url)
-//                val glideLoader = GlideLoader.create()
-//                glideLoader.with(this)
-//                glideLoader.load(url)
-//                glideLoader.loadAsBitmap { bitmap ->
-//                    processBitmap(bitmap)
-//                }
             } else
                 showErrorGeneric(getString(R.string.error_url_invalid))
         })

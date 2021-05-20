@@ -63,4 +63,5 @@
     <string name="input_h_content_accept">Declaro que tengo la edad legal para visualizar este tipo de contenido y no responzabilizare al desarrollador sobre mis acciones en WhatAnime</string>
     <string name="indicator_h_content">Por defecto, la opción de visualización de contenido H esta desactivada. Estos pueden aparecer en los resultados de búsqueda y son filtrador para no ser visualizados para usted.</string>
     <string name="action_watch_video_sample">Ver ejemplo</string>
+    <string name="action_search">Buscar</string>
 </resources>

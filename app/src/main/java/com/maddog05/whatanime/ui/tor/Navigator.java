@@ -70,7 +70,6 @@ public class Navigator {
     }
 
     public static Intent getIntentSettings(Context context) {
-        Intent intent = new Intent(context, SettingsActivity.class);
-        return intent;
+        return new Intent(context, SettingsActivity.class);
     }
 }

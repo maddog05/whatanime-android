@@ -27,73 +27,46 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_main"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginTop="@dimen/activity_margin"
+            android:layout_marginBottom="@dimen/activity_margin"
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="4dp"
             app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardPreventCornerOverlap="true"
+            app:layout_widthPercent="50%">
 
             <com.maddog05.maddogutilities.view.SquareImageView
                 android:id="@+id/iv_main_photo"
-                android:layout_width="128dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_photo" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tv_main_search_per_minute"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/card_main"
-            android:layout_alignBottom="@+id/card_main"
-            android:layout_marginStart="@dimen/space_between_views"
-            android:layout_marginLeft="@dimen/space_between_views"
+            android:layout_below="@+id/card_main"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginEnd="@dimen/activity_margin"
-            android:layout_marginRight="@dimen/activity_margin"
-            android:layout_toEndOf="@+id/card_main"
-            android:layout_toRightOf="@+id/card_main"
-            app:cardBackgroundColor="@color/colorPrimary"
-            app:cardElevation="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/space_between_views"
-                android:paddingTop="@dimen/space_between_views"
-                android:paddingEnd="@dimen/space_between_views"
-                android:paddingBottom="@dimen/space_between_views">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_main_search_per_minute"
-                    style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_main_info_quota"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="top|end"
-                android:layout_marginTop="@dimen/space_between_views"
-                android:layout_marginEnd="@dimen/space_between_views"
-                android:layout_marginRight="@dimen/space_between_views"
-                android:tint="@android:color/white"
-                app:srcCompat="@drawable/ic_information" />
-        </androidx.cardview.widget.CardView>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_information"
+            app:strokeColor="@color/colorPrimary" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/card_main"
+            android:layout_below="@+id/tv_main_search_per_minute"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginTop="@dimen/activity_margin"
@@ -106,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_main_tutorial"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
@@ -119,15 +92,14 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_main_search"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_margin"
         android:layout_marginRight="@dimen/activity_margin"
         android:layout_marginBottom="@dimen/activity_margin"
-        android:tint="@android:color/white"
-        app:fabSize="normal"
         app:layout_anchor="@+id/layout_main_content"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_search"
-        tools:ignore="ContentDescription" />
+        android:contentDescription="@string/action_search" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -42,27 +42,27 @@
                     app:srcCompat="@drawable/ic_whatanime_big_logo" />
             </androidx.percentlayout.widget.PercentRelativeLayout>
 
-            <androidx.legacy.widget.Space
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_between_views" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name" />
 
-            <androidx.legacy.widget.Space
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_between_views" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/information_app_description" />
 
-            <androidx.legacy.widget.Space
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_between_views" />
 
@@ -71,23 +71,23 @@
                 android:layout_height="2dp"
                 android:background="@android:color/darker_gray" />
 
-            <androidx.legacy.widget.Space
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_between_views" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/title_privacy_policy" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/information_app_privacy_policy" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/information_app_permission" />

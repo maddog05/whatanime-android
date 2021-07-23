@@ -2,30 +2,30 @@ package com.maddog05.whatanime.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
-import com.maddog05.maddogutilities.callback.Callback
+import androidx.appcompat.app.AppCompatActivity
 import com.maddog05.whatanime.R
+import com.maddog05.whatanime.databinding.ActivitySettingsBinding
 import com.maddog05.whatanime.ui.fragment.SettingsFragment
 import com.maddog05.whatanime.util.C
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
 
+    private lateinit var binding: ActivitySettingsBinding
     private val modifiedSettings = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbarSettings)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container_settings,
-                SettingsFragment.newInstance(Callback { modifiedValue ->
-                    modifiedSettings.add(modifiedValue)
-                }))
+            SettingsFragment.newInstance { modifiedValue ->
+                modifiedSettings.add(modifiedValue)
+            }
+        )
         transaction.commit()
     }
 
@@ -37,15 +37,17 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val bundle = Bundle()
-        setResult(if (modifiedSettings.isNotEmpty()) {
-            for (i in 0 until modifiedSettings.size) {
-                if (modifiedSettings[i] == C.SETTING_MODIFIED_CLEAR_DATABASE)
-                    bundle.putBoolean(C.Extras.SETTING_CHANGE_CLEAR_HISTORY, true)
+        setResult(
+            if (modifiedSettings.isNotEmpty()) {
+                for (i in 0 until modifiedSettings.size) {
+                    if (modifiedSettings[i] == C.SETTING_MODIFIED_CLEAR_DATABASE)
+                        bundle.putBoolean(C.Extras.SETTING_CHANGE_CLEAR_HISTORY, true)
+                }
+                Activity.RESULT_OK
+            } else {
+                Activity.RESULT_CANCELED
             }
-            Activity.RESULT_OK
-        } else {
-            Activity.RESULT_CANCELED
-        })
+        )
         intent!!.putExtras(bundle)
         super.onBackPressed()
     }

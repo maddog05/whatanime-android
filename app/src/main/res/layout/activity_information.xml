@@ -11,7 +11,7 @@
         app:elevation="@dimen/design_appbar_elevation">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_information"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="@string/menu_information" />

@@ -29,6 +29,7 @@ import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.core.image.KImageUtil
 import com.maddog05.whatanime.core.mvp.presenter.MainPresenter
 import com.maddog05.whatanime.core.mvp.view.MainView
+import com.maddog05.whatanime.databinding.ActivityMainTwoBinding
 import com.maddog05.whatanime.ui.adapter.AdapterMain
 import com.maddog05.whatanime.ui.dialog.ChangelogDialog
 import com.maddog05.whatanime.ui.dialog.InputUrlDialog
@@ -37,49 +38,57 @@ import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.Mapper
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_main_two.*
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
 
     companion object {
         private const val PERMISSIONS_SELECT_IMAGE = 101
     }
 
+    private lateinit var binding: ActivityMainTwoBinding
+
     private lateinit var presenter: MainPresenter
     private var currentBitmap: Bitmap? = null
     private var isSearchRunning = false
 
-    private val requestPhotoActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-            val notNullData = result.data!!
-            if (notNullData.data != null) {
-                val bitmap = KImageUtil.getExternalImageAsBitmap(this, notNullData.data!!)
-                if (bitmap != null)
-                    processBitmap(bitmap)
-                else
-                    showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+    private val requestPhotoActivityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val notNullData = result.data!!
+                if (notNullData.data != null) {
+                    val bitmap = KImageUtil.getExternalImageAsBitmap(this, notNullData.data!!)
+                    if (bitmap != null)
+                        processBitmap(bitmap)
+                    else
+                        showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
+                }
+            } else {
+                showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
             }
-        } else {
-            showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_two)
+        binding = ActivityMainTwoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         presenter = MainPresenter(this)
-        setSupportActionBar(toolbar)
-        rv_main_results.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rv_main_results.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        iv_main_photo.setOnClickListener {
+        setSupportActionBar(binding.toolbarMain)
+        binding.rvMainResults.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.rvMainResults.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        binding.ivMainPhoto.setOnClickListener {
             if (!isSearchRunning)
                 actionSelectImage()
         }
-        fab_main_search.setOnClickListener {
+        binding.fabMainSearch.setOnClickListener {
             if (!isSearchRunning)
                 presenter.actionSearch()
         }
-        tv_main_search_per_minute.setOnClickListener {
+        binding.tvMainSearchPerMinute.setOnClickListener {
             if (!isSearchRunning)
                 actionShowQuotaInfo()
         }
@@ -103,7 +112,11 @@ class MainActivity : AppCompatActivity(), MainView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == PERMISSIONS_SELECT_IMAGE) {
             if (Permissions.isPermissionGranted(grantResults)) {
                 actionSelectImageExecute()
@@ -136,41 +149,45 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun actionShowQuotaInfo() {
         AlertDialog.Builder(this)
-                .setMessage(R.string.indicator_quota_info)
-                .setCancelable(false)
-                .setPositiveButton(R.string.action_ok) { dialog, _ -> dialog.dismiss() }
-                .show()
+            .setMessage(R.string.indicator_quota_info)
+            .setCancelable(false)
+            .setPositiveButton(R.string.action_ok) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun actionSelectImage() {
         val checker = Permissions.Checker(this)
-                .addPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .addPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            .addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (checker.isPermissionsGranted) {
             actionSelectImageExecute()
         } else {
-            ActivityCompat.requestPermissions(this, checker.permissionsToRequest, PERMISSIONS_SELECT_IMAGE)
+            ActivityCompat.requestPermissions(
+                this,
+                checker.permissionsToRequest,
+                PERMISSIONS_SELECT_IMAGE
+            )
         }
     }
 
     private fun actionSelectImageExecute() {
         AlertDialog.Builder(this)
-                .setTitle(R.string.title_select_source)
-                .setItems(R.array.array_main_image_source_options) { dialog, which ->
-                    dialog?.dismiss()
-                    when (which) {
-                        0 -> sourceImage()
-                        1 -> sourceUrl()
-                    }
+            .setTitle(R.string.title_select_source)
+            .setItems(R.array.array_main_image_source_options) { dialog, which ->
+                dialog?.dismiss()
+                when (which) {
+                    0 -> sourceImage()
+                    1 -> sourceUrl()
                 }
-                .setNegativeButton(R.string.action_close) { dialog, _ -> dialog.dismiss() }
-                .show()
+            }
+            .setNegativeButton(R.string.action_close) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun processBitmap(bitmap: Bitmap?) {
         if (bitmap != null) {
             currentBitmap = bitmap
-            iv_main_photo.setImageBitmap(bitmap)
+            binding.ivMainPhoto.setImageBitmap(bitmap)
         } else
             showErrorGeneric(getString(R.string.error_image_recovered_from_storage))
     }
@@ -200,39 +217,42 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun drawSearchResults(results: MutableList<SearchDetail.Doc>) {
-        rv_main_results.adapter = AdapterMain(applicationContext, results, object : AdapterMain.OnDocClickListener {
-            override fun onDocClicked(doc: SearchDetail.Doc) {
-                showDocDetail(doc)
-            }
-        })
+        binding.rvMainResults.adapter =
+            AdapterMain(applicationContext, results, object : AdapterMain.OnDocClickListener {
+                override fun onDocClicked(doc: SearchDetail.Doc) {
+                    showDocDetail(doc)
+                }
+            })
     }
 
     private fun showDocDetail(doc: SearchDetail.Doc) {
         SearchResultInfoDialog()
-                .withDoc(doc)
-                .withListener(object : SearchResultInfoDialog.OnSearchResultOptionListener {
-                    override fun OnShareText() {
-                        val nameAndEpisodeText = Mapper.parseEpisodeNumber(this@MainActivity, doc.episode)
-                        val title = if (doc.romanjiTitle != null && doc.romanjiTitle.isNotEmpty()) doc.romanjiTitle else doc.anime
-                        val text = (title
-                                + C.SPACE
-                                + nameAndEpisodeText
-                                + C.SPACE
-                                + getString(R.string.share_founded_with)
-                                + C.SPACE
-                                + getString(R.string.app_name))
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.type = "text/plain"
-                        intent.putExtra(Intent.EXTRA_TEXT, text)
-                        startActivity(Intent.createChooser(intent, getString(R.string.action_share)))
-                    }
+            .withDoc(doc)
+            .withListener(object : SearchResultInfoDialog.OnSearchResultOptionListener {
+                override fun OnShareText() {
+                    val nameAndEpisodeText =
+                        Mapper.parseEpisodeNumber(this@MainActivity, doc.episode)
+                    val title =
+                        if (doc.romanjiTitle != null && doc.romanjiTitle.isNotEmpty()) doc.romanjiTitle else doc.anime
+                    val text = (title
+                            + C.SPACE
+                            + nameAndEpisodeText
+                            + C.SPACE
+                            + getString(R.string.share_founded_with)
+                            + C.SPACE
+                            + getString(R.string.app_name))
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "text/plain"
+                    intent.putExtra(Intent.EXTRA_TEXT, text)
+                    startActivity(Intent.createChooser(intent, getString(R.string.action_share)))
+                }
 
-                    override fun OnShowSample() {
-                        val url = Mapper.getVideoUrl(doc)
-                        Navigator.goToPreviewVideo(this@MainActivity, url, doc)
-                    }
-                })
-                .show(supportFragmentManager, "docDetail")
+                override fun OnShowSample() {
+                    val url = Mapper.getVideoUrl(doc)
+                    Navigator.goToPreviewVideo(this@MainActivity, url, doc)
+                }
+            })
+            .show(supportFragmentManager, "docDetail")
     }
 
     override fun getInputBitmap(): Bitmap? {
@@ -240,12 +260,13 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun setSearchPerMinute(number: Int) {
-        tv_main_search_per_minute.text = getString(R.string.input_search_per_minute, number.toString())
+        binding.tvMainSearchPerMinute.text =
+            getString(R.string.input_search_per_minute, number.toString())
     }
 
     override fun showChangelog() {
         ChangelogDialog.newInstance(this)
-                .showDialog()
+            .showDialog()
     }
 
     override fun showErrorImageEmpty() {
@@ -261,7 +282,7 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun showIndicatorSearchResults(wantVisible: Boolean) {
-        tv_main_tutorial.visibility = if (wantVisible) View.VISIBLE else View.GONE
+        binding.tvMainTutorial.visibility = if (wantVisible) View.VISIBLE else View.GONE
     }
 
     private var wakeLock: PowerManager.WakeLock? = null
@@ -271,14 +292,18 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun showLoading(wantVisible: Boolean) {
         isSearchRunning = wantVisible
         if (wantVisible) {
-            snackbar = Snackbar.make(fab_main_search, R.string.indicator_searching_anime, Snackbar.LENGTH_INDEFINITE)
+            snackbar = Snackbar.make(
+                binding.fabMainSearch,
+                R.string.indicator_searching_anime,
+                Snackbar.LENGTH_INDEFINITE
+            )
             snackbar?.show()
             wakeLock =
-                    (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
-                        newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WhatAnime::MainWakeLock").apply {
-                            acquire()
-                        }
+                (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
+                    newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WhatAnime::MainWakeLock").apply {
+                        acquire()
                     }
+                }
         } else {
             snackbar?.dismiss()
             snackbar = null

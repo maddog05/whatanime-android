@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.entity.output.SearchDetail
+import com.maddog05.whatanime.core.entity.SearchImageResult
 import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.util.Mapper
 
-class AdapterMain(val context: Context, val docs: MutableList<SearchDetail.Doc>, val listener: OnDocClickListener) : RecyclerView.Adapter<AdapterMain.ViewHolder>() {
+class AdapterMain(val context: Context, val docs: MutableList<SearchImageResult>, val listener: OnDocClickListener) : RecyclerView.Adapter<AdapterMain.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_search_result, parent, false))
@@ -23,14 +23,14 @@ class AdapterMain(val context: Context, val docs: MutableList<SearchDetail.Doc>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val doc = docs[holder.adapterPosition]
-        holder.titleTv.text = doc.romanjiTitle
-        holder.episodeTv.text = Mapper.parseEpisodeNumber(context, doc.episode)
+        holder.titleTv.text = doc.filename
+        holder.episodeTv.text = "-"//Mapper.parseEpisodeNumber(context, doc.episode)
         holder.similarityTv.text = Mapper.parsePercentageSimilarity(doc.similarity)
-        holder.timeTv.text = Mapper.parseSecondToHourTimeSeconds(doc.atTime)
+        holder.timeTv.text = Mapper.parseSecondToHourTimeSeconds((doc.endSecond+doc.startSecond)/2.0)
         val imageLoader: GlideLoader = GlideLoader.create()
         imageLoader.with(context)
                 .placeholder(R.drawable.ic_photo)
-                .load(Mapper.getImageUrl(doc))
+                .load(doc.imageUrl)
                 .target(holder.photoIv)
                 .callback { isCompleted ->
                     if (isCompleted)
@@ -41,7 +41,7 @@ class AdapterMain(val context: Context, val docs: MutableList<SearchDetail.Doc>,
     }
 
     interface OnDocClickListener {
-        fun onDocClicked(doc: SearchDetail.Doc)
+        fun onDocClicked(doc: SearchImageResult)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

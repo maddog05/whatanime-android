@@ -6,24 +6,18 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.maddog05.maddogutilities.number.Numbers;
-import com.maddog05.whatanime.BuildConfig;
 import com.maddog05.whatanime.R;
 import com.maddog05.whatanime.core.entity.ChangelogItem;
 import com.maddog05.whatanime.core.entity.output.OutputGetQuota;
-import com.maddog05.whatanime.core.entity.output.SearchDetail;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,120 +125,15 @@ public class Mapper {
         }
     }
 
-    public static String getVideoUrl(SearchDetail.Doc doc) {
-        String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-//        String response = BuildConfig.SERVER_DOMAIN + "preview.php?season=";
-//        response += _encode(doc.season, encodeFormat) + "&anime=";
-//        response += _encode(doc.anime, encodeFormat) + "&file=";
-//        response += _encode(doc.fileName, encodeFormat) + "&t=";
-//        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
-//        response += _encode(doc.tokenThumb, encodeFormat);
-
-        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "video/";
-        response += _encode(doc.anilistId.toString(), encodeFormat) + "/";
-        response += _encode(doc.fileName, encodeFormat) + "?t=";
-        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
-        response += _encode(doc.tokenThumb, encodeFormat);
-        response += "&mute";
-
-        Log.d("#Mapper", "getVideoUrl " + response);
-
-        return response;
-    }
-
-    public static String getImageUrl(SearchDetail.Doc doc) {
-        String encodeFormat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ? StandardCharsets.UTF_8.toString() : C.EMPTY;
-        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "image/";
-        response += _encode(doc.anilistId.toString(), encodeFormat) + "/";
-        response += _encode(doc.fileName, encodeFormat) + "?t=";
-        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
-        response += _encode(doc.tokenThumb, encodeFormat);
-
-//        String response = BuildConfig.SERVER_VIDEO_SAMPLE + "thumbnail.php?anilist_id=";
-//        response += _encode(doc.anilistId.toString(), encodeFormat) + "&file=";
-//        response += _encode(doc.fileName, encodeFormat) + "&t=";
-//        response += _encode(String.valueOf(doc.atTime), encodeFormat) + "&token=";
-//        response += _encode(doc.tokenThumb, encodeFormat);
-
-        Log.d("#Mapper", "getImageUrl " + response);
-        return response;
-    }
-
-    @SuppressWarnings("deprecation")
-    private static String _encode(String toEncode, String charset) {
-        if (charset.isEmpty()) {
-            return URLEncoder.encode(toEncode);
-        } else {
-            try {
-                return URLEncoder.encode(toEncode, charset);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return URLEncoder.encode(toEncode);
-            }
-        }
-    }
-
     private static JsonObject stringToJsonObject(String toJson) {
-        return new JsonParser().parse(toJson).getAsJsonObject();
+        return JsonParser.parseString(toJson).getAsJsonObject();
     }
 
     public static OutputGetQuota parseGetQuota(JsonObject json) {
         OutputGetQuota outputGetQuota = new OutputGetQuota();
-        outputGetQuota.setSearchQuota(elementInt(json.get("quota"), 0));
-        outputGetQuota.setSearchsPerMinute(elementInt(json.get("limit"), 0));
+        outputGetQuota.setSearchQuota(elementInt(json.get("quotaUsed"), 0));
+        outputGetQuota.setSearchsPerMinute(elementInt(json.get("quota"), 0));
         return outputGetQuota;
-    }
-
-    public static SearchDetail parseSearchDetail(JsonObject json) {
-        SearchDetail searchDetail = new SearchDetail();
-
-        searchDetail.rawDocsCount = new ArrayList<>();
-        searchDetail.rawDocsCount.add(json.get("RawDocsCount").getAsInt());
-
-        searchDetail.rawDocsSearchTime = new ArrayList<>();
-        searchDetail.rawDocsSearchTime.add(json.get("RawDocsSearchTime").getAsInt());
-
-        searchDetail.reRankSearchTime = new ArrayList<>();
-        searchDetail.reRankSearchTime.add(json.get("ReRankSearchTime").getAsInt());
-
-        searchDetail.cacheHit = json.get("CacheHit").getAsBoolean();
-        searchDetail.trial = json.get("trial").getAsInt();
-        searchDetail.quota = json.get("quota").getAsInt();
-        searchDetail.expire = 0;//json.get("expire").getAsInt();
-
-        searchDetail.docs = new ArrayList<>();
-        JsonArray arrayDocs = elementArray(json.get("docs"));
-        for (int i = 0; i < arrayDocs.size(); i++) {
-            JsonObject _doc = arrayDocs.get(i).getAsJsonObject();
-            SearchDetail.Doc doc = new SearchDetail.Doc();
-
-            doc.fromTime = _doc.get("from").getAsDouble();
-            doc.toTime = _doc.get("to").getAsDouble();
-            doc.atTime = _doc.get("at").getAsDouble();
-            doc.episode = elementString(_doc.get("episode"), C.EMPTY);
-            doc.similarity = _doc.get("similarity").getAsDouble();
-            doc.anilistId = elementInt(_doc.get("anilist_id"), C.INTEGER_NONE);
-            doc.romanjiTitle = elementString(_doc.get("title_romaji"), C.EMPTY);//ALWAYS WITH DATA
-            doc.japaneseTitle = elementString(_doc.get("title"), doc.romanjiTitle);
-            doc.englishTitle = elementString(_doc.get("title_english"), doc.romanjiTitle);
-
-            doc.synonyms = new ArrayList<>();
-            JsonArray arraySynonyms = elementArray(_doc.get("synonyms"));
-            for (int j = 0; j < arraySynonyms.size(); j++)
-                doc.synonyms.add(arraySynonyms.get(j).getAsString());
-
-            doc.season = elementString(_doc.get("season"), C.EMPTY);
-            doc.anime = elementString(_doc.get("anime"), C.EMPTY);
-            doc.fileName = elementString(_doc.get("filename"), C.EMPTY);
-            doc.tokenThumb = elementString(_doc.get("tokenthumb"), C.EMPTY);
-
-            doc.myAnimeListId = elementInt(_doc.get("mal_id"), C.INTEGER_NONE);
-            doc.isHentai = elementBoolean(_doc.get("is_adult"), false);
-
-            searchDetail.docs.add(doc);
-        }
-
-        return searchDetail;
     }
 
     public static List<ChangelogItem> parseChangelog(JsonArray json) {
@@ -264,30 +153,37 @@ public class Mapper {
         return response;
     }
 
-    private static JsonArray elementArray(JsonElement element) {
+    public static JsonArray elementArray(JsonElement element) {
         if (element != null && !element.isJsonNull() && element.isJsonArray())
             return element.getAsJsonArray();
         else
             return new JsonArray();
     }
 
-    private static int elementInt(JsonElement element, int defaultValue) {
+    public static int elementInt(JsonElement element, int defaultValue) {
         if (element != null && !element.isJsonNull())
             return element.getAsInt();
         else
             return defaultValue;
     }
 
-    private static String elementString(JsonElement element, String defaultValue) {
+    public static String elementString(JsonElement element, String defaultValue) {
         if (element != null && !element.isJsonNull())
             return element.getAsString();
         else
             return defaultValue;
     }
 
-    private static boolean elementBoolean(JsonElement element, boolean defaultValue) {
+    public static boolean elementBoolean(JsonElement element, boolean defaultValue) {
         if (element != null && !element.isJsonNull())
             return element.getAsBoolean();
+        else
+            return defaultValue;
+    }
+
+    public static double elementDouble(JsonElement element, double defaultValue) {
+        if (element != null && !element.isJsonNull())
+            return element.getAsDouble();
         else
             return defaultValue;
     }

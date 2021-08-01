@@ -1,13 +1,13 @@
 package com.maddog05.whatanime.core.mvp.view
 
 import android.content.Context
-import android.graphics.Bitmap
-import com.maddog05.whatanime.core.entity.output.SearchDetail
+import com.maddog05.whatanime.core.entity.SearchImageResult
+import java.io.File
 
 interface MainView {
     fun mvpContext(): Context
-    fun drawSearchResults(results: MutableList<SearchDetail.Doc>)
-    fun getInputBitmap(): Bitmap?
+    fun drawSearchResults(results: MutableList<SearchImageResult>)
+    fun getInputFile(): File?
     fun setSearchPerMinute(number: Int)
     fun showChangelog()
     fun showErrorImageEmpty()

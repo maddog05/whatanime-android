@@ -9,8 +9,8 @@ android {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 24
-        versionName "3.3.0"
+        versionCode 25
+        versionName "3.4.0"
         ndk.abiFilters 'armeabi-v7a','arm64-v8a'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -51,7 +51,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //Support library
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.cardview:cardview:1.0.0'

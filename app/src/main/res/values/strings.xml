@@ -52,7 +52,7 @@
 
     <string name="indicator_tutorial">Select an image from your gallery and search your anime</string>
     <string name="input_search_quota">Search quota: %s</string>
-    <string name="input_search_per_minute">Searchs per minute: %s</string>
+    <string name="input_search_per_minute">Searchs monthly: %s</string>
     <string name="error_image_not_selected">Image not selected</string>
     <string name="indicator_quota_info">You have a search limit per minute due to API usage policies.</string>
     <string name="setting_label_enable_h_content">Enable H content</string>

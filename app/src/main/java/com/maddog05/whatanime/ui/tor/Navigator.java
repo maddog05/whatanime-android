@@ -9,7 +9,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import com.maddog05.whatanime.R;
-import com.maddog05.whatanime.core.entity.output.SearchDetail;
+import com.maddog05.whatanime.core.entity.SearchImageResult;
 import com.maddog05.whatanime.ui.activity.InformationActivity;
 import com.maddog05.whatanime.ui.activity.VideoPreviewActivity;
 import com.maddog05.whatanime.ui.activity.SettingsActivity;
@@ -20,7 +20,7 @@ import com.maddog05.whatanime.util.C;
  */
 
 public class Navigator {
-    public static void goToPreviewVideo(AppCompatActivity activity, String url, SearchDetail.Doc doc) {
+    public static void goToPreviewVideo(AppCompatActivity activity, String url, SearchImageResult doc) {
         ActivityOptionsCompat aoc;
         aoc = ActivityOptionsCompat.makeBasic();
         Intent intent = new Intent(activity, VideoPreviewActivity.class);

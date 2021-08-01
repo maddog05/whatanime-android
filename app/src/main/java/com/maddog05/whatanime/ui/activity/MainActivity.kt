@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.maddog05.maddogutilities.android.Permissions
 import com.maddog05.maddogutilities.string.Strings
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.entity.output.SearchDetail
+import com.maddog05.whatanime.core.entity.SearchImageResult
 import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.core.image.KImageUtil
 import com.maddog05.whatanime.core.mvp.presenter.MainPresenter
@@ -37,7 +37,11 @@ import com.maddog05.whatanime.ui.dialog.SearchResultInfoDialog
 import com.maddog05.whatanime.ui.tor.Navigator
 import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.Mapper
+import com.maddog05.whatanime.util.storage.StorageModel
 import es.dmoral.toasty.Toasty
+import java.io.File
+import java.io.FileOutputStream
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
 
@@ -73,7 +77,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
         setContentView(binding.root)
         presenter = MainPresenter(this)
         setSupportActionBar(binding.toolbarMain)
-        binding.rvMainResults.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.rvMainResults.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.rvMainResults.addItemDecoration(
             DividerItemDecoration(
                 this,
@@ -110,6 +115,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val storageModel = StorageModel(applicationContext)
+        val file = File(storageModel.getTempImageFolder(), "whatanime_temp_search.png")
+        if (file.exists())
+            file.delete()
     }
 
     override fun onRequestPermissionsResult(
@@ -216,24 +229,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
         return applicationContext
     }
 
-    override fun drawSearchResults(results: MutableList<SearchDetail.Doc>) {
+    override fun drawSearchResults(results: MutableList<SearchImageResult>) {
         binding.rvMainResults.adapter =
             AdapterMain(applicationContext, results, object : AdapterMain.OnDocClickListener {
-                override fun onDocClicked(doc: SearchDetail.Doc) {
+                override fun onDocClicked(doc: SearchImageResult) {
                     showDocDetail(doc)
                 }
             })
     }
 
-    private fun showDocDetail(doc: SearchDetail.Doc) {
+    private fun showDocDetail(doc: SearchImageResult) {
         SearchResultInfoDialog()
             .withDoc(doc)
             .withListener(object : SearchResultInfoDialog.OnSearchResultOptionListener {
-                override fun OnShareText() {
+                override fun onShareText() {
                     val nameAndEpisodeText =
                         Mapper.parseEpisodeNumber(this@MainActivity, doc.episode)
-                    val title =
-                        if (doc.romanjiTitle != null && doc.romanjiTitle.isNotEmpty()) doc.romanjiTitle else doc.anime
+                    val title = doc.filename
                     val text = (title
                             + C.SPACE
                             + nameAndEpisodeText
@@ -247,16 +259,29 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
                     startActivity(Intent.createChooser(intent, getString(R.string.action_share)))
                 }
 
-                override fun OnShowSample() {
-                    val url = Mapper.getVideoUrl(doc)
-                    Navigator.goToPreviewVideo(this@MainActivity, url, doc)
+                override fun onShowSample() {
+                    Navigator.goToPreviewVideo(this@MainActivity, doc.videoUrl, doc)
                 }
             })
             .show(supportFragmentManager, "docDetail")
     }
 
-    override fun getInputBitmap(): Bitmap? {
-        return currentBitmap
+    override fun getInputFile(): File? {
+        if (currentBitmap != null) {
+            val storageModel = StorageModel(applicationContext)
+            val file = File(storageModel.getTempImageFolder(), "whatanime_temp_search.png")
+            if (file.exists())
+                file.delete()
+            file.createNewFile()
+            return try {
+                val fos = FileOutputStream(file)
+                currentBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, fos)
+                fos.close()
+                file
+            } catch (e: Exception) {
+                null
+            }
+        } else return currentBitmap
     }
 
     override fun setSearchPerMinute(number: Int) {

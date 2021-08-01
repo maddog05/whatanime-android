@@ -3,6 +3,23 @@
   "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it.\n\nFor search results mismatches, please contact to https://github.com/soruly/trace.moe",
   "versions": [
     {
+      "name": "3.4.0",
+      "changes": [
+        {
+          "type": "update",
+          "description": "Trace.moe (aka old WhatAnime) API"
+        },
+        {
+          "type": "new",
+          "description": "Design for search result detail popup"
+        },
+        {
+          "type": "update",
+          "description": "Compiler"
+        }
+      ]
+    },
+    {
       "name": "3.3.0",
       "changes": [
         {

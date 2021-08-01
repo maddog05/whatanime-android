@@ -3,16 +3,15 @@ package com.maddog05.whatanime.core.mvp.presenter
 import com.maddog05.maddogutilities.android.Checkers
 import com.maddog05.whatanime.BuildConfig
 import com.maddog05.whatanime.core.data.LogicPreferenceSharedPref
-import com.maddog05.whatanime.core.entity.output.SearchDetail
-import com.maddog05.whatanime.core.image.KImageUtil
+import com.maddog05.whatanime.core.entity.SearchImageResult
 import com.maddog05.whatanime.core.mvp.view.MainView
-import com.maddog05.whatanime.core.network.LogicNetworkRetrofit
+import com.maddog05.whatanime.core.network.LogicNetworkKotlin
 
 class MainPresenter(private val view: MainView) {
 
-    private val network = LogicNetworkRetrofit.newInstance()
+    private val network = LogicNetworkKotlin()
     private val preferences = LogicPreferenceSharedPref.newInstance(view.mvpContext())
-    private val docs = mutableListOf<SearchDetail.Doc>()
+    private val docs = mutableListOf<SearchImageResult>()
     private var searchPerMinute = 0
 
     fun onCreate() {
@@ -29,29 +28,20 @@ class MainPresenter(private val view: MainView) {
 
     fun actionSearch() {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
-            val bitmap = view.getInputBitmap()
-            if (bitmap != null) {
+            val file = view.getInputFile()
+            if (file != null) {
                 view.showLoading(true)
-                KImageUtil.ImageEncoderAsyncTask(object : KImageUtil.OnEncodedListener {
-                    override fun onComplete(encoded: String) {
-                        if (encoded!!.isNotEmpty()) {
-                            network.searchWithPhoto(view.mvpContext(), encoded, "") { pair ->
-                                view.showLoading(false)
-                                if (pair.first!!.isEmpty()) {
-                                    docs.clear()
-                                    docs.addAll(filterHContent(pair.second!!.docs))
-                                    view.showIndicatorSearchResults(docs.isEmpty())
-                                    view.drawSearchResults(docs)
-                                    getQuota()
-                                } else
-                                    view.showErrorServer(pair.first!!)
-                            }
-                        } else {
-                            view.showLoading(false)
-                            view.showErrorImageEmpty()
-                        }
-                    }
-                }).execute(bitmap)
+                network.searchWithPhoto(file) { pair ->
+                    view.showLoading(false)
+                    if (pair.first!!.isEmpty()) {
+                        docs.clear()
+                        docs.addAll(pair.second!!)
+                        view.showIndicatorSearchResults(docs.isEmpty())
+                        view.drawSearchResults(docs)
+                        getQuota()
+                    } else
+                        view.showErrorServer(pair.first!!)
+                }
             } else
                 view.showErrorImageEmpty()
         } else
@@ -61,11 +51,11 @@ class MainPresenter(private val view: MainView) {
     fun actionSearchWithUrl(url: String) {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
             view.showLoading(true)
-            network.searchWithUrl(view.mvpContext(), url) { pair ->
+            network.searchWithUrl(url) { pair ->
                 view.showLoading(false)
                 if (pair.first!!.isEmpty()) {
                     docs.clear()
-                    docs.addAll(filterHContent(pair.second!!.docs))
+                    docs.addAll(pair.second!!)
                     view.showIndicatorSearchResults(docs.isEmpty())
                     view.drawSearchResults(docs)
                     getQuota()
@@ -76,24 +66,9 @@ class MainPresenter(private val view: MainView) {
             view.showErrorInternet()
     }
 
-    private fun filterHContent(items: MutableList<SearchDetail.Doc>): MutableList<SearchDetail.Doc> {
-        val isHContentEnabled = preferences.hContentEnabled
-        if (isHContentEnabled)
-            return items
-        else {
-            val response = mutableListOf<SearchDetail.Doc>()
-            for (i in items.indices) {
-                val doc = items[i]
-                if (!doc.isHentai)
-                    response.add(doc)
-            }
-            return response
-        }
-    }
-
     private fun getQuota() {
         if (Checkers.isInternetInWifiOrData(view.mvpContext())) {
-            network.getQuota(view.mvpContext()) { pair ->
+            network.getQuota { pair ->
                 if (pair.first!!.isEmpty()) {
                     searchPerMinute = pair.second!!.searchsPerMinute
                     view.setSearchPerMinute(searchPerMinute)

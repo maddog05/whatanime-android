@@ -11,7 +11,7 @@ import com.devbrackets.android.exomedia.listener.OnCompletionListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.maddog05.maddogutilities.android.Checkers
 import com.maddog05.whatanime.R
-import com.maddog05.whatanime.core.entity.output.SearchDetail
+import com.maddog05.whatanime.core.entity.SearchImageResult
 import com.maddog05.whatanime.databinding.ActivityVideoPreviewBinding
 import com.maddog05.whatanime.util.C
 import com.maddog05.whatanime.util.Mapper
@@ -20,7 +20,7 @@ import es.dmoral.toasty.Toasty
 class VideoPreviewActivity : AppCompatActivity(R.layout.activity_video_preview), OnPreparedListener,
     OnCompletionListener {
     private var videoUrl = C.EMPTY
-    private var doc: SearchDetail.Doc? = null
+    private var doc: SearchImageResult? = null
 
     private lateinit var binding: ActivityVideoPreviewBinding
 
@@ -60,8 +60,7 @@ class VideoPreviewActivity : AppCompatActivity(R.layout.activity_video_preview),
     }
 
     private fun setupData() {
-        val title =
-            if (doc!!.romanjiTitle != null && doc!!.romanjiTitle.isNotEmpty()) doc!!.romanjiTitle else doc!!.anime
+        val title = doc?.filename ?: ""
         setupTitle(title)
         if (Checkers.isInternetInWifiOrData(this@VideoPreviewActivity)) {
             binding.videoViewPreview.setVideoURI(Uri.parse(videoUrl))
@@ -94,8 +93,7 @@ class VideoPreviewActivity : AppCompatActivity(R.layout.activity_video_preview),
 
     private fun actionShare() {
         val nameAndEpisodeText = Mapper.parseEpisodeNumber(this, doc!!.episode)
-        val title =
-            if (doc!!.romanjiTitle != null && doc!!.romanjiTitle.isNotEmpty()) doc!!.romanjiTitle else doc!!.anime
+        val title = doc?.filename ?: ""
         val text = (title
                 + C.SPACE
                 + nameAndEpisodeText

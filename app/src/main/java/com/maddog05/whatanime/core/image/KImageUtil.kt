@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.AsyncTask
 import android.provider.MediaStore
-import android.util.Base64
-import java.io.ByteArrayOutputStream
 
 class KImageUtil {
     companion object {
@@ -49,31 +46,6 @@ class KImageUtil {
                         true
                 )
             }
-        }
-    }
-
-    interface OnEncodedListener {
-        fun onComplete(encoded: String)
-    }
-
-    class ImageEncoderAsyncTask(private val listener: OnEncodedListener) :
-            AsyncTask<Bitmap, Void, String>() {
-        override fun doInBackground(vararg params: Bitmap): String {
-            val result: String
-            result = try {
-                val bitmap = params[0]
-                val byteArrayOutputStream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                val byteArray = byteArrayOutputStream.toByteArray()
-                Base64.encodeToString(byteArray, Base64.DEFAULT)
-            } catch (e: Exception) {
-                ""
-            }
-            return result
-        }
-
-        override fun onPostExecute(result: String?) {
-            listener.onComplete(result ?: "")
         }
     }
 }

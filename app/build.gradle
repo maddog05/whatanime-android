@@ -3,14 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.maddog05.whatanime"
         minSdkVersion 16
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 26
         versionName "3.4.1"
+        //noinspection ChromeOsAbiSupport
         ndk.abiFilters 'armeabi-v7a','arm64-v8a'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -46,6 +47,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.maddog05.whatanime'
 }
 
 dependencies {

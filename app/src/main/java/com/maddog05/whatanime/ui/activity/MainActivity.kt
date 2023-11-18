@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.view.Menu
@@ -170,8 +171,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
 
     private fun actionSelectImage() {
         val checker = Permissions.Checker(this)
-            .addPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            checker.addPermission(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            checker.addPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .addPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
         if (checker.isPermissionsGranted) {
             actionSelectImageExecute()
         } else {

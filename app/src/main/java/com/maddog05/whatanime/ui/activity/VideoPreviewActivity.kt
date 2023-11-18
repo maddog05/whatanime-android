@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.Player
 import com.devbrackets.android.exomedia.listener.OnCompletionListener
 import com.devbrackets.android.exomedia.listener.OnPreparedListener
 import com.maddog05.maddogutilities.android.Checkers
@@ -63,7 +64,9 @@ class VideoPreviewActivity : AppCompatActivity(R.layout.activity_video_preview),
         val title = doc?.filename ?: ""
         setupTitle(title)
         if (Checkers.isInternetInWifiOrData(this@VideoPreviewActivity)) {
-            binding.videoViewPreview.setVideoURI(Uri.parse(videoUrl))
+            binding.videoViewPreview.setMedia(Uri.parse(videoUrl))
+            binding.videoViewPreview.setRepeatMode(Player.REPEAT_MODE_ALL)
+//            binding.videoViewPreview.setVideoURI(Uri.parse(videoUrl))
         } else {
             showError(getString(R.string.error_internet_connection))
         }

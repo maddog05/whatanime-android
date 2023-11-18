@@ -8,8 +8,7 @@
     <com.devbrackets.android.exomedia.ui.widget.VideoView
         android:id="@+id/video_view_preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:useDefaultControls="false" />
+        android:layout_height="match_parent"/>
 
     <ProgressBar
         android:id="@+id/pbar_loading_video_preview"

@@ -78,14 +78,14 @@ class ChangelogDialog : androidx.fragment.app.DialogFragment() {
     private fun setupData() {
         if (context != null) {
             try {
-                val inputStream: InputStream = context!!.assets.open("changelog.json")
+                val inputStream: InputStream = requireContext().assets.open("changelog.json")
                 val size = inputStream.available()
                 val buffer = ByteArray(size)
                 inputStream.read(buffer)
                 inputStream.close()
                 val stringJson = String(buffer, Charset.forName("UTF-8"))
 
-                val jsonChangelog = JsonParser().parse(stringJson).asJsonObject
+                val jsonChangelog = JsonParser.parseString(stringJson).asJsonObject
                 titleTv.text = jsonChangelog.get("title").asString
                 descriptionTv.text = jsonChangelog.get("description").asString
                 val jsonVersions: JsonArray = jsonChangelog.get("versions").asJsonArray

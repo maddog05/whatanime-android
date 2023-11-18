@@ -13,7 +13,7 @@ import com.maddog05.whatanime.core.entity.SearchImageResult
 import com.maddog05.whatanime.core.image.GlideLoader
 import com.maddog05.whatanime.util.Mapper
 
-class AdapterMain(val context: Context, val docs: MutableList<SearchImageResult>, val listener: OnDocClickListener) : RecyclerView.Adapter<AdapterMain.ViewHolder>() {
+class AdapterMain(val context: Context, private val docs: MutableList<SearchImageResult>, private val listener: OnDocClickListener) : RecyclerView.Adapter<AdapterMain.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_search_result, parent, false))
@@ -22,7 +22,7 @@ class AdapterMain(val context: Context, val docs: MutableList<SearchImageResult>
     override fun getItemCount(): Int = docs.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val doc = docs[holder.adapterPosition]
+        val doc = docs[holder.bindingAdapterPosition]
         holder.titleTv.text = doc.filename
         holder.episodeTv.text = "-"//Mapper.parseEpisodeNumber(context, doc.episode)
         holder.similarityTv.text = Mapper.parsePercentageSimilarity(doc.similarity)

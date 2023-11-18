@@ -3,6 +3,7 @@ package com.maddog05.whatanime.ui.activity
 import android.app.Activity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.maddog05.whatanime.R
 import com.maddog05.whatanime.databinding.ActivitySettingsBinding
@@ -27,28 +28,27 @@ class SettingsActivity : AppCompatActivity(R.layout.activity_settings) {
             }
         )
         transaction.commit()
+        onBackPressedDispatcher.addCallback {
+            val bundle = Bundle()
+            setResult(
+                if (modifiedSettings.isNotEmpty()) {
+                    for (i in 0 until modifiedSettings.size) {
+                        if (modifiedSettings[i] == C.SETTING_MODIFIED_CLEAR_DATABASE)
+                            bundle.putBoolean(C.Extras.SETTING_CHANGE_CLEAR_HISTORY, true)
+                    }
+                    Activity.RESULT_OK
+                } else {
+                    Activity.RESULT_CANCELED
+                }
+            )
+            intent!!.putExtras(bundle)
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home)
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        val bundle = Bundle()
-        setResult(
-            if (modifiedSettings.isNotEmpty()) {
-                for (i in 0 until modifiedSettings.size) {
-                    if (modifiedSettings[i] == C.SETTING_MODIFIED_CLEAR_DATABASE)
-                        bundle.putBoolean(C.Extras.SETTING_CHANGE_CLEAR_HISTORY, true)
-                }
-                Activity.RESULT_OK
-            } else {
-                Activity.RESULT_CANCELED
-            }
-        )
-        intent!!.putExtras(bundle)
-        super.onBackPressed()
     }
 }

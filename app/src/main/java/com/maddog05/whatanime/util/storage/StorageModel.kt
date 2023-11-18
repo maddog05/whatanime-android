@@ -2,33 +2,33 @@ package com.maddog05.whatanime.util.storage
 
 import android.content.Context
 import android.os.Environment
-import android.util.Log
+//import android.util.Log
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.lang.Exception
-import java.nio.channels.FileChannel
+//import java.io.FileInputStream
+//import java.io.FileOutputStream
+//import java.lang.Exception
+//import java.nio.channels.FileChannel
 
 class StorageModel(private val context:Context) {
-    fun copyFile(sourceFile: File, destFile: File) {
-        var isProcessComplete: Boolean
-        if (!destFile.exists())
-            destFile.createNewFile()
-        var source: FileChannel? = null
-        var destination: FileChannel? = null
-        try {
-            source = FileInputStream(sourceFile).channel
-            destination = FileOutputStream(destFile).channel
-            destination.transferFrom(source, 0, source.size())
-            isProcessComplete = true
-        } catch (e: Exception) {
-            Log.e("#Andree", "Exception in copy $e")
-            isProcessComplete = false
-        } finally {
-            source?.close()
-            destination?.close()
-        }
-    }
+//    fun copyFile(sourceFile: File, destFile: File) {
+//        var isProcessComplete: Boolean
+//        if (!destFile.exists())
+//            destFile.createNewFile()
+//        var source: FileChannel? = null
+//        var destination: FileChannel? = null
+//        try {
+//            source = FileInputStream(sourceFile).channel
+//            destination = FileOutputStream(destFile).channel
+//            destination.transferFrom(source, 0, source.size())
+//            isProcessComplete = true
+//        } catch (e: Exception) {
+//            Log.e("#Andree", "Exception in copy $e")
+//            isProcessComplete = false
+//        } finally {
+//            source?.close()
+//            destination?.close()
+//        }
+//    }
 
     fun getTempImageFolder(): File {
         val folder =

@@ -3,6 +3,19 @@
   "description": "You can check the changelog any time in Settings option\n\nNOTE: If you have problem with the app, please CREATE AN ISSUE in GitHub, because I need information to check and fix it.\n\nFor search results mismatches, please contact to https://github.com/soruly/trace.moe",
   "versions": [
     {
+      "name": "3.4.2",
+      "changes": [
+        {
+          "type": "change",
+          "description": "FIX internal error"
+        },
+        {
+          "type": "update",
+          "description": "Libraries"
+        }
+      ]
+    },
+    {
       "name": "3.4.1",
       "changes": [
         {
@@ -21,36 +34,6 @@
         {
           "type": "new",
           "description": "Design for search result detail popup"
-        },
-        {
-          "type": "update",
-          "description": "Compiler"
-        }
-      ]
-    },
-    {
-      "name": "3.3.0",
-      "changes": [
-        {
-          "type": "update",
-          "description": "Compiler and libraries"
-        }
-      ]
-    },
-    {
-      "name": "3.2.0",
-      "changes": [
-        {
-          "type": "enhance",
-          "description": "Search by url with new method"
-        },
-        {
-          "type": "new",
-          "description": "Only load data for quota per minute. Quota per day no more"
-        },
-        {
-          "type": "change",
-          "description": "Server to load images after search results"
         },
         {
           "type": "update",

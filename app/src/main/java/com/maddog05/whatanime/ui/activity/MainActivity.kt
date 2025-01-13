@@ -286,7 +286,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
             } catch (e: Exception) {
                 null
             }
-        } else return currentBitmap
+        } else return null
     }
 
     override fun setSearchPerMinute(number: Int) {
@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main_two), MainView {
     private var wakeLock: PowerManager.WakeLock? = null
     private var snackbar: Snackbar? = null
 
-    @SuppressLint("WakelockTimeout")
+    @SuppressLint("WakelockTimeout", "Wakelock")
     override fun showLoading(wantVisible: Boolean) {
         isSearchRunning = wantVisible
         if (wantVisible) {
